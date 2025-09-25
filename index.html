@@ -1,228 +1,211 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Nạp Bank - WakiMC</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Orbitron', sans-serif;
-      background: radial-gradient(circle at top, #0d0d2b, #000);
-      color: #fff;
-      text-shadow: 1px 1px 2px #000;
-      margin: 0;
-      padding: 0;
-    }
-    .form {
-      max-width: 450px;
-      margin: 40px auto;
-      background: rgba(20, 20, 40, 0.95);
-      padding: 20px;
-      border-radius: 12px;
-      border: 2px solid #6c63ff;
-      box-shadow: 0 0 20px #6c63ff;
-    }
-    h2 {
-      font-family: 'Press Start 2P', cursive;
-      text-align: center;
-      color: #00ffe7;
-      margin-bottom: 20px;
-      font-size: 14px;
-    }
-    label {
-      font-size: 13px;
-      color: #ffdf6c;
-    }
-    input, select, button {
-      width: 100%;
-      margin: 8px 0;
-      padding: 10px;
-      font-size: 13px;
-      border-radius: 6px;
-      border: 2px solid #6c63ff;
-      background: #1a1a3a;
-      color: #fff;
-      outline: none;
-      font-family: 'Orbitron', sans-serif;
-    }
-    input:focus, select:focus {
-      border-color: #00ffe7;
-      box-shadow: 0 0 8px #00ffe7;
-    }
-    button {
-      background: linear-gradient(90deg, #6c63ff, #00ffe7);
-      border: none;
-      text-transform: uppercase;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    button:hover {
-      box-shadow: 0 0 12px #00ffe7;
-      transform: scale(1.03);
-    }
-    #qr { margin-top: 20px; text-align: center; }
-    #qr img { border:2px solid #6c63ff; box-shadow:0 0 10px #00ffe7; border-radius:6px; }
-    .pricing {
-      margin-top: 25px;
-    }
-    .pricing h3 {
-      font-family: 'Press Start 2P', cursive;
-      text-align:center;
-      color:#ffdf6c;
-      font-size: 12px;
-    }
-    .pricing table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 11px;
-      background: rgba(30, 30, 60, 0.9);
-    }
-    .pricing th, .pricing td {
-      border: 1px solid #6c63ff;
-      padding: 8px;
-      text-align: center;
-    }
-    .pricing th {
-      background: #6c63ff;
-      color: #fff;
-    }
-    .highlight {
-      background: rgba(255, 215, 0, 0.15);
-      color: #ffdf6c;
-    }
-    .premium-benefit {
-      color:#00ffe7;
-      font-size:10px;
-      text-align:center;
-      background:rgba(0,255,231,0.08);
-    }
-    #support {
-      margin-top:18px;
-      text-align:center;
-      font-size:12px;
-      color:#ffdf6c;
-    }
-    #support a {
-      display:inline-block;
-      margin-top:6px;
-      background:linear-gradient(90deg,#5865F2,#00ffe7);
-      color:#fff;
-      padding:8px 14px;
-      border-radius:6px;
-      text-decoration:none;
-      font-size:12px;
-      box-shadow:0 0 10px #5865F2;
-      transition:0.2s;
-    }
-    #support a:hover {
-      transform:scale(1.05);
-      box-shadow:0 0 14px #00ffe7;
-    }
-    /* Responsive */
-    @media(max-width:500px){
-      .form{margin:20px; padding:15px;}
-      h2{font-size:12px;}
-      .pricing table{font-size:10px;}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waki MMORPG</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body { font-family:'Orbitron',sans-serif; margin:0; padding:0; background:#e6f0fa; }
+header { background: linear-gradient(90deg,#2196f3,#42a5f5); padding:15px 30px; display:flex; justify-content:space-between; align-items:center; color:#fff; }
+header h1 { margin:0; font-size:26px; text-shadow:1px 1px 3px rgba(0,0,0,0.3); }
+nav a { text-decoration:none; color:#fff; font-weight:bold; margin-left:15px; padding:5px 10px; border-radius:4px; transition:0.3s; background:#1e88e5; }
+nav a:hover { background:#1565c0; }
+
+.container { display:flex; padding:20px; gap:20px; justify-content:center; }
+
+/* Sidebar */
+.sidebar { width:220px; background:#fff; border-radius:10px; padding:10px; box-shadow:0 4px 12px rgba(0,0,0,0.15); position:relative; }
+.sidebar h2 {
+  font-size:20px; margin:0; cursor:pointer;
+  background:#1e88e5; color:#fff; padding:10px; border-radius:6px; text-align:center;
+  box-shadow:0 2px 5px rgba(0,0,0,0.2);
+  position:relative;
+  display:flex; justify-content:center; align-items:center;
+  gap:6px;
+  transition:0.3s;
+}
+.sidebar h2:hover { background: linear-gradient(45deg,#1e88e5,#42a5f5); box-shadow:0 0 12px rgba(33,150,243,0.5), 0 4px 8px rgba(0,0,0,0.2); }
+
+.sidebar h2 .arrow { display:inline-block; transition: transform 0.3s; transform: rotate(0deg); }
+.sidebar:hover h2 .arrow { transform: rotate(180deg); }
+
+.submenu {
+  max-height:0;
+  opacity:0;
+  overflow:hidden;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+}
+.sidebar:hover .submenu {
+  max-height:200px;
+  opacity:1;
+}
+
+.submenu button {
+  width:100%; text-align:left; padding:8px 10px; border:none; border-radius:6px;
+  background:#64b5f6; font-weight:bold; color:#fff; cursor:pointer;
+  transition:0.3s; box-shadow: inset 0 -2px 0 rgba(0,0,0,0.1);
+}
+.submenu button:hover { background:#42a5f5; }
+
+.main { flex:1; background:#fff; border-radius:10px; padding:20px; box-shadow:0 4px 12px rgba(0,0,0,0.15); max-width:650px; }
+
+label { display:block; margin-top:10px; font-weight:bold; }
+input[type="text"], select { width:auto; min-width:180px; max-width:100%; padding:6px 10px; margin-top:5px; border-radius:5px; border:1px solid #ccc; font-size:15px; display:inline-block; }
+
+button.main-btn { margin-top:15px; padding:10px 18px; border:none; border-radius:5px; background:#1e88e5; color:#fff; cursor:pointer; font-weight:bold; font-size:15px; transition:0.3s; display:inline-block; }
+button.main-btn:hover { background:#1565c0; }
+
+#qr img { margin-top:10px; width:180px; height:180px; transition: transform 0.3s; }
+#qr img:hover { transform: scale(1.05); }
+#support { margin-top:15px; font-size:14px; }
+#server-image { margin-top:20px; text-align:center; }
+#server-image img { width:100%; max-width:400px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.15); transition: transform 0.3s; }
+#server-image img:hover { transform: scale(1.03); }
+
+/* Game Pass product cards */
+.product-card { border-radius:10px; overflow:hidden; box-shadow:0 4px 8px rgba(0,0,0,0.15); display:flex; flex-direction:column; margin-bottom:15px; padding:12px; cursor:pointer; transition:0.4s; max-width:400px; }
+.product-card.vip { background:#bbdefb; } 
+.product-card.premium { background:#b3e5fc; }
+.product-card:hover { transform:translateY(-5px); box-shadow:0 8px 18px rgba(0,0,0,0.25); }
+.product-card h3 { margin:5px 0; font-size:16px; }
+.product-card ul { padding-left:20px; color:#333; font-size:14px; }
+.product-card .icon { width:35px; height:35px; border-radius:50%; border:2px solid #fff; object-fit:cover; margin-right:10px; transition: transform 0.3s; }
+.product-card .icon:hover { transform: scale(1.1); }
+.product-card .header { display:flex; align-items:center; margin-bottom:8px; }
+</style>
 </head>
 <body>
-  <div class="form">
-    <h2>🚀 Nạp Xu VIP Waki.Top</h2>
 
+<header>
+  <h1>WakiMC</h1>
+  <nav>
+    <a href="https://discord.gg/DbVrKQRdpW" target="_blank">🎫 Discord</a>
+  </nav>
+</header>
+
+<div class="container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Menu <span class="arrow">&#9650;</span></h2>
+    <div class="submenu">
+      <button onclick="selectPackage('normal')">Nạp Xu</button>
+      <button onclick="selectPackage('gamepass')">Game Pass</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <h2>🚀 Nạp Xu Waki.Top</h2>
     <label>Tên nhân vật</label>
     <input type="text" id="username" placeholder="Nhập tên nhân vật">
 
-    <label>Chọn gói nạp</label>
-    <select id="package">
-      <option value="vip">Nạp Xu VIP</option>
-      <option value="premium">Premium (500,000 VNĐ)</option>
-    </select>
-
-    <div id="vip-options">
-      <label>Số tiền</label>
-      <select id="amount">
-        <option value="20000">20,000 VNĐ</option>
-        <option value="50000">50,000 VNĐ</option>
-        <option value="100000">100,000 VNĐ</option>
-        <option value="200000">200,000 VNĐ</option>
-        <option value="500000">500,000 VNĐ</option>
+    <!-- Nạp Xu -->
+    <div id="normal-pricing">
+      <label>Chọn số tiền</label>
+      <select id="normal-amount">
+        <option value="20000" data-xu="50">20,000 VNĐ → 50 Xu ◎</option>
+        <option value="50000" data-xu="125">50,000 VNĐ → 125 Xu ◎</option>
+        <option value="100000" data-xu="250">100,000 VNĐ → 250 Xu ◎</option>
+        <option value="200000" data-xu="500">200,000 VNĐ → 500 Xu ◎</option>
+        <option value="500000" data-xu="1200">500,000 VNĐ → 1200 Xu ◎</option>
       </select>
     </div>
 
-    <button onclick="taoQR()">⚡ Tạo QR Thanh Toán</button>
+    <!-- Game Pass -->
+    <div id="gamepass-products" style="display:none;">
+      <div class="product-card vip" onclick="taoQRGamePass('vip')">
+        <div class="header">
+          <img class="icon" src="https://i.postimg.cc/8kJdCqfC/Better-Image-1758794163957.jpg" alt="VIP Icon">
+          <h3>✨ VIP 100k (1 lần/ID)</h3>
+        </div>
+        <ul>
+          <li>💠 Unlock Trade</li>
+          <li>🏅 Danh hiệu Sứ Giả VIP</li>
+        </ul>
+      </div>
+      <div class="product-card premium" onclick="taoQRGamePass('premium')">
+        <div class="header">
+          <img class="icon" src="https://i.postimg.cc/wjf3LjSY/Better-Image-1758794226766.jpg" alt="Premium Icon">
+          <h3>✨ Premium 200k (1 lần/ID)</h3>
+        </div>
+        <ul>
+          <li>⚡ Chai X2 EXP vĩnh viễn</li>
+          <li>💎 5000 Lục Bảo</li>
+          <li>🔮 30 Đá Nâng Cấp Lv3</li>
+          <li>🔮 15 Đá Nâng Cấp Lv4</li>
+          <li>💠 120 Pha Lê Cực Quang</li>
+        </ul>
+      </div>
+    </div>
+
+    <button class="main-btn" onclick="taoQR()">⚡ Tạo QR Thanh Toán</button>
+
+    <div id="server-image">
+      <img src="https://i.ibb.co/9mS0QHHB/WAKI-MC-1.png" alt="Server Image">
+    </div>
 
     <div id="qr"></div>
-
-    <div class="pricing">
-      <h3>💎 Bảng Giá Nạp 💎</h3>
-      <table>
-        <tr><th>Số tiền (VNĐ)</th><th>Xu VIP</th></tr>
-        <tr><td>20,000</td><td>50 Xu</td></tr>
-        <tr><td>50,000</td><td>125 Xu</td></tr>
-        <tr><td>100,000</td><td>250 Xu</td></tr>
-        <tr><td>200,000</td><td>500 Xu</td></tr>
-        <tr><td>500,000</td><td>1200 Xu</td></tr>
-        <tr class="highlight"><td colspan="2">🌌 Premium: 500,000 VNĐ → Quyền lợi Đặc Biệt</td></tr>
-        <div id="premium-benefits" style="margin-top:25px; padding:20px; border:1px solid #ffd966; border-radius:12px; background:rgba(0,0,0,0.6); color:#fff; font-family:'Orbitron',sans-serif; font-size:14px; line-height:1.8;">
-  <h2 style="color:#ffdf6c; font-size:18px; margin-bottom:12px; text-align:center;">✨ Quyền Lợi Premium ✨</h2>
-  <ul style="list-style:none; padding:0; margin:0; text-align:left;">
-    <li>⚡ X2 EXP Level Class vĩnh viễn</li>
-    <li>💎 5000 Lục Bảo</li>
-    <li>🔮 30 Đá Nâng Cấp Lv3</li>
-    <li>🔮 15 Đá Nâng Cấp Lv4</li>
-    <li>📦 Tự động nhặt đồ</li>
-  </ul>
-</div>
-
-      
-      </table>
+    <div id="support">
+      ⏳ Sau khi chuyển khoản, vui lòng vào game chờ duyệt ~5 phút.<br>
+      Nếu lâu quá hãy mở Ticket để được hỗ trợ:<br>
+      <a href="https://discord.gg/DbVrKQRdpW" target="_blank">🎫 Mở Ticket trên Discord</a>
     </div>
   </div>
-
-  <div id="support">
-    ⏳ Sau khi chuyển khoản, vui lòng vào game chờ duyệt ~5 phút.<br>
-    Nếu lâu quá hãy mở Ticket để được hỗ trợ:<br>
-    <a href="https://discord.gg/DbVrKQRdpW" target="_blank">🎫 Mở Ticket trên Discord</a>
-  </div>
+</div>
 
 <script>
-let bankCode = "BIDV";
-let accountNo = "8890956287";
-let accountName = "DOAN CHI BAO";
+const bankCode="BIDV", accountNo="8890956287", accountName="DOAN CHI BAO";
+const purchasedVIP=[], purchasedPremium=[];
+const normalDiv=document.getElementById("normal-pricing");
+const gamepassProducts=document.getElementById("gamepass-products");
 
-document.getElementById("package").addEventListener("change", function() {
-  document.getElementById("vip-options").style.display = (this.value === "vip") ? "block" : "none";
-});
-
-function taoQR() {
-  let user = document.getElementById("username").value.trim();
-  let pkg = document.getElementById("package").value;
-  let amount, note, message;
-
-  if (!user) { alert("Vui lòng nhập tên nhân vật!"); return; }
-
-  if (pkg === "vip") {
-    amount = parseInt(document.getElementById("amount").value);
-    let xu = (amount / 20000) * 50;
-    note = "NAP_" + user;
-    message = `Bạn sẽ nhận được <b>${xu} Xu VIP</b>`;
+function selectPackage(pkg){
+  if(pkg === "normal"){
+    normalDiv.style.display = "block";          
+    gamepassProducts.style.display = "none";    
   } else {
-    amount = 500000;
-    note = "Premium_" + user;
-    message = `<b>Gói Premium</b> (500,000 VNĐ)`;
+    normalDiv.style.display = "none";           
+    gamepassProducts.style.display = "block";   
   }
-
-  let qrUrl = `https://img.vietqr.io/image/${bankCode}-${accountNo}-qr_only.png?amount=${amount}&addInfo=${encodeURIComponent(note)}&accountName=${encodeURIComponent(accountName)}`;
-
-  document.getElementById("qr").innerHTML = `
-    <p>📱 Quét QR bằng App ngân hàng để thanh toán:</p>
-    <img src="${qrUrl}" width="250">
-    <p><b>Nội dung CK:</b> ${note}</p>
-    <p>${message}</p>
-  `;
 }
+
+function taoQR(){
+  const user=document.getElementById("username").value.trim();
+  if(!user){ alert("Vui lòng nhập tên nhân vật!"); return; }
+  const select = document.getElementById("normal-amount");
+  const amount = parseInt(select.value);
+  const xu = parseInt(select.selectedOptions[0].dataset.xu);
+  const note="NAP_"+user;
+  const message=`Bạn sẽ nhận được <b>${xu} Xu VIP 💰</b>`;
+  const qrUrl=`https://img.vietqr.io/image/${bankCode}-${accountNo}-qr_only.png?amount=${amount}&addInfo=${encodeURIComponent(note)}&accountName=${encodeURIComponent(accountName)}`;
+  document.getElementById("qr").innerHTML=`<p>📱 Quét QR bằng App ngân hàng để thanh toán:</p><img src="${qrUrl}"><p><b>Nội dung CK:</b> ${note}</p><p>${message}</p>`;
+}
+
+function taoQRGamePass(pkg){
+  const user=document.getElementById("username").value.trim();
+  if(!user){ alert("Vui lòng nhập tên nhân vật!"); return; }
+  let amount, note, message;
+  if(pkg==="vip"){
+    if(purchasedVIP.includes(user)){ alert("Gói VIP đã mua 1 lần cho ID này!"); return; }
+    purchasedVIP.push(user);
+    amount = 100000;
+    note = "VIP_" + user;
+    message = "Bạn sẽ nhận được VIP 100k + Unlock Trade + Danh hiệu Sứ Giả VIP (1 lần/1 Tài Khoản)";
+  } else if(pkg==="premium"){
+    if(purchasedPremium.includes(user)){ alert("Gói Premium đã mua 1 lần cho ID này!"); return; }
+    purchasedPremium.push(user);
+    amount = 200000;
+    note = "Premium_" + user;
+    message = "<b>Gói Premium 200k</b> - Giới hạn 1 lần/1 Tài Khoản";
+  }
+  const qrUrl = `https://img.vietqr.io/image/${bankCode}-${accountNo}-qr_only.png?amount=${amount}&addInfo=${encodeURIComponent(note)}&accountName=${encodeURIComponent(accountName)}`;
+  document.getElementById("qr").innerHTML = `<p>📱 Quét QR bằng App ngân hàng để thanh toán:</p><img src="${qrUrl}"><p><b>Nội dung CK:</b> ${note}</p><p>${message}</p>`;
+}
+
+// Hiển thị mặc định Nạp Xu
+selectPackage("normal");
 </script>
+
 </body>
 </html>

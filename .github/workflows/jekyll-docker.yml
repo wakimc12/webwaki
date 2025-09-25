@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Nạp Bank - WakiMC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: radial-gradient(circle at top, #0d0d2b, #000);
+      color: #fff;
+      text-shadow: 1px 1px 2px #000;
+      margin: 0;
+      padding: 0;
+    }
+    .form {
+      max-width: 450px;
+      margin: 40px auto;
+      background: rgba(20, 20, 40, 0.95);
+      padding: 20px;
+      border-radius: 12px;
+      border: 2px solid #6c63ff;
+      box-shadow: 0 0 20px #6c63ff;
+    }
+    h2 {
+      font-family: 'Press Start 2P', cursive;
+      text-align: center;
+      color: #00ffe7;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+    label {
+      font-size: 13px;
+      color: #ffdf6c;
+    }
+    input, select, button {
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      font-size: 13px;
+      border-radius: 6px;
+      border: 2px solid #6c63ff;
+      background: #1a1a3a;
+      color: #fff;
+      outline: none;
+      font-family: 'Orbitron', sans-serif;
+    }
+    input:focus, select:focus {
+      border-color: #00ffe7;
+      box-shadow: 0 0 8px #00ffe7;
+    }
+    button {
+      background: linear-gradient(90deg, #6c63ff, #00ffe7);
+      border: none;
+      text-transform: uppercase;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      box-shadow: 0 0 12px #00ffe7;
+      transform: scale(1.03);
+    }
+    #qr { margin-top: 20px; text-align: center; }
+    #qr img { border:2px solid #6c63ff; box-shadow:0 0 10px #00ffe7; border-radius:6px; }
+    .pricing {
+      margin-top: 25px;
+    }
+    .pricing h3 {
+      font-family: 'Press Start 2P', cursive;
+      text-align:center;
+      color:#ffdf6c;
+      font-size: 12px;
+    }
+    .pricing table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      background: rgba(30, 30, 60, 0.9);
+    }
+    .pricing th, .pricing td {
+      border: 1px solid #6c63ff;
+      padding: 8px;
+      text-align: center;
+    }
+    .pricing th {
+      background: #6c63ff;
+      color: #fff;
+    }
+    .highlight {
+      background: rgba(255, 215, 0, 0.15);
+      color: #ffdf6c;
+    }
+    .premium-benefit {
+      color:#00ffe7;
+      font-size:10px;
+      text-align:center;
+      background:rgba(0,255,231,0.08);
+    }
+    #support {
+      margin-top:18px;
+      text-align:center;
+      font-size:12px;
+      color:#ffdf6c;
+    }
+    #support a {
+      display:inline-block;
+      margin-top:6px;
+      background:linear-gradient(90deg,#5865F2,#00ffe7);
+      color:#fff;
+      padding:8px 14px;
+      border-radius:6px;
+      text-decoration:none;
+      font-size:12px;
+      box-shadow:0 0 10px #5865F2;
+      transition:0.2s;
+    }
+    #support a:hover {
+      transform:scale(1.05);
+      box-shadow:0 0 14px #00ffe7;
+    }
+    /* Responsive */
+    @media(max-width:500px){
+      .form{margin:20px; padding:15px;}
+      h2{font-size:12px;}
+      .pricing table{font-size:10px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="form">
+    <h2>🚀 Nạp Xu VIP Waki.Top</h2>
+
+    <label>Tên nhân vật</label>
+    <input type="text" id="username" placeholder="Nhập tên nhân vật">
+
+    <label>Chọn gói nạp</label>
+    <select id="package">
+      <option value="vip">Nạp Xu VIP</option>
+      <option value="premium">Premium (500,000 VNĐ)</option>
+    </select>
+
+    <div id="vip-options">
+      <label>Số tiền</label>
+      <select id="amount">
+        <option value="20000">20,000 VNĐ</option>
+        <option value="50000">50,000 VNĐ</option>
+        <option value="100000">100,000 VNĐ</option>
+        <option value="200000">200,000 VNĐ</option>
+        <option value="500000">500,000 VNĐ</option>
+      </select>
+    </div>
+
+    <button onclick="taoQR()">⚡ Tạo QR Thanh Toán</button>
+
+    <div id="qr"></div>
+
+    <div class="pricing">
+      <h3>💎 Bảng Giá Nạp 💎</h3>
+      <table>
+        <tr><th>Số tiền (VNĐ)</th><th>Xu VIP</th></tr>
+        <tr><td>20,000</td><td>50 Xu</td></tr>
+        <tr><td>50,000</td><td>125 Xu</td></tr>
+        <tr><td>100,000</td><td>250 Xu</td></tr>
+        <tr><td>200,000</td><td>500 Xu</td></tr>
+        <tr><td>500,000</td><td>1200 Xu</td></tr>
+        <tr class="highlight"><td colspan="2">🌌 Premium: 500,000 VNĐ → Quyền lợi Đặc Biệt</td></tr>
+        <div id="premium-benefits" style="margin-top:25px; padding:20px; border:1px solid #ffd966; border-radius:12px; background:rgba(0,0,0,0.6); color:#fff; font-family:'Orbitron',sans-serif; font-size:14px; line-height:1.8;">
+  <h2 style="color:#ffdf6c; font-size:18px; margin-bottom:12px; text-align:center;">✨ Quyền Lợi Premium ✨</h2>
+  <ul style="list-style:none; padding:0; margin:0; text-align:left;">
+    <li>⚡ X2 EXP Level Class vĩnh viễn</li>
+    <li>💎 5000 Lục Bảo</li>
+    <li>🔮 30 Đá Nâng Cấp Lv3</li>
+    <li>🔮 15 Đá Nâng Cấp Lv4</li>
+    <li>📦 Tự động nhặt đồ</li>
+  </ul>
+</div>
+
+      
+      </table>
+    </div>
+  </div>
+
+  <div id="support">
+    ⏳ Sau khi chuyển khoản, vui lòng vào game chờ duyệt ~5 phút.<br>
+    Nếu lâu quá hãy mở Ticket để được hỗ trợ:<br>
+    <a href="https://discord.gg/DbVrKQRdpW" target="_blank">🎫 Mở Ticket trên Discord</a>
+  </div>
+
+<script>
+let bankCode = "BIDV";
+let accountNo = "8890956287";
+let accountName = "DOAN CHI BAO";
+
+document.getElementById("package").addEventListener("change", function() {
+  document.getElementById("vip-options").style.display = (this.value === "vip") ? "block" : "none";
+});
+
+function taoQR() {
+  let user = document.getElementById("username").value.trim();
+  let pkg = document.getElementById("package").value;
+  let amount, note, message;
+
+  if (!user) { alert("Vui lòng nhập tên nhân vật!"); return; }
+
+  if (pkg === "vip") {
+    amount = parseInt(document.getElementById("amount").value);
+    let xu = (amount / 20000) * 50;
+    note = "NAP_" + user;
+    message = `Bạn sẽ nhận được <b>${xu} Xu VIP</b>`;
+  } else {
+    amount = 500000;
+    note = "Premium_" + user;
+    message = `<b>Gói Premium</b> (500,000 VNĐ)`;
+  }
+
+  let qrUrl = `https://img.vietqr.io/image/${bankCode}-${accountNo}-qr_only.png?amount=${amount}&addInfo=${encodeURIComponent(note)}&accountName=${encodeURIComponent(accountName)}`;
+
+  document.getElementById("qr").innerHTML = `
+    <p>📱 Quét QR bằng App ngân hàng để thanh toán:</p>
+    <img src="${qrUrl}" width="250">
+    <p><b>Nội dung CK:</b> ${note}</p>
+    <p>${message}</p>
+  `;
+}
+</script>
+</body>
+</html>

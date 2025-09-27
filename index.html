@@ -114,30 +114,35 @@ button.main-btn:hover { background:#1565c0; }
 
     <!-- Game Pass -->
     <div id="gamepass-products" style="display:none;">
+      <!-- VIP -->
       <div class="product-card vip" onclick="taoQRGamePass('vip')">
         <div class="header">
           <img class="icon" src="https://i.postimg.cc/8kJdCqfC/Better-Image-1758794163957.jpg" alt="VIP Icon">
-          <h3>✨ VIP 200k (1 lần/ID)</h3>
+          <h3>✨ VIP 100k (1 lần/ID)</h3>
         </div>
         <ul>
           <li>💠 Unlock Trade</li>
           <li>🏅 Danh hiệu Sứ Giả</li>
-          <li>💠 60 Pha Lê Cực Quang</li>
+          <li>💠 20 Pha Lê Cực Quang</li>
           <li>🐾 Rồng Ender Baby Pet </li>
         </ul>
       </div>
+
+      <!-- Premium -->
       <div class="product-card premium" onclick="taoQRGamePass('premium')">
         <div class="header">
           <img class="icon" src="https://i.postimg.cc/wjf3LjSY/Better-Image-1758794226766.jpg" alt="Premium Icon">
-          <h3>✨ Premium 500k (1 lần/ID)</h3>
+          <h3>✨ Premium 200k (1 lần/ID)</h3>
         </div>
         <ul>
-          <li>⚡ Chai X2 EXP vĩnh viễn</li>
+          <li>⚡ X2 EXP vĩnh viễn</li>
           <li>💎 5000 Lục Bảo</li>
           <li>🐾 Green Wyvern Pet</li>
           <li>🔘 30 Đá Nâng Cấp Lv3</li>
           <li>🟢 15 Đá Nâng Cấp Lv4</li>
-          <li>💠 150 Pha Lê Cực Quang</li>
+          <li>💠 60 Pha Lê Cực Quang</li>
+          <li>🛡 Khiên Phượng Hoàng Lửa</li>
+          <li>🔥 Danh hiệu Chiến Thần</li>
         </ul>
       </div>
     </div>
@@ -194,13 +199,13 @@ function taoQRGamePass(pkg){
     purchasedVIP.push(user);
     amount = 100000;
     note = "VIP_" + user;
-    message = "Bạn sẽ nhận được VIP 100k + Unlock Trade + Danh hiệu Sứ Giả (1 lần/1 Tài Khoản)";
+    message = "Bạn sẽ nhận được VIP 100k + 20 Pha Lê Cực Quang + Unlock Trade + Danh hiệu Sứ Giả (1 lần/1 Tài Khoản)";
   } else if(pkg==="premium"){
     if(purchasedPremium.includes(user)){ alert("Gói Premium đã mua 1 lần cho ID này!"); return; }
     purchasedPremium.push(user);
     amount = 200000;
     note = "Premium_" + user;
-    message = "<b>Gói Premium 200k</b> - Giới hạn 1 lần/1 Tài Khoản";
+    message = "Bạn sẽ nhận được Premium 200k + 60 Pha Lê Cực Quang + Khiên Phượng Hoàng Lửa + Danh hiệu Chiến Thần (1 lần/1 Tài Khoản)";
   }
   const qrUrl = `https://img.vietqr.io/image/${bankCode}-${accountNo}-qr_only.png?amount=${amount}&addInfo=${encodeURIComponent(note)}&accountName=${encodeURIComponent(accountName)}`;
   document.getElementById("qr").innerHTML = `<p>📱 Quét QR bằng App ngân hàng để thanh toán:</p><img src="${qrUrl}"><p><b>Nội dung CK:</b> ${note}</p><p>${message}</p>`;
@@ -209,6 +214,7 @@ function taoQRGamePass(pkg){
 // Hiển thị mặc định Nạp Xu
 selectPackage("normal");
 </script>
+
 
 </body>
 </html>

@@ -37,7 +37,7 @@ nav a:hover { background:#1565c0; }
   transition: max-height 0.4s ease, opacity 0.4s ease;
 }
 .sidebar:hover .submenu {
-  max-height:200px;
+  max-height:300px;
   opacity:1;
 }
 
@@ -73,6 +73,15 @@ button.main-btn:hover { background:#1565c0; }
 .product-card .icon { width:35px; height:35px; border-radius:50%; border:2px solid #fff; object-fit:cover; margin-right:10px; transition: transform 0.3s; }
 .product-card .icon:hover { transform: scale(1.1); }
 .product-card .header { display:flex; align-items:center; margin-bottom:8px; }
+
+/* Event Table */
+.event-section { margin-top:25px; }
+.event-section h2 { text-align:center; color:#ff6600; text-shadow:0 0 5px rgba(255,102,0,0.6); }
+.event-table { width:100%; border-collapse:collapse; margin-top:15px; }
+.event-table th, .event-table td { border:1px solid #ccc; padding:10px; text-align:center; }
+.event-table th { background:#2196f3; color:#fff; }
+.event-table tr:nth-child(even){ background:#f9f9f9; }
+.event-table tr:nth-child(odd){ background:#fff; }
 </style>
 </head>
 <body>
@@ -91,11 +100,12 @@ button.main-btn:hover { background:#1565c0; }
     <div class="submenu">
       <button onclick="selectPackage('normal')">Nạp Xu</button>
       <button onclick="selectPackage('gamepass')">Game Pass</button>
+      <button onclick="showEvent()">🎉 Sự Kiện Nạp</button>
     </div>
   </aside>
 
   <!-- Main -->
-  <div class="main">
+  <div class="main" id="main-content">
     <h2>🚀 Nạp Xu Waki.Top</h2>
     <label>Tên nhân vật</label>
     <input type="text" id="username" placeholder="Nhập tên nhân vật">
@@ -147,7 +157,25 @@ button.main-btn:hover { background:#1565c0; }
       </div>
     </div>
 
-    <button class="main-btn" onclick="taoQR()">⚡ Tạo QR Thanh Toán</button>
+    <!-- Sự Kiện -->
+    <div id="event-section" class="event-section" style="display:none;">
+      <h2>🎉 Sự Kiện X2 Nạp Xu Nhân Diệp Open 🎉</h2>
+      <p style="text-align:center;">Thời gian: <b>01/10 - 10/10</b><br>Trong thời gian sự kiện, nạp sẽ <b>gấp đôi Xu VIP</b>!</p>
+      <table class="event-table">
+        <tr>
+          <th>Mốc Nạp</th>
+          <th>Thường</th>
+          <th>Sự Kiện</th>
+        </tr>
+        <tr><td>20.000 VNĐ</td><td>50 Xu</td><td><b>100 Xu</b></td></tr>
+        <tr><td>50.000 VNĐ</td><td>125 Xu</td><td><b>250 Xu</b></td></tr>
+        <tr><td>100.000 VNĐ</td><td>250 Xu</td><td><b>500 Xu</b></td></tr>
+        <tr><td>200.000 VNĐ</td><td>500 Xu</td><td><b>1000 Xu</b></td></tr>
+        <tr><td>500.000 VNĐ</td><td>1200 Xu</td><td><b>2400 Xu</b></td></tr>
+      </table>
+    </div>
+
+    <button id="qr-btn" class="main-btn" onclick="taoQR()">⚡ Tạo QR Thanh Toán</button>
 
     <div id="server-image">
       <img src="https://i.ibb.co/9mS0QHHB/WAKI-MC-1.png" alt="Server Image">
@@ -167,15 +195,28 @@ const bankCode="BIDV", accountNo="8890956287", accountName="DOAN CHI BAO";
 const purchasedVIP=[], purchasedPremium=[];
 const normalDiv=document.getElementById("normal-pricing");
 const gamepassProducts=document.getElementById("gamepass-products");
+const eventSection=document.getElementById("event-section");
+const qrBtn=document.getElementById("qr-btn");
 
 function selectPackage(pkg){
   if(pkg === "normal"){
     normalDiv.style.display = "block";          
     gamepassProducts.style.display = "none";    
-  } else {
+    eventSection.style.display = "none";        
+    qrBtn.style.display = "inline-block"; // hiện QR
+  } else if(pkg === "gamepass"){
     normalDiv.style.display = "none";           
     gamepassProducts.style.display = "block";   
+    eventSection.style.display = "none";        
+    qrBtn.style.display = "none"; // ẩn QR
   }
+}
+
+function showEvent(){
+  normalDiv.style.display = "none";
+  gamepassProducts.style.display = "none";
+  eventSection.style.display = "block";
+  qrBtn.style.display = "none"; // ẩn QR
 }
 
 function taoQR(){
@@ -214,7 +255,5 @@ function taoQRGamePass(pkg){
 // Hiển thị mặc định Nạp Xu
 selectPackage("normal");
 </script>
-
-
 </body>
 </html>

@@ -82,6 +82,13 @@ button.main-btn:hover { background:#1565c0; }
 .event-table th { background:#2196f3; color:#fff; }
 .event-table tr:nth-child(even){ background:#f9f9f9; }
 .event-table tr:nth-child(odd){ background:#fff; }
+
+/* First Reward */
+#first-reward { 
+  margin-top:20px; padding:15px; background:#fff3cd; border:1px solid #ffeeba; 
+  border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1); display:none;
+}
+#first-reward h3 { margin-top:0; color:#e65100; }
 </style>
 </head>
 <body>
@@ -116,15 +123,63 @@ button.main-btn:hover { background:#1565c0; }
       <select id="normal-amount">
         <option value="20000" data-xu="50">20,000 VNĐ → 50 Xu ◎</option>
         <option value="50000" data-xu="125">50,000 VNĐ → 125 Xu ◎</option>
-        <option value="100000" data-xu="250">100,000 VNĐ → 250 Xu ◎</option>
-        <option value="200000" data-xu="500">200,000 VNĐ → 500 Xu ◎</option>
-        <option value="500000" data-xu="1200">500,000 VNĐ → 1200 Xu ◎</option>
+        <option value="100000" data-xu="250">100,000 VNĐ → 300 Xu ◎</option>
+        <option value="200000" data-xu="500">200,000 VNĐ → 600 Xu ◎</option>
+        <option value="500000" data-xu="1200">500,000 VNĐ → 1500 Xu ◎</option>
       </select>
     </div>
 
+    <!-- 🎁 Thưởng Nạp Lần Đầu -->
+    <div id="first-reward">
+      <h3>🎁 Thưởng Nạp Lần Đầu</h3>
+
+  <div style="display:flex; align-items:center; justify-content:space-between; margin-top:10px; gap:10px;">
+    <div style="flex:1;">
+      <p style="margin:0; font-size:14px; color:#333;">Khi nạp lần đầu trên 100k, bạn sẽ nhận ngay:</p>
+      <ul style="list-style:none; padding:0; margin-top:8px; font-size:14px; color:#2c3e50;">
+        <li>⚔️ <b>1 Kiếm Khởi Nguyên Lục Quang</b></li>
+        <li>🛡️ <b>1 Set Giáp Khởi Nguyên Lục Quang</b></li>
+        <li><b>➡ Vào Khu Cường Hóa để xem chỉ số</b></li>
+      </ul>
+      <p style="color:#e53935; font-weight:bold; margin-top:6px; font-size:14px;">🔥 Chỉ áp dụng cho lần nạp đầu tiên, mua premium cũng được nhận!</p>
+    </div>
+
+    <div style="flex:0 0 160px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:6px;">
+      <img src="img_src/hinh_giap_nap.png" alt="Set Giáp Khởi Nguyên" style="width:120px; image-rendering: pixelated;">
+      <img src="img_src/hinh_kiem_nap.png" alt="Kiếm Khởi Nguyên" style="width:75px; image-rendering: pixelated;">
+    </div>
+  </div>
+</div>
+
+<script>
+  // Hàm gọi khi mở tab nạp xu
+  function showNormalPricing() {
+    document.getElementById("normal-pricing").style.display = "block";
+    document.getElementById("gamepass-products").style.display = "none";
+    document.getElementById("event-section").style.display = "none";
+    document.getElementById("first-reward").style.display = "block"; // chỉ hiện khi nạp xu
+  }
+
+  // Hàm gọi khi mở tab gamepass
+  function showGamePass() {
+    document.getElementById("normal-pricing").style.display = "none";
+    document.getElementById("gamepass-products").style.display = "block";
+    document.getElementById("event-section").style.display = "none";
+    document.getElementById("first-reward").style.display = "none"; // ẩn khi ko phải nạp xu
+  }
+
+  // Hàm gọi khi mở tab sự kiện
+  function showEvent() {
+    document.getElementById("normal-pricing").style.display = "none";
+    document.getElementById("gamepass-products").style.display = "none";
+    document.getElementById("event-section").style.display = "block";
+    document.getElementById("first-reward").style.display = "none"; // ẩn khi ko phải nạp xu
+  }
+</script>
+
+
     <!-- Game Pass -->
     <div id="gamepass-products" style="display:none;">
-      <!-- VIP -->
       <div class="product-card vip" onclick="taoQRGamePass('vip')">
         <div class="header">
           <img class="icon" src="https://i.postimg.cc/8kJdCqfC/Better-Image-1758794163957.jpg" alt="VIP Icon">
@@ -138,8 +193,7 @@ button.main-btn:hover { background:#1565c0; }
         </ul>
       </div>
 
-      <!-- Premium -->
-      <div class="product-card premium" onclick="taoQRGamePass('premium')">
+      <div class="product-card premium" onclick="taoQRGamePass('premium')"> 
         <div class="header">
           <img class="icon" src="https://i.postimg.cc/wjf3LjSY/Better-Image-1758794226766.jpg" alt="Premium Icon">
           <h3>✨ Premium 200k (1 lần/ID)</h3>
@@ -156,60 +210,35 @@ button.main-btn:hover { background:#1565c0; }
         </ul>
       </div>
     </div>
-    
-    <!-- Sự Kiện -->
-    <!-- Sự Kiện -->
-<div id="event-section" class="event-section" style="display:none;">
-  <h2>🎉 Sự Kiện X2 Nạp Xu Nhân Dip Open 🎉</h2>
-  <p style="text-align:center;">Thời gian: <b>01/10 - 10/10</b><br>Trong thời gian sự kiện, nạp sẽ <b>gấp đôi Xu VIP</b>!</p>
-  <table class="event-table">
-    <tr>
-      <th>Mốc Nạp</th>
-      <th>Thường</th>
-      <th>Sự Kiện</th>
-    </tr>
-    <tr><td>20.000 VNĐ</td><td>50 Xu</td><td><b>100 Xu</b></td></tr>
-    <tr><td>50.000 VNĐ</td><td>125 Xu</td><td><b>250 Xu</b></td></tr>
-    <tr><td>100.000 VNĐ</td><td>250 Xu</td><td><b>500 Xu</b></td></tr>
-    <tr><td>200.000 VNĐ</td><td>500 Xu</td><td><b>1000 Xu</b></td></tr>
-    <tr><td>500.000 VNĐ</td><td>1200 Xu</td><td><b>2400 Xu</b></td></tr>
-  </table>
 
-  <!-- Thêm sự kiện 200K -->
-  <h2 style="margin-top:30px;">🎉 Sự Kiện Nạp Thẻ 200K 🎉</h2>
-  <p style="text-align:center;">Thời gian: <b>29/09 - 10/10 > nạp đủ 200k là nhận tính cã mua Premium</b><br>
-  Nạp đạt mốc <b>200.000 VNĐ</b> sẽ nhận ngay:</p>
-  <ul style="list-style:none; padding:0; text-align:center; font-size:15px;">
-    <li>⚔️ 30x Đá Nâng Cấp Lv3</li>
-    <li>🔷 20x Lưu Ly</li>
-    <li>🗡️ 1x Hộp Kiếm Ma Lực</li>
-    <li>💚 5.000x Ngọc Lục Bảo</li>
-  </ul>
-  <p style="text-align:center; color:#e53935; font-weight:bold;">🔥 Đừng bỏ lỡ!</p>
-</div>
-
-<div id="first-reward" style="margin-top:15px; padding:10px; border-radius:8px; background:#e3f2fd; box-shadow:0 3px 8px rgba(0,0,0,0.15); max-width:600px; margin-left:auto; margin-right:auto;">
-  <h3 style="margin:0; color:#1e88e5; text-align:center; font-size:17px;">🎁 Thưởng Nạp Lần Đầu</h3>
-
-  <div style="display:flex; align-items:center; justify-content:space-between; margin-top:10px; gap:10px;">
-    <!-- Bên trái: Text -->
-    <div style="flex:1;">
-      <p style="margin:0; font-size:14px; color:#333;">Khi nạp lần đầu trên 100k, bạn sẽ nhận ngay:</p>
-      <ul style="list-style:none; padding:0; margin-top:8px; font-size:14px; color:#2c3e50;">
-        <li>⚔️ <b>1 Kiếm Khởi Nguyên Lục Quang</b></li>
-        <li>🛡️ <b>1 Set Giáp Khởi Nguyên Lục Quang</b></li>
-        <li><b>➡ Vào Khu Cường Hóa để xem chỉ số</b></li>
+    <!-- Event -->
+    <div id="event-section" class="event-section" style="display:none;">
+      <h2>🎉 Sự Kiện X2 Nạp Xu Nhân Dip Open 🎉</h2>
+      <p style="text-align:center;">Thời gian: <b>01/10 - 10/10</b><br>Trong thời gian sự kiện, nạp sẽ <b>gấp đôi Xu VIP</b>!</p>
+      <table class="event-table">
+        <tr>
+          <th>Mốc Nạp</th>
+          <th>Thường</th>
+          <th>Sự Kiện</th>
+        </tr>
+        <tr><td>20.000 VNĐ</td><td>50 Xu</td><td><b>100 Xu</b></td></tr>
+        <tr><td>50.000 VNĐ</td><td>125 Xu</td><td><b>250 Xu</b></td></tr>
+        <tr><td>100.000 VNĐ</td><td>300 Xu</td><td><b>600 Xu</b></td></tr>
+        <tr><td>200.000 VNĐ</td><td>600 Xu</td><td><b>1200 Xu</b></td></tr>
+        <tr><td>500.000 VNĐ</td><td>1500 Xu</td><td><b>3000 Xu</b></td></tr>
+      </table>
+      <h2 style="margin-top:30px;">🎉 Sự Kiện Nạp Thẻ 200K 🎉</h2>
+      <p style="text-align:center;">Thời gian: <b>29/09 - 10/10 > nạp đủ 200k là nhận tính cã mua Premium</b><br>
+      Nạp đạt mốc <b>200.000 VNĐ</b> sẽ nhận ngay:</p>
+      <ul style="list-style:none; padding:0; text-align:center; font-size:15px;">
+        <li>⚔️ 30x Đá Nâng Cấp Lv3</li>
+        <li>🔷 20x Lưu Ly</li>
+        <li>🗡️ 1x Hộp Kiếm Ma Lực</li>
+        <li>💚 5.000x Ngọc Lục Bảo</li>
       </ul>
-      <p style="color:#e53935; font-weight:bold; margin-top:6px; font-size:14px;">🔥 Chỉ áp dụng cho lần nạp đầu tiên, mua premium cũng được nhận!</p>
+      <p style="text-align:center; color:#e53935; font-weight:bold;">🔥 Đừng bỏ lỡ!</p>
     </div>
 
-    <!-- Bên phải: 2 ảnh minh họa -->
-    <div style="flex:0 0 160px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:6px;">
-      <img src="img_src/hinh_giap_nap.png" alt="Set Giáp Khởi Nguyên" style="width:120px; image-rendering: pixelated;">
-      <img src="img_src/hinh_kiem_nap.png" alt="Kiếm Khởi Nguyên" style="width:75px; image-rendering: pixelated;">
-    </div>
-  </div>
-</div>
     <button id="qr-btn" class="main-btn" onclick="taoQR()">⚡ Tạo QR Thanh Toán</button>
 
     <div id="server-image">
@@ -229,6 +258,7 @@ button.main-btn:hover { background:#1565c0; }
 const bankCode="BIDV", accountNo="8890956287", accountName="DOAN CHI BAO";
 const purchasedVIP=[], purchasedPremium=[];
 const normalDiv=document.getElementById("normal-pricing");
+const firstReward=document.getElementById("first-reward");
 const gamepassProducts=document.getElementById("gamepass-products");
 const eventSection=document.getElementById("event-section");
 const qrBtn=document.getElementById("qr-btn");
@@ -236,22 +266,25 @@ const qrBtn=document.getElementById("qr-btn");
 function selectPackage(pkg){
   if(pkg === "normal"){
     normalDiv.style.display = "block";          
+    firstReward.style.display = "block";
     gamepassProducts.style.display = "none";    
     eventSection.style.display = "none";        
-    qrBtn.style.display = "inline-block"; // hiện QR
+    qrBtn.style.display = "inline-block"; 
   } else if(pkg === "gamepass"){
     normalDiv.style.display = "none";           
+    firstReward.style.display = "none";
     gamepassProducts.style.display = "block";   
     eventSection.style.display = "none";        
-    qrBtn.style.display = "none"; // ẩn QR
+    qrBtn.style.display = "none"; 
   }
 }
 
 function showEvent(){
   normalDiv.style.display = "none";
+  firstReward.style.display = "none";
   gamepassProducts.style.display = "none";
   eventSection.style.display = "block";
-  qrBtn.style.display = "none"; // ẩn QR
+  qrBtn.style.display = "none"; 
 }
 
 function taoQR(){
@@ -265,7 +298,6 @@ function taoQR(){
   const qrUrl=`https://img.vietqr.io/image/${bankCode}-${accountNo}-qr_only.png?amount=${amount}&addInfo=${encodeURIComponent(note)}&accountName=${encodeURIComponent(accountName)}`;
   document.getElementById("qr").innerHTML=`<p>📱 Quét QR bằng App ngân hàng để thanh toán:</p><img src="${qrUrl}"><p><b>Nội dung CK:</b> ${note}</p><p>${message}</p>`;
 }
-
 function taoQRGamePass(pkg){
   const user=document.getElementById("username").value.trim();
   if(!user){ alert("Vui lòng nhập tên nhân vật!"); return; }
@@ -286,8 +318,6 @@ function taoQRGamePass(pkg){
   const qrUrl = `https://img.vietqr.io/image/${bankCode}-${accountNo}-qr_only.png?amount=${amount}&addInfo=${encodeURIComponent(note)}&accountName=${encodeURIComponent(accountName)}`;
   document.getElementById("qr").innerHTML = `<p>📱 Quét QR bằng App ngân hàng để thanh toán:</p><img src="${qrUrl}"><p><b>Nội dung CK:</b> ${note}</p><p>${message}</p>`;
 }
-
-// Hiển thị mặc định Nạp Xu
 selectPackage("normal");
 </script>
 </body>

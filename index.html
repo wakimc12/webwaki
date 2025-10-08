@@ -393,7 +393,7 @@ button.main-btn:hover {
           <li><img src="img_src/phalevip.png" alt="">50 Pha Lê Cực Quang</li> 
           <li><img src="img_src/x2exp.png" alt="">x2 Exp Class Vỉnh Viễn</li>
           <li><img src="img_src/tunhat.png" alt="">Tự Động Nhặt Drop Từ Quái</li>
-          <li><img src="img_src/dh_2.png" alt="">Danh hiệu Chiến Thần</li> 
+          <li><img src="img_src/dh_2.png" alt="">Danh hiệu Chiến Thần</li>
           <li><img src="img_src/dragon_pet.png" alt="">Rồng Wyvern Pet</li>
         </ul>
       </div>
@@ -509,78 +509,96 @@ button.main-btn:hover {
 </div>
 
 <script>
-const bankCode="BIDV", accountNo="8890956287", accountName="DOAN CHI BAO";
-const normalDiv=document.getElementById("normal-pricing");
-const gamepassProducts=document.getElementById("gamepass-products");
-const eventSection=document.getElementById("event-section");
-const milestoneSection=document.getElementById("milestone-section");
-const qrBtn=document.getElementById("qr-btn");
-const usernameInput=document.getElementById("username");
-const usernameLabel=document.querySelector('label[for="username"]') || document.querySelector('label');
+const bankCode = "BIDV", accountNo = "8890956287", accountName = "DOAN CHI BAO";
+const normalDiv = document.getElementById("normal-pricing");
+const gamepassProducts = document.getElementById("gamepass-products");
+const eventSection = document.getElementById("event-section");
+const milestoneSection = document.getElementById("milestone-section");
+const qrBtn = document.getElementById("qr-btn");
+const usernameInput = document.getElementById("username");
+const usernameLabel = document.querySelector('label[for="username"]') || document.querySelector('label');
+const qrContainer = document.getElementById("qr");
 
-function selectPackage(pkg){
+function resetQR() {
+  // Reset phần QR mỗi khi đổi mục
+  qrContainer.innerHTML = "";
+  qrBtn.style.display = "none";
+}
+
+function selectPackage(pkg) {
   // Ẩn toàn bộ phần khác
-  normalDiv.style.display="none";
-  gamepassProducts.style.display="none";
-  eventSection.style.display="none";
-  milestoneSection.style.display="none";
-  qrBtn.style.display="none";
-  usernameInput.style.display="block";
-  usernameLabel.style.display="block";
+  normalDiv.style.display = "none";
+  gamepassProducts.style.display = "none";
+  eventSection.style.display = "none";
+  milestoneSection.style.display = "none";
+  usernameInput.style.display = "block";
+  usernameLabel.style.display = "block";
+
+  // Reset QR khi đổi mục
+  resetQR();
 
   // Hiện phần tương ứng
-  if(pkg==="normal"){
-    normalDiv.style.display="block";
-    qrBtn.style.display="inline-block";
-  }else if(pkg==="gamepass"){
-    gamepassProducts.style.display="block";
+  if (pkg === "normal") {
+    normalDiv.style.display = "block";
+    qrBtn.style.display = "inline-block";
+  } else if (pkg === "gamepass") {
+    gamepassProducts.style.display = "block";
   }
 }
 
-function showEvent(){
-  normalDiv.style.display="none";
-  gamepassProducts.style.display="none";
-  milestoneSection.style.display="none";
-  eventSection.style.display="block";
-  qrBtn.style.display="none";
+function showEvent() {
+  normalDiv.style.display = "none";
+  gamepassProducts.style.display = "none";
+  milestoneSection.style.display = "none";
+  eventSection.style.display = "block";
+  usernameInput.style.display = "none";
+  usernameLabel.style.display = "none";
 
-  // Ẩn phần nhập tên
-  usernameInput.style.display="none";
-  usernameLabel.style.display="none";
+  // Reset QR khi đổi mục
+  resetQR();
 }
 
-function showMilestone(){
-  normalDiv.style.display="none";
-  gamepassProducts.style.display="none";
-  eventSection.style.display="none";
-  milestoneSection.style.display="block";
-  qrBtn.style.display="none";
+function showMilestone() {
+  normalDiv.style.display = "none";
+  gamepassProducts.style.display = "none";
+  eventSection.style.display = "none";
+  milestoneSection.style.display = "block";
+  usernameInput.style.display = "none";
+  usernameLabel.style.display = "none";
 
-  // Ẩn phần nhập tên
-  usernameInput.style.display="none";
-  usernameLabel.style.display="none";
+  // Reset QR khi đổi mục
+  resetQR();
 }
 
-function taoQR(){
-  const user=document.getElementById("username").value.trim();
-  if(!user){alert("Vui lòng nhập tên nhân vật!");return;}
-  const select=document.getElementById("normal-amount");
-  const amount=parseInt(select.value);
-  const xu=parseInt(select.selectedOptions[0].dataset.xu);
-  const note="NAP_"+user;
-  const message=`Bạn sẽ nhận được <b>${xu} Xu VIP 💰</b>`;
-  const qrUrl=`https://img.vietqr.io/image/${bankCode}-${accountNo}-qr_only.png?amount=${amount}&addInfo=${encodeURIComponent(note)}&accountName=${encodeURIComponent(accountName)}`;
-  document.getElementById("qr").innerHTML=`<p>📱 Quét QR bằng App ngân hàng để thanh toán:</p><img src="${qrUrl}" alt="QR"><p><b>${message}</b></p>`;
+function taoQR() {
+  const user = document.getElementById("username").value.trim();
+  if (!user) { alert("Vui lòng nhập tên nhân vật!"); return; }
+
+  const select = document.getElementById("normal-amount");
+  const amount = parseInt(select.value);
+  const xu = parseInt(select.selectedOptions[0].dataset.xu);
+  const note = "NAP_" + user;
+  const message = `Bạn sẽ nhận được <b>${xu} Xu VIP 💰</b>`;
+  const qrUrl = `https://img.vietqr.io/image/${bankCode}-${accountNo}-qr_only.png?amount=${amount}&addInfo=${encodeURIComponent(note)}&accountName=${encodeURIComponent(accountName)}`;
+
+  qrContainer.innerHTML = `
+    <p>📱 Quét QR bằng App ngân hàng để thanh toán:</p>
+    <img src="${qrUrl}" alt="QR">
+    <p><b>${message}</b></p>`;
 }
 
-function taoQRGamePass(type){
-  const user=document.getElementById("username").value.trim();
-  if(!user){alert("Vui lòng nhập tên nhân vật!");return;}
-  const price=type==="vip"?100000:200000;
-  const label=type==="vip"?"GAMEPASS_VIP":"GAMEPASS_PREMIUM";
-  const note=label+"_"+user;
-  const qrUrl=`https://img.vietqr.io/image/${bankCode}-${accountNo}-qr_only.png?amount=${price}&addInfo=${encodeURIComponent(note)}&accountName=${encodeURIComponent(accountName)}`;
-  document.getElementById("qr").innerHTML=`<p>📱 Quét QR để mua <b>${type.toUpperCase()}</b> cho ${user}</p><img src="${qrUrl}" alt="QR">`;
+function taoQRGamePass(type) {
+  const user = document.getElementById("username").value.trim();
+  if (!user) { alert("Vui lòng nhập tên nhân vật!"); return; }
+
+  const price = type === "vip" ? 100000 : 200000;
+  const label = type === "vip" ? "GAMEPASS_VIP" : "GAMEPASS_PREMIUM";
+  const note = label + "_" + user;
+  const qrUrl = `https://img.vietqr.io/image/${bankCode}-${accountNo}-qr_only.png?amount=${price}&addInfo=${encodeURIComponent(note)}&accountName=${encodeURIComponent(accountName)}`;
+
+  qrContainer.innerHTML = `
+    <p>📱 Quét QR để mua <b>${type.toUpperCase()}</b> cho ${user}</p>
+    <img src="${qrUrl}" alt="QR">`;
 }
 </script>
 

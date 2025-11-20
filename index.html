@@ -4,25 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkyHunter - Săn Quái, Nâng Cấp, Khai Phá!</title>
-    <!-- Tải Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Cấu hình Tailwind cho màu sắc và font -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        // Màu tối và đậm chất vũ trụ
-                        'primary-dark': '#0a0d1b', // Gần như đen, rất sâu
-                        'secondary-dark': '#1c2135', // Nền cho các khối nội dung
-                        'accent-blue': '#4c7cff', // Xanh dương mạnh, nổi bật
-                        'accent-gold': '#ffcc00', // Vàng đồng, tượng trưng cho hiếm có/tiền tệ
-                        'mc-green': '#4CAF50', // Xanh lá cây kiểu Minecraft cho trạng thái
+                        'primary-dark': '#0a0d1b',
+                        'secondary-dark': '#1c2135',
+                        'accent-blue': '#4c7cff',
+                        'accent-gold': '#ffcc00',
+                        'mc-green': '#4CAF50',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                     },
-                    // Đổi nền Hero Section thành hình ảnh gợi Minecraft/Fantasy
                     backgroundImage: {
                         'hero-pattern': 'linear-gradient(135deg, rgba(10, 13, 27, 0.95) 0%, rgba(28, 33, 53, 0.9) 100%)',
                     }
@@ -31,20 +27,15 @@
         }
     </script>
     <style>
-        /* Đảm bảo font Inter được load */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         
-        /* ============== CUSTOM CSS & ANIMATIONS ============== */
-        
-        /* FIX: Thêm khoảng đệm trên cho các mục tiêu cuộn để tránh bị header che khuất */
         #home, #features, #trailer, #donate {
-            scroll-margin-top: 6rem; /* Khoảng 96px để bù cho thanh header dính */
+            scroll-margin-top: 6rem;
         }
 
         .hero-section {
-            /* THAY THẾ ĐƯỜNG DẪN ẢNH NỀN CHÍNH TẠI ĐÂY */
             background: linear-gradient(rgba(10, 13, 27, 0.75), rgba(10, 13, 27, 0.9)), 
-                        url('https://i.ibb.co/JF8BKJjV/server.png'); 
+                         url('https://i.ibb.co/JF8BKJjV/server.png'); 
             background-size: cover;
             background-position: center;
             min-height: 85vh;
@@ -53,18 +44,15 @@
             justify-content: center;
         }
 
-        /* Keyframes cho hiệu ứng nhấp nháy nhẹ (pulse) */
         @keyframes pulse-light {
             0%, 100% { transform: scale(1); opacity: 1; }
             50% { transform: scale(1.01); opacity: 0.95; }
         }
         
-        /* Hiệu ứng áp dụng cho tiêu đề chính */
         .title-animate {
             animation: pulse-light 4s infinite ease-in-out;
         }
 
-        /* Thêm hiệu ứng phát sáng cho các khối quan trọng */
         .glow-shadow-blue {
             box-shadow: 0 0 15px rgba(76, 124, 255, 0.5), 0 0 5px rgba(76, 124, 255, 0.8);
         }
@@ -72,30 +60,26 @@
             box-shadow: 0 0 15px rgba(255, 204, 0, 0.5), 0 0 5px rgba(255, 204, 0, 0.8);
         }
 
-        /* Hiệu ứng cho nút Tham Gia */
         .btn-primary {
             transition: all 0.2s;
             box-shadow: 0 5px 20px rgba(76, 124, 255, 0.6);
-            /* Thêm animation cho nút chính */
             animation: pulse-light 3s infinite ease-in-out;
         }
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 15px 30px rgba(76, 124, 255, 0.8);
-            animation: none; /* Tắt pulse khi hover */
+            animation: none;
         }
         
-        /* Hiệu ứng Hover cho Feature Card */
         .feature-card {
             transition: all 0.3s ease-in-out;
         }
         .feature-card:hover {
             border-color: #ffcc00;
-            transform: translateY(-5px) scale(1.02); /* Nhấc lên và phóng to nhẹ */
+            transform: translateY(-5px) scale(1.02);
             box-shadow: 0 15px 40px rgba(255, 204, 0, 0.25);
         }
 
-        /* Custom icon styles cho các icon lớn (4 cái chính) */
         .feature-icon {
             width: 64px; 
             height: 64px;
@@ -105,10 +89,9 @@
             transition: transform 0.3s;
         }
         .feature-card:hover .feature-icon {
-             transform: rotate(3deg) scale(1.1); /* Xoay nhẹ icon khi hover */
+             transform: rotate(3deg) scale(1.1);
         }
 
-        /* Custom icon styles cho các icon nhỏ (trong phần mô tả) */
         .detail-icon {
             width: 32px; 
             height: 32px;
@@ -116,13 +99,12 @@
             filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6));
         }
 
-        /* Định dạng cho khung chứa Trailer */
         .trailer-container {
             position: relative;
-            padding-bottom: 56.25%; /* Tỷ lệ 16:9 (9 / 16 * 100) */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
-            border-radius: 1rem; /* rounded-xl */
+            border-radius: 1rem;
         }
         .trailer-container iframe,
         .trailer-container img {
@@ -138,7 +120,6 @@
 </head>
 <body class="bg-primary-dark text-white font-sans">
 
-    <!-- Thanh Điều Hướng (Header) -->
     <header class="sticky top-0 z-50 bg-secondary-dark/95 backdrop-blur-md shadow-2xl border-b border-accent-blue/20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
         <a href="#" class="flex items-center space-x-2">
@@ -166,7 +147,6 @@
 </header>
 
     <main>
-        <!-- Phần Chính (Hero Section) -->
         <section id="home" class="hero-section text-center p-8">
             <div class="max-w-5xl space-y-8 p-8 md:p-14 rounded-2xl shadow-2xl backdrop-blur-sm border border-accent-blue/30 glow-shadow-blue title-animate">
                 <h1 class="text-5xl md:text-8xl font-extrabold leading-tight tracking-tighter">
@@ -177,17 +157,13 @@
                     Săn Quái, Đi Hầm Ngục, Nâng Cấp Trang Bị — Cuộc Phiêu Lưu Bắt Đầu Từ Đảo Của Bạn!
                 </p>
 
-                <!-- Nút Tham Gia và IP (Đã áp dụng animation) -->
                 <div class="space-y-4 pt-4 md:flex md:justify-center md:space-x-4 md:space-y-0">
-                    <!-- Nút BẮT ĐẦU CHƠI NGAY (Primary) -->
                     <button id="joinButton" class="btn-primary w-full md:w-auto text-2xl font-black px-12 py-4 rounded-xl bg-accent-blue hover:bg-blue-600 transition duration-300" onclick="copyIP('play.skymc.online')">
                         <span class="flex items-center justify-center">
                             <svg class="w-7 h-7 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3v-1m3-4H5a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2h-3"></path></svg>
                             BẮT ĐẦU CHƠI NGAY
                         </span>
                     </button>
-
-
                     </a>
                 </div>
 
@@ -198,10 +174,8 @@
                     <span id="copyMessage" class="text-mc-green text-lg hidden font-bold">Đã sao chép!</span>
                 </div>
 
-                <!-- Trạng Thái Server Real-time -->
                 <div class="pt-6">
                     <span id="serverStatus" class="inline-flex items-center px-4 py-2 rounded-full text-lg font-semibold bg-mc-green text-white shadow-md">
-                        <!-- Hiển thị Loading ban đầu -->
                         <span class="w-3 h-3 bg-white rounded-full mr-2 animate-pulse"></span>
                         Đang tải trạng thái server...
                     </span>
@@ -209,14 +183,12 @@
             </div>
         </section>
 
-        <!-- PHẦN TRAILER SERVER (Video/GIF) -->
         <section id="trailer" class="py-16 bg-primary-dark">
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h2 class="text-5xl font-extrabold text-accent-gold mb-10">TRAILER CHÍNH THỨC</h2>
                 
                 <div class="p-4 bg-secondary-dark rounded-xl shadow-2xl border-4 border-accent-blue/50">
                     <div class="trailer-container">
-                        <!-- THAY THẾ SOURCE NÀY BẰNG LINK EMBED YOUTUBE HOẶC GIF CỦA BẠN. -->
                         <iframe 
                             src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0" 
                             frameborder="0" 
@@ -231,19 +203,15 @@
                 </div>
             </div>
         </section>
-        <!-- KẾT THÚC PHẦN TRAILER -->
 
-        <!-- Phần Lối Chơi Độc Quyền (Game Modes) -->
         <section id="features" class="py-20 bg-primary-dark">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h2 class="text-5xl font-extrabold text-accent-gold mb-16">KHÁM PHÁ LỐI CHƠI ĐỘC QUYỀN</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     
-                    <!-- Feature Card 1: Hòn Đảo Cá Nhân -->
                     <div class="feature-card bg-primary-dark p-6 rounded-xl shadow-xl transition duration-300 border-2 border-primary-dark hover:border-accent-gold">
                         <div class="mb-4">
-                            <!-- THAY THẾ ĐƯỜNG DẪN ẢNH ICON HÒN ĐẢO TẠI ĐÂY -->
                             <img src="img_src/island.png" 
                                 onerror="this.onerror=null; this.src='https://placehold.co/64x64/4c7cff/ffffff?text=ISLAND';"
                               alt="Icon Hòn Đảo Cá Nhân" 
@@ -255,10 +223,8 @@
                         </p>
                     </div>
                     
-                    <!-- Feature Card 2: Hầm Ngục & Săn Boss -->
                     <div class="feature-card bg-primary-dark p-6 rounded-xl shadow-xl transition duration-300 border-2 border-primary-dark hover:border-accent-gold">
                         <div class="mb-4">
-                            <!-- THAY THẾ ĐƯỜNG DẪN ẢNH ICON HẦM NGỤC TẠI ĐÂY -->
                             <img src="img_src/dungeon.png" 
                                 onerror="this.onerror=null; this.src='https://placehold.co/64x64/ffcc00/1c2135?text=DUNGEON';"
                                 alt="Icon Hầm Ngục & Săn Boss" 
@@ -270,10 +236,8 @@
                         </p>
                     </div>
 
-                    <!-- Feature Card 3: Thị Trường & Nâng Cấp -->
                     <div class="feature-card bg-primary-dark p-6 rounded-xl shadow-xl transition duration-300 border-2 border-primary-dark hover:border-accent-gold">
                         <div class="mb-4">
-                            <!-- THAY THẾ ĐƯỜNG DẪN ẢNH ICON THỊ TRƯỜNG TẠI ĐÂY -->
                             <img src="img_src/tien.png" 
                                 onerror="this.onerror=null; this.src='https://placehold.co/64x64/ef4444/1c2135?text=ECONOMY';"
                                 alt="Icon Thị Trường & Nâng Cấp" 
@@ -285,10 +249,8 @@
                         </p>
                     </div>
                     
-                    <!-- Feature Card 4: Đấu Trường PvP -->
                     <div class="feature-card bg-primary-dark p-6 rounded-xl shadow-xl transition duration-300 border-2 border-primary-dark hover:border-accent-gold">
                         <div class="mb-4">
-                            <!-- THAY THẾ ĐƯỜNG DẪN ẢNH ICON PVP TẠI ĐÂY -->
                             <img src="img_src/pvp.png" 
                               onerror="this.onerror=null; this.src='https://placehold.co/64x64/10b981/1c2135?text=PVP';"
                               alt="Icon Đấu Trường PvP" 
@@ -303,32 +265,26 @@
             </div>
         </section>
 
-        <!-- Phần Giới Thiệu Gameplay Sâu hơn -->
         <section id="gameplay" class="py-20 bg-secondary-dark">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-4xl font-extrabold text-accent-blue text-center mb-12">HỆ THỐNG TRANG BỊ VÀ THU THẬP</h2>
                 
                 <div class="flex flex-col lg:flex-row items-center space-y-10 lg:space-y-0 lg:space-x-12">
-                    <!-- Ảnh Đại Diện Gameplay -->
                     <div class="lg:w-1/2 p-4 rounded-xl bg-primary-dark border border-accent-gold/30 glow-shadow-gold/30">
-                        <!-- THAY THẾ ĐƯỜNG DẪN ẢNH GAMEPLAY TẠI ĐÂY -->
                         <img src="img_src/dungeon_im.png" 
-                             onerror="this.onerror=null; this.src='https://placehold.co/800x450/1e293b/ffffff?text=H%C3%80M+NG%E1%BB%A4C+V%C3%80+TRANG+B%E1%BB%8B';"
-                             alt="Hình ảnh Trang bị Tùy chỉnh và Hầm ngục" 
-                             class="rounded-lg w-full h-auto object-cover border-4 border-accent-gold/50" />
+                              onerror="this.onerror=null; this.src='https://placehold.co/800x450/1e293b/ffffff?text=H%C3%80M+NG%E1%BB%A4C+V%C3%80+TRANG+B%E1%BB%8A';"
+                              alt="Hình ảnh Trang bị Tùy chỉnh và Hầm ngục" 
+                              class="rounded-lg w-full h-auto object-cover border-4 border-accent-gold/50" />
                     </div>
                     
-                    <!-- Mô tả chi tiết -->
                     <div class="lg:w-1/2 space-y-6">
                         
-                        <!-- 1. Tài Nguyên Tùy Biến -->
                         <div class="p-4 bg-primary-dark rounded-lg border-l-4 border-accent-gold shadow-lg">
                             <h3 class="text-2xl font-bold text-accent-gold mb-2 flex items-center">
-                                <!-- THAY THẾ ĐƯỜNG DẪN ẢNH ICON TÀI NGUYÊN TẠI ĐÂY -->
                                 <img src="img_src/3.png" 
-                                     onerror="this.onerror=null; this.src='https://placehold.co/32x32/ffcc00/1c2135?text=R';"
-                                     alt="Icon Tài Nguyên" 
-                                     class="detail-icon" />
+                                    onerror="this.onerror=null; this.src='https://placehold.co/32x32/ffcc00/1c2135?text=R';"
+                                    alt="Icon Tài Nguyên" 
+                                    class="detail-icon" />
                                 Tài Nguyên Tùy Biến
                             </h3>
                             <p class="text-slate-300">
@@ -336,14 +292,12 @@
                             </p>
                         </div>
                         
-                        <!-- 2. Chế Tạo Đồ Hiếm -->
                         <div class="p-4 bg-primary-dark rounded-lg border-l-4 border-accent-blue shadow-lg">
                             <h3 class="text-2xl font-bold text-accent-blue mb-2 flex items-center">
-                                <!-- THAY THẾ ĐƯỜNG DẪN ẢNH ICON CHẾ TẠO TẠI ĐÂY -->
                                 <img src="img_src/2.png" 
-                                     onerror="this.onerror=null; this.src='https://placehold.co/32x32/4c7cff/ffffff?text=C';"
-                                     alt="Icon Chế Tạo" 
-                                     class="detail-icon" />
+                                    onerror="this.onerror=null; this.src='https://placehold.co/32x32/4c7cff/ffffff?text=C';"
+                                    alt="Icon Chế Tạo" 
+                                    class="detail-icon" />
                                 Chế Tạo Đồ Hiếm
                             </h3>
                             <p class="text-slate-300">
@@ -351,14 +305,12 @@
                             </p>
                         </div>
                         
-                        <!-- 3. Xây Dựng & Thư Giãn -->
                         <div class="p-4 bg-primary-dark rounded-lg border-l-4 border-mc-green shadow-lg">
                             <h3 class="text-2xl font-bold text-mc-green mb-2 flex items-center">
-                                <!-- THAY THẾ ĐƯỜNG DẪN ẢNH ICON XÂY DỰNG TẠI ĐÂY -->
                                 <img src="img_src/1.png" 
-                                     onerror="this.onerror=null; this.src='https://placehold.co/32x32/4CAF50/1c2135?text=B';"
-                                     alt="Icon Xây Dựng" 
-                                     class="detail-icon" />
+                                    onerror="this.onerror=null; this.src='https://placehold.co/32x32/4CAF50/1c2135?text=B';"
+                                    alt="Icon Xây Dựng" 
+                                    class="detail-icon" />
                                 Xây Dựng & Thư Giãn
                             </h3>
                             <p class="text-slate-300">
@@ -370,7 +322,6 @@
             </div>
         </section>
 
-        <!-- PHẦN ỦNG HỘ (Donate/Shop) -->
         <section id="donate" class="py-16 bg-primary-dark text-center">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 p-10 bg-secondary-dark rounded-2xl shadow-2xl border border-accent-gold/30">
                 <h2 class="text-4xl font-extrabold text-accent-gold mb-4">HỆ THỐNG ỦNG HỘ & SHOP</h2>
@@ -379,17 +330,13 @@
                 </p>
                 <a href="https://shop.skymc.online" target="_blank" class="inline-block text-2xl font-bold px-10 py-3 rounded-full bg-accent-gold text-primary-dark hover:bg-yellow-600 transition duration-300 shadow-xl glow-shadow-gold">
                     <span class="flex items-center">
-                        <!-- Icon Shop (Inline SVG - Shopping Cart) -->
                         <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                         VÀO SHOP NHẬN QUÀ
                     </span>
                 </a>
             </div>
         </section>
-        <!-- KẾT THÚC PHẦN ỦNG HỘ -->
 
-
-        <!-- Phần Kêu Gọi Hành Động Discord (Call to Action) -->
         <section id="discord" class="py-16 bg-secondary-dark text-center">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 p-10 bg-primary-dark rounded-2xl shadow-2xl border border-accent-blue/30">
                 <h2 class="text-4xl font-extrabold text-white mb-4">CỘNG ĐỒNG THỢ SĂN LỚN NHẤT</h2>
@@ -407,7 +354,6 @@
 
     </main>
 
-    <!-- Chân Trang (Footer) -->
     <footer class="bg-secondary-dark border-t border-accent-gold/20 py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-400">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
@@ -433,82 +379,67 @@
                 </div>
             </div>
             <p class="mt-8 pt-4 border-t border-slate-700">
-                &copy; 2025 SkyHunter Minecraft Server. All rights reserved.
+                &copy; 2025 SkyHunter Minecraft Server. All rights reserved. Design by **@waki**
             </p>
         </div>
     </footer>
 
-    <!-- JavaScript để sao chép IP và lấy trạng thái server -->
-<script>
-    // Địa chỉ IP của server (vẫn giữ để dùng cho nút copy)
-    const SERVER_ADDRESS = 'play.skymc.online';
-    const statusElement = document.getElementById('serverStatus');
+    <script>
+        const SERVER_ADDRESS = 'play.skymc.online';
+        const statusElement = document.getElementById('serverStatus');
 
-    /**
-     * Hàm hiển thị trạng thái CỐ ĐỊNH: "Đang Hoạt Động".
-     */
-    function displayFixedStatus() {
-        // Cập nhật giao diện với trạng thái cố định
-        statusElement.classList.remove('bg-gray-500', 'bg-red-500');
-        statusElement.classList.add('bg-mc-green');
-        
-        // Chỉ hiển thị trạng thái "Đang Hoạt Động" mà không có số người chơi
-        statusElement.innerHTML = `
-            <span class="w-3 h-3 bg-white rounded-full mr-2 animate-ping"></span>
-            Đang Hoạt Động
-        `;
-    }
-
-    /**
-     * Hàm sao chép địa chỉ IP vào clipboard. (Không đổi)
-     * @param {string} ip - Địa chỉ IP của server.
-     */
-    function copyIP(ip) {
-        // Sử dụng document.execCommand('copy') vì navigator.clipboard có thể bị hạn chế trong iframe
-        const tempInput = document.createElement('input');
-        tempInput.value = ip;
-        document.body.appendChild(tempInput);
-        tempInput.select();
-        
-        let success = false;
-        try {
-            success = document.execCommand('copy');
-        } catch (err) {
-            console.error('Không thể sao chép IP:', err);
+        function displayFixedStatus() {
+            statusElement.classList.remove('bg-gray-500', 'bg-red-500');
+            statusElement.classList.add('bg-mc-green');
+            
+            statusElement.innerHTML = `
+                <span class="w-3 h-3 bg-white rounded-full mr-2 animate-ping"></span>
+                Đang Hoạt Động
+            `;
         }
 
-        document.body.removeChild(tempInput);
+        function copyIP(ip) {
+            const tempInput = document.createElement('input');
+            tempInput.value = ip;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            
+            let success = false;
+            try {
+                success = document.execCommand('copy');
+            } catch (err) {
+                console.error('Lỗi khi sao chép IP:', err);
+            }
 
-        const copyMessage = document.getElementById('copyMessage');
-        if (success) {
-            copyMessage.textContent = 'Đã sao chép IP: ' + ip + '!';
-            copyMessage.classList.remove('hidden');
-            copyMessage.classList.add('inline-block');
-            
-            // Ẩn thông báo sau 3 giây
-            setTimeout(() => {
-                copyMessage.classList.add('hidden');
-                copyMessage.classList.remove('inline-block');
-            }, 3000);
-        } else {
-            // Thay thế thông báo bằng hướng dẫn thủ công nếu sao chép thất bại
-            copyMessage.textContent = 'Lỗi sao chép! Hãy sao chép thủ công: ' + ip;
-            copyMessage.classList.remove('hidden');
-            copyMessage.classList.remove('text-mc-green');
-            copyMessage.classList.add('text-red-400');
-            
-            setTimeout(() => {
-                copyMessage.classList.add('hidden');
-                copyMessage.classList.remove('text-red-400');
-                copyMessage.classList.add('text-mc-green');
-            }, 5000);
+            document.body.removeChild(tempInput);
+
+            const copyMessage = document.getElementById('copyMessage');
+            if (success) {
+                copyMessage.textContent = 'Đã sao chép IP: ' + ip + '!';
+                copyMessage.classList.remove('hidden');
+                copyMessage.classList.add('inline-block');
+                
+                setTimeout(() => {
+                    copyMessage.classList.add('hidden');
+                    copyMessage.classList.remove('inline-block');
+                }, 3000);
+            } else {
+                copyMessage.textContent = 'Lỗi sao chép! Hãy sao chép thủ công: ' + ip;
+                copyMessage.classList.remove('hidden');
+                copyMessage.classList.remove('text-mc-green');
+                copyMessage.classList.add('text-red-400');
+                
+                setTimeout(() => {
+                    copyMessage.classList.add('hidden');
+                    copyMessage.classList.remove('text-red-400');
+                    copyMessage.classList.add('text-mc-green');
+                }, 5000);
+            }
         }
-    }
-    
-    // Khi trang tải xong, chỉ gọi hàm hiển thị trạng thái cố định
-    window.onload = function() {
-        displayFixedStatus();
-    }
-</script>
+        
+        window.onload = function() {
+            displayFixedStatus();
+        }
+    </script>
 </body>
 </html>

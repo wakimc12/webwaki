@@ -24,11 +24,14 @@
             }
         }
     </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        
-        /* 1. THÊM BACKGROUND VÀO BODY - ĐÃ CẬP NHẬT URL CỦA BẠN */
+        /* 1. Sửa lỗi: Đã chuyển @import thành <link> để tối ưu hơn. */
+        /* THÊM BACKGROUND VÀO BODY - ĐÃ CẬP NHẬT URL CỦA BẠN */
         body {
+            /* Vui lòng kiểm tra lại URL ảnh nền này nếu vẫn gặp lỗi hiển thị */
             background-image: url('https://i.ibb.co/JF8BKJjV/server.png'); 
             background-size: cover;
             background-attachment: fixed;
@@ -54,6 +57,7 @@
             margin: 0;
         }
     </style>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body class="bg-primary-dark text-white font-sans min-h-screen flex flex-col items-center">
@@ -63,8 +67,11 @@
             
             <div class="absolute left-4 top-1/2 transform -translate-y-1/2">
                 <a href="index.html" class="flex items-center space-x-2 text-slate-300 hover:text-accent-gold transition duration-200 group">
-                    <img src="img_src/icon_server.png" alt="Logo Server" class="h-8 w-8 object-contain">
-                    <span class="text-lg font-bold hidden md:inline">Trang Chủ</span>
+                    <img src="img_src/icon_server.png" 
+                onerror="this.onerror=null; this.src='https://placehold.co/48x48/ffcc00/0a0d1b?text=SH';"
+                alt="Server Icon" 
+                class="w-16 h-16 object-cover rounded-full shadow-lg border-2 border-accent-gold">
+                    <span class="text-lg font-bold hidden md:inline">⇦ Trang Chủ</span>
                 </a>
             </div>
             
@@ -87,10 +94,10 @@
                     <div>
                         <label for="username" class="block text-lg font-medium text-white mb-2">Tên Tài Khoản (In-game Name)</label>
                         <input type="text" id="username" name="username" required
-                                 class="custom-input w-full p-3 rounded-lg text-lg placeholder-slate-500"
-                                 placeholder="Nhập tên tài khoản của bạn"
-                                 pattern="[A-Za-z0-9_]{3,16}"
-                                 oninput="calculateTotal()"> 
+                                    class="custom-input w-full p-3 rounded-lg text-lg placeholder-slate-500"
+                                    placeholder="Nhập tên tài khoản của bạn"
+                                pattern="[A-Za-z0-9_]{3,16}"
+                                    oninput="updateTransferContent()"> 
                         <p class="text-sm text-red-400 mt-2" id="usernameError"></p>
                     </div>
 
@@ -178,7 +185,7 @@
                     <div class="flex justify-between text-xl font-semibold py-1 border-b border-slate-700">
                         <span>Pha Lê Gốc:</span>
                         <span id="baseCrystalContainer" class="text-accent-gold font-bold">
-                             <span id="baseCrystalDisplay">0</span> Pha Lê
+                            <span id="baseCrystalDisplay">0</span> Pha Lê
                         </span>
                     </div>
 
@@ -208,8 +215,7 @@
             
             <div class="flex flex-col md:flex-row items-center justify-center gap-8">
                 <div class="w-64 h-64 border-4 border-accent-gold rounded-lg p-2 bg-white flex items-center justify-center" id="qrContainer">
-                    <img id="qrImage" src="" alt="Mã QR Chuyển Khoản" class="w-full h-full object-contain" />
-                </div>
+                    </div>
                 
                 <div class="text-left space-y-3">
                     <p class="text-xl font-semibold text-white">Số tiền cần chuyển:</p>
@@ -260,11 +266,9 @@
     const qrSection = document.getElementById('qrCodeSection');
 
     // CÁC PHẦN TỬ CẬP NHẬT TEXT
-    const baseCrystalDisplay = document.getElementById('baseCrystalDisplay');
-    const promoCrystalDisplay = document.getElementById('promoCrystalDisplay');
-    const finalCrystalDisplay = document.getElementById('finalCrystalDisplay');
     const baseCrystalContainer = document.getElementById('baseCrystalContainer');
     const promoCrystalContainer = document.getElementById('promoCrystalContainer');
+    const finalCrystalDisplay = document.getElementById('finalCrystalDisplay');
 
 
     let totalAmount = 0;
@@ -320,30 +324,31 @@
         }
 
         const finalCrystal = baseCrystal + promoCrystal;
-        finalCrystalGlobal = finalCrystal;
+        finalCrystalGlobal = finalCrystal; // CẬP NHẬT BIẾN TOÀN CỤC
 
         document.getElementById('totalAmountDisplay').textContent = formatVND(totalAmount);
         
         // CẬP NHẬT PHA LÊ GỐC (chỉ text)
-        baseCrystalContainer.innerHTML = `<span id="baseCrystalDisplay">${baseCrystal.toString()}</span> Pha Lê`;
+        baseCrystalContainer.innerHTML = `<span id="baseCrystalDisplay">${baseCrystal.toLocaleString('vi-VN')}</span> Pha Lê`;
         
         // CẬP NHẬT KHUYẾN MÃI (chỉ text)
-        promoCrystalContainer.innerHTML = `+ <span id="promoCrystalDisplay">${promoCrystal.toString()}</span> Pha Lê`;
+        promoCrystalContainer.innerHTML = `+ <span id="promoCrystalDisplay">${promoCrystal.toLocaleString('vi-VN')}</span> Pha Lê`;
 
         // CẬP NHẬT TỔNG PHA LÊ (text + image)
-        finalCrystalDisplay.textContent = finalCrystal.toString();
+        finalCrystalDisplay.textContent = finalCrystal.toLocaleString('vi-VN');
         
-        updateTransferContent(finalCrystal);
+        updateTransferContent(); // Gọi hàm kiểm tra và cập nhật nội dung/trạng thái nút
     }
 
     // --- NỘI DUNG CHUYỂN KHOẢN ---
-    function updateTransferContent(finalCrystal = finalCrystalGlobal) {
+    function updateTransferContent() {
         const username = usernameInput.value.trim();
         const isValidUsername = /^[A-Za-z0-9_]{3,16}$/.test(username);
 
-        if (totalAmount > 0 && isValidUsername && finalCrystal > 0) {
+        // KIỂM TRA ĐIỀU KIỆN HỢP LỆ: Tổng tiền NẠP > 0 VÀ Tên TK hợp lệ
+        if (totalAmount > 0 && isValidUsername && finalCrystalGlobal > 0) {
             // Nội dung chuyển khoản mẫu: NapPlayer.....Tên_Người_Chơi.....Tổng_Pha_Lê
-            finalContent = `${PREFIX}.....${username}.....${finalCrystal}`;
+            finalContent = `${PREFIX}.....${username}.....${finalCrystalGlobal}`;
             document.getElementById('transferContent').textContent = finalContent;
             generateQrButton.disabled = false;
             usernameError.textContent = '';
@@ -373,7 +378,8 @@
         const qrUrl =
             `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-compact.png?amount=${totalAmount}&addInfo=${encodeURIComponent(content)}&accountName=${encodeURIComponent(ACCOUNT_NAME)}`;
 
-        qrContainer.innerHTML = '';
+        // Xóa ảnh cũ (nếu có)
+        qrContainer.innerHTML = ''; 
 
         const newQrImage = document.createElement('img');
         newQrImage.id = 'qrImage';
@@ -395,7 +401,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         calculateTotal();
         
-        // Thêm event listener cho input username để cập nhật nội dung chuyển khoản ngay lập tức
+        // Event listener cho input username để cập nhật nội dung chuyển khoản và trạng thái nút QR
         usernameInput.addEventListener('input', updateTransferContent);
     });
 </script>

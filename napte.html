@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nạp ATM/QR Linh Hoạt | Cửa Hàng SkyHunter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#0a0d1b',
+                        'secondary-dark': '#1c2135',
+                        'accent-blue': '#4c7cff',
+                        'accent-gold': '#ffcc00',
+                        'promo-red': '#ff4c4c',
+                        'bidv-green': '#006C5B', // Màu chủ đạo của BIDV
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        /* 1. THÊM BACKGROUND VÀO BODY - ĐÃ CẬP NHẬT URL CỦA BẠN */
+        body {
+            background-image: url('https://i.ibb.co/JF8BKJjV/server.png'); 
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        .glow-shadow-gold {
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
+        }
+
+        .custom-input {
+            background-color: #0a0d1b;
+            border: 2px solid #1c2135;
+            transition: all 0.2s;
+        }
+
+        .quantity-input {
+            -moz-appearance: textfield; 
+        }
+        .quantity-input::-webkit-outer-spin-button,
+        .quantity-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="bg-primary-dark text-white font-sans min-h-screen flex flex-col items-center">
+
+    <header class="w-full bg-secondary-dark/95 backdrop-blur-md shadow-lg border-b border-accent-gold/20 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 relative flex items-center justify-center">
+            
+            <div class="absolute left-4 top-1/2 transform -translate-y-1/2">
+                <a href="index.html" class="flex items-center space-x-2 text-slate-300 hover:text-accent-gold transition duration-200 group">
+                    <img src="img_src/icon_server.png" alt="Logo Server" class="h-8 w-8 object-contain">
+                    <span class="text-lg font-bold hidden md:inline">Trang Chủ</span>
+                </a>
+            </div>
+            
+            <h1 class="text-3xl font-extrabold text-accent-gold text-center">CỬA HÀNG NẠP TIỀN SKYHUNTER</h1>
+        </div>
+    </header>
+
+    <main class="max-w-6xl w-full mx-auto p-4 md:p-8 flex-grow bg-primary-dark/80 backdrop-blur-sm rounded-xl shadow-2xl mt-8">
+        
+        <h2 class="text-4xl font-extrabold text-bidv-green text-center mt-2 mb-4">CHỌN SỐ LƯỢNG GÓI NẠP</h2>
+        <p class="text-center text-slate-400 mb-8">Nạp từ 200.000 VNĐ nhận 10% Pha Lê. Từ 500.000 VNĐ nhận ngay 20% Pha Lê!</p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <div class="lg:col-span-1 p-6 bg-secondary-dark rounded-xl shadow-2xl border-2 border-bidv-green/50 h-fit order-2 lg:order-1">
+                <h3 class="text-3xl font-bold text-accent-gold mb-6 border-b border-accent-gold/30 pb-3">BƯỚC 1: THÔNG TIN</h3>
+                
+                <form id="depositForm" class="space-y-5">
+                    
+                    <div>
+                        <label for="username" class="block text-lg font-medium text-white mb-2">Tên Tài Khoản (In-game Name)</label>
+                        <input type="text" id="username" name="username" required
+                                 class="custom-input w-full p-3 rounded-lg text-lg placeholder-slate-500"
+                                 placeholder="Nhập tên tài khoản của bạn"
+                                 pattern="[A-Za-z0-9_]{3,16}"
+                                 oninput="calculateTotal()"> 
+                        <p class="text-sm text-red-400 mt-2" id="usernameError"></p>
+                    </div>
+
+                    <div class="bg-primary-dark p-4 rounded-lg border border-bidv-green/50">
+                        <h4 class="text-xl font-bold text-accent-gold mb-2">Thông tin tài khoản nhận</h4>
+                        <p class="text-slate-300">Ngân hàng: **BIDV (Đầu tư và Phát triển Việt Nam)**</p>
+                        <p class="text-slate-300">Số tài khoản: <span class="text-bidv-green font-bold" id="accountNoDisplay">8890956287</span></p>
+                        <p class="text-slate-300">Chủ tài khoản: <span class="text-bidv-green font-bold" id="accountNameDisplay">DOAN CHI BAO</span></p>
+                        <p class="text-sm text-yellow-400 mt-2">⚠️ Vui lòng đảm bảo Số Tài Khoản này là của BIDV.</p>
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="button" onclick="generateQR()"
+                            class="w-full bg-accent-blue hover:bg-blue-700 text-white text-xl font-bold py-3 rounded-lg transition duration-300 shadow-xl disabled:opacity-50"
+                            id="generateQrButton" disabled>
+                            BƯỚC 2: TẠO MÃ QR CHUYỂN KHOẢN
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="lg:col-span-2 p-6 bg-secondary-dark rounded-xl shadow-2xl border-2 border-accent-gold/50 glow-shadow-gold order-1 lg:order-2">
+                <h3 class="text-3xl font-bold text-promo-red text-center mb-6">CHỌN GÓI NẠP (NHẬP SỐ LƯỢNG)</h3>
+                
+                <table class="min-w-full text-left text-sm font-light">
+                    <thead class="border-b font-medium border-accent-gold/50 text-accent-gold">
+                        <tr>
+                            <th scope="col" class="px-3 py-3 text-lg">Mệnh Giá</th>
+                            <th scope="col" class="px-3 py-3 text-lg">Pha Lê Gốc</th>
+                            <th scope="col" class="px-3 py-3 text-lg text-center">Số Lượng</th>
+                            <th scope="col" class="px-3 py-3 text-lg text-right">Tạm Tính</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-slate-700 hover:bg-primary-dark/50" data-price="10000" data-crystal="1">
+                            <td class="whitespace-nowrap px-3 py-3 font-medium">10.000 VNĐ</td>
+                            <td class="whitespace-nowrap px-3 py-3 text-accent-gold font-bold">1</td>
+                            <td class="whitespace-nowrap px-3 py-3">
+                                <input type="number" min="0" value="0" class="quantity-input w-20 p-1 text-center bg-primary-dark border border-slate-600 rounded" oninput="calculateTotal()">
+                            </td>
+                            <td class="whitespace-nowrap px-3 py-3 text-right text-white font-semibold" data-temp-price>0 VNĐ</td>
+                        </tr>
+                        <tr class="border-b border-slate-700 hover:bg-primary-dark/50" data-price="50000" data-crystal="5" >
+                            <td class="whitespace-nowrap px-3 py-3 font-medium">50.000 VNĐ</td>
+                            <td class="whitespace-nowrap px-3 py-3 text-accent-gold font-bold">5</td>
+                            <td class="whitespace-nowrap px-3 py-3">
+                                <input type="number" min="0" value="0" class="quantity-input w-20 p-1 text-center bg-primary-dark border border-slate-600 rounded" oninput="calculateTotal()">
+                            </td>
+                            <td class="whitespace-nowrap px-3 py-3 text-right text-white font-semibold" data-temp-price>0 VNĐ</td>
+                        </tr>
+                        <tr class="border-b border-slate-700 hover:bg-primary-dark/50" data-price="100000" data-crystal="10">
+                            <td class="whitespace-nowrap px-3 py-3 font-medium">100.000 VNĐ</td>
+                            <td class="whitespace-nowrap px-3 py-3 text-accent-gold font-bold">10</td>
+                            <td class="whitespace-nowrap px-3 py-3">
+                                <input type="number" min="0" value="0" class="quantity-input w-20 p-1 text-center bg-primary-dark border border-slate-600 rounded" oninput="calculateTotal()">
+                            </td>
+                            <td class="whitespace-nowrap px-3 py-3 text-right text-white font-semibold" data-temp-price>0 VNĐ</td>
+                        </tr>
+                        <tr class="border-b border-slate-700 hover:bg-primary-dark/50" data-price="200000" data-crystal="20">
+                            <td class="whitespace-nowrap px-3 py-3 font-medium">200.000 VNĐ</td>
+                            <td class="whitespace-nowrap px-3 py-3 text-accent-gold font-bold">20</td>
+                            <td class="whitespace-nowrap px-3 py-3">
+                                <input type="number" min="0" value="0" class="quantity-input w-20 p-1 text-center bg-primary-dark border border-slate-600 rounded" oninput="calculateTotal()">
+                            </td>
+                            <td class="whitespace-nowrap px-3 py-3 text-right text-white font-semibold" data-temp-price>0 VNĐ</td>
+                        </tr>
+                        <tr class="border-b border-slate-700 hover:bg-primary-dark/50" data-price="500000" data-crystal="50">
+                            <td class="whitespace-nowrap px-3 py-3 font-medium">500.000 VNĐ</td>
+                            <td class="whitespace-nowrap px-3 py-3 text-accent-gold font-bold">50</td>
+                            <td class="whitespace-nowrap px-3 py-3">
+                                <input type="number" min="0" value="0" class="quantity-input w-20 p-1 text-center bg-primary-dark border border-slate-600 rounded" oninput="calculateTotal()">
+                            </td>
+                            <td class="whitespace-nowrap px-3 py-3 text-right text-white font-semibold" data-temp-price>0 VNĐ</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="mt-6 p-4 bg-primary-dark rounded-lg border-2 border-accent-gold/70">
+                    <div class="flex justify-between text-xl font-semibold py-1">
+                        <span>Tổng Tiền Nạp:</span>
+                        <span id="totalAmountDisplay" class="text-accent-blue">0 VNĐ</span>
+                    </div>
+                    <div class="flex justify-between text-xl font-semibold py-1 border-b border-slate-700">
+                        <span>Pha Lê Gốc:</span>
+                        <span id="baseCrystalContainer" class="text-accent-gold font-bold">
+                             <span id="baseCrystalDisplay">0</span> Pha Lê
+                        </span>
+                    </div>
+
+                    <div id="promoSection" class="hidden">
+                         <div class="flex justify-between text-lg font-medium pt-2">
+                            <span>Khuyến Mãi (<span id="promoPercentDisplay">0%</span>):</span>
+                            <span id="promoCrystalContainer" class="text-promo-red">
+                                + <span id="promoCrystalDisplay">0</span> Pha Lê
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between text-3xl font-extrabold pt-4">
+                        <span>TỔNG PHA LÊ NHẬN:</span>
+                        <span id="finalCrystalContainer" class="text-promo-red flex items-center space-x-2">
+                            <span id="finalCrystalDisplay">0</span>
+                            <img src="img_src/phalevip.png" alt="Pha Lê" class="h-7 w-7 object-contain">
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="qrCodeSection" class="mt-10 p-8 bg-secondary-dark rounded-xl shadow-2xl border-2 border-bidv-green/50 hidden">
+            <h3 class="text-3xl font-bold text-promo-red text-center mb-6">BƯỚC 3: QUÉT MÃ VÀ CHUYỂN KHOẢN</h3>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+                <div class="w-64 h-64 border-4 border-accent-gold rounded-lg p-2 bg-white flex items-center justify-center" id="qrContainer">
+                    <img id="qrImage" src="" alt="Mã QR Chuyển Khoản" class="w-full h-full object-contain" />
+                </div>
+                
+                <div class="text-left space-y-3">
+                    <p class="text-xl font-semibold text-white">Số tiền cần chuyển:</p>
+                    <p class="text-4xl font-extrabold text-promo-red" id="transferAmount">0 VNĐ</p>
+                    
+                    <p class="text-xl font-semibold text-white mt-4">Nội dung chuyển khoản **(Cực kỳ quan trọng)**:</p>
+                    <p class="text-2xl font-extrabold text-red-400 bg-primary-dark p-3 rounded-lg border border-red-400" id="transferContent">
+                        Vui lòng nhập Tên Tài Khoản
+                    </p>
+                    <p class="text-sm text-red-500 mt-2">Tuyệt đối **KHÔNG CHỈNH SỬA** nội dung. Mã này là duy nhất cho giao dịch của bạn.</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="w-full bg-secondary-dark border-t border-accent-gold/20 py-4 mt-auto">
+        <div class="max-w-6xl mx-auto px-4 text-center text-slate-400 text-sm">
+            <p>&copy; 2025 Cửa Hàng SkyHunter. TK BIDV: <span id="footerAccountNo">8890956287</span> <span id="footerAccountName">DOAN CHI BAO</span>. Mã QR có hiệu lực trong 30 phút.</p>
+        </div>
+    </footer>
+
+    <script>
+    // --- THÔNG TIN NGÂN HÀNG ---
+    const BANK_ID = 'BIDV';
+    const ACCOUNT_NO = '8890956287';
+    const ACCOUNT_NAME = 'DOAN CHI BAO';
+    const PREFIX = 'NapPlayer';
+
+    // --- CƠ CHẾ KHUYẾN MÃI ---
+    const PROMO_THRESHOLD_500K = 500000;
+    const PROMO_PERCENT_500K = 0.20;
+
+    const PROMO_THRESHOLD_200K = 200000;
+    const PROMO_PERCENT_200K = 0.10;
+
+    // --- CẬP NHẬT DOM ---
+    document.getElementById('accountNoDisplay').textContent = ACCOUNT_NO;
+    document.getElementById('accountNameDisplay').textContent = ACCOUNT_NAME;
+    document.getElementById('footerAccountNo').textContent = ACCOUNT_NO;
+    document.getElementById('footerAccountName').textContent = ACCOUNT_NAME;
+
+    const usernameInput = document.getElementById('username');
+    const generateQrButton = document.getElementById('generateQrButton');
+    const usernameError = document.getElementById('usernameError');
+    const packageRows = document.querySelectorAll('tbody tr');
+    const qrContainer = document.getElementById('qrContainer');
+    const qrSection = document.getElementById('qrCodeSection');
+
+    // CÁC PHẦN TỬ CẬP NHẬT TEXT
+    const baseCrystalDisplay = document.getElementById('baseCrystalDisplay');
+    const promoCrystalDisplay = document.getElementById('promoCrystalDisplay');
+    const finalCrystalDisplay = document.getElementById('finalCrystalDisplay');
+    const baseCrystalContainer = document.getElementById('baseCrystalContainer');
+    const promoCrystalContainer = document.getElementById('promoCrystalContainer');
+
+
+    let totalAmount = 0;
+    let finalContent = '';
+    let finalCrystalGlobal = 0;
+
+    function formatVND(amount) {
+        return Number(amount).toLocaleString('vi-VN') + ' VNĐ';
+    }
+
+    // --- TÍNH TIỀN + PHA LÊ ---
+    function calculateTotal() {
+        totalAmount = 0;
+        let baseCrystal = 0;
+
+        packageRows.forEach(row => {
+            const price = parseInt(row.getAttribute('data-price'));
+            const crystal = parseInt(row.getAttribute('data-crystal'));
+            const quantityInput = row.querySelector('input[type="number"]');
+            let quantity = parseInt(quantityInput.value) || 0;
+
+            if (quantity < 0) {
+                quantity = 0;
+                quantityInput.value = 0;
+            }
+
+            const tempPrice = price * quantity;
+            const tempCrystal = crystal * quantity;
+
+            totalAmount += tempPrice;
+            baseCrystal += tempCrystal;
+
+            row.querySelector('[data-temp-price]').textContent = formatVND(tempPrice);
+        });
+
+        // --- KHUYẾN MÃI ---
+        let promoCrystal = 0;
+        let promoPercent = 0;
+
+        if (totalAmount >= PROMO_THRESHOLD_500K) {
+            promoPercent = PROMO_PERCENT_500K;
+        } else if (totalAmount >= PROMO_THRESHOLD_200K) {
+            promoPercent = PROMO_PERCENT_200K;
+        }
+
+        if (promoPercent > 0) {
+            promoCrystal = Math.floor(baseCrystal * promoPercent);
+            document.getElementById('promoSection').classList.remove('hidden');
+            document.getElementById('promoPercentDisplay').textContent = `${Math.round(promoPercent * 100)}%`;
+        } else {
+            document.getElementById('promoSection').classList.add('hidden');
+            document.getElementById('promoPercentDisplay').textContent = `0%`;
+        }
+
+        const finalCrystal = baseCrystal + promoCrystal;
+        finalCrystalGlobal = finalCrystal;
+
+        document.getElementById('totalAmountDisplay').textContent = formatVND(totalAmount);
+        
+        // CẬP NHẬT PHA LÊ GỐC (chỉ text)
+        baseCrystalContainer.innerHTML = `<span id="baseCrystalDisplay">${baseCrystal.toString()}</span> Pha Lê`;
+        
+        // CẬP NHẬT KHUYẾN MÃI (chỉ text)
+        promoCrystalContainer.innerHTML = `+ <span id="promoCrystalDisplay">${promoCrystal.toString()}</span> Pha Lê`;
+
+        // CẬP NHẬT TỔNG PHA LÊ (text + image)
+        finalCrystalDisplay.textContent = finalCrystal.toString();
+        
+        updateTransferContent(finalCrystal);
+    }
+
+    // --- NỘI DUNG CHUYỂN KHOẢN ---
+    function updateTransferContent(finalCrystal = finalCrystalGlobal) {
+        const username = usernameInput.value.trim();
+        const isValidUsername = /^[A-Za-z0-9_]{3,16}$/.test(username);
+
+        if (totalAmount > 0 && isValidUsername && finalCrystal > 0) {
+            // Nội dung chuyển khoản mẫu: NapPlayer.....Tên_Người_Chơi.....Tổng_Pha_Lê
+            finalContent = `${PREFIX}.....${username}.....${finalCrystal}`;
+            document.getElementById('transferContent').textContent = finalContent;
+            generateQrButton.disabled = false;
+            usernameError.textContent = '';
+        } else if (!isValidUsername && username.length > 0) {
+            document.getElementById('transferContent').textContent = 'Vui lòng nhập Tên Tài Khoản hợp lệ';
+            usernameError.textContent = 'Tên tài khoản không hợp lệ (3-16 ký tự, chỉ chứa chữ, số, gạch dưới).';
+            generateQrButton.disabled = true;
+            qrSection.classList.add('hidden');
+        } else {
+            document.getElementById('transferContent').textContent = 'Vui lòng chọn gói nạp và nhập tên tài khoản';
+            usernameError.textContent = '';
+            generateQrButton.disabled = true;
+            qrSection.classList.add('hidden');
+        }
+    }
+
+    // --- TẠO QR VIETQR ---
+    function generateQR() {
+        if (totalAmount === 0 || generateQrButton.disabled) {
+            alert("Vui lòng chọn gói nạp và nhập tên tài khoản hợp lệ.");
+            return;
+        }
+
+        const content = finalContent;
+
+        // Cấu trúc URL VietQR chuẩn để lấy hình ảnh QR
+        const qrUrl =
+            `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-compact.png?amount=${totalAmount}&addInfo=${encodeURIComponent(content)}&accountName=${encodeURIComponent(ACCOUNT_NAME)}`;
+
+        qrContainer.innerHTML = '';
+
+        const newQrImage = document.createElement('img');
+        newQrImage.id = 'qrImage';
+        newQrImage.src = qrUrl;
+        newQrImage.alt = 'QR Chuyển Khoản';
+        newQrImage.className = 'w-full h-full object-contain';
+        newQrImage.style.display = 'block';
+
+        qrContainer.appendChild(newQrImage);
+        qrContainer.classList.add('bg-white', 'p-2');
+        qrContainer.classList.remove('flex', 'items-center', 'justify-center');
+
+        document.getElementById('transferAmount').textContent = formatVND(totalAmount);
+        qrSection.classList.remove('hidden');
+
+        qrSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        calculateTotal();
+        
+        // Thêm event listener cho input username để cập nhật nội dung chuyển khoản ngay lập tức
+        usernameInput.addEventListener('input', updateTransferContent);
+    });
+</script>
+
+
+</body>
+</html>

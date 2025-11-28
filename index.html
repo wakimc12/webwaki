@@ -1,463 +1,497 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <link rel="icon" type="image/x-icon" href="img_src/icon_server.png">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyHunter - Săn Quái, Nâng Cấp, Khai Phá!</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary-dark': '#0a0d1b',
-                        'secondary-dark': '#1c2135',
-                        'accent-blue': '#4c7cff',
-                        'accent-gold': '#ffcc00',
-                        'mc-green': '#4CAF50',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    backgroundImage: {
-                        'hero-pattern': 'linear-gradient(135deg, rgba(10, 13, 27, 0.95) 0%, rgba(28, 33, 53, 0.9) 100%)',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        
-        #home, #features, #trailer, #donate {
-            scroll-margin-top: 6rem;
-        }
+    <link rel="icon" type="image/x-icon" href="img_src/icon_server.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyHunter - Săn Quái, Nâng Cấp, Khai Phá!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#0a0d1b',
+                        'secondary-dark': '#1c2135',
+                        'accent-blue': '#4c7cff',
+                        'accent-gold': '#ffcc00',
+                        'mc-green': '#4CAF50',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': 'linear-gradient(135deg, rgba(10, 13, 27, 0.95) 0%, rgba(28, 33, 53, 0.9) 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Đảm bảo scroll khi click vào menu */
+        #home, #features, #trailer, #donate {
+            scroll-margin-top: 6rem;
+        }
 
-        .hero-section {
-            background: linear-gradient(rgba(10, 13, 27, 0.75), rgba(10, 13, 27, 0.9)), 
-                         url('https://i.ibb.co/JF8BKJjV/server.png'); 
-            background-size: cover;
-            background-position: center;
-            min-height: 85vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        /* Hero Section - KẾT HỢP GRADIENT VÀ BACKGROUND IMAGE */
+        .hero-section {
+            background: linear-gradient(rgba(10, 13, 27, 0.75), rgba(10, 13, 27, 0.9)), 
+                        url('https://i.ibb.co/JF8BKJjV/server.png'); 
+            background-size: cover;
+            background-position: center;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-        @keyframes pulse-light {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.01); opacity: 0.95; }
-        }
-        
-        .title-animate {
-            animation: pulse-light 4s infinite ease-in-out;
-        }
+        /* Keyframes cho hiệu ứng Pulse */
+        @keyframes pulse-light {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.01); opacity: 0.95; }
+        }
+        
+        .title-animate {
+            animation: pulse-light 4s infinite ease-in-out;
+        }
 
-        .glow-shadow-blue {
-            box-shadow: 0 0 15px rgba(76, 124, 255, 0.5), 0 0 5px rgba(76, 124, 255, 0.8);
-        }
-        .glow-shadow-gold {
-            box-shadow: 0 0 15px rgba(255, 204, 0, 0.5), 0 0 5px rgba(255, 204, 0, 0.8);
-        }
+        /* Hiệu ứng Glow Shadow */
+        .glow-shadow-blue {
+            box-shadow: 0 0 15px rgba(76, 124, 255, 0.5), 0 0 5px rgba(76, 124, 255, 0.8);
+        }
+        .glow-shadow-gold {
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.5), 0 0 5px rgba(255, 204, 0, 0.8);
+        }
 
-        .btn-primary {
-            transition: all 0.2s;
-            box-shadow: 0 5px 20px rgba(76, 124, 255, 0.6);
-            animation: pulse-light 3s infinite ease-in-out;
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(76, 124, 255, 0.8);
-            animation: none;
-        }
+        /* Nút Primary (Màu xanh) */
+        .btn-primary {
+            transition: all 0.2s;
+            box-shadow: 0 5px 20px rgba(76, 124, 255, 0.6);
+            animation: pulse-light 3s infinite ease-in-out;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(76, 124, 255, 0.8);
+            animation: none;
+        }
 
-        /* Thêm class mới cho nút tải pack (ví dụ) */
-        .btn-secondary {
-            transition: all 0.2s;
-            box-shadow: 0 5px 20px rgba(255, 204, 0, 0.6); /* Đổi màu shadow cho khác biệt */
-            animation: pulse-light 3s infinite ease-in-out;
-        }
-        .btn-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(255, 204, 0, 0.8);
-            animation: none;
-        }
-        
-        .feature-card {
-            transition: all 0.3s ease-in-out;
-        }
-        .feature-card:hover {
-            border-color: #ffcc00;
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(255, 204, 0, 0.25);
-        }
+        /* Nút Secondary (Màu vàng) - Giữ lại style này dù đã bỏ nút trong trang chủ */
+        .btn-secondary {
+            transition: all 0.2s;
+            box-shadow: 0 5px 20px rgba(255, 204, 0, 0.6); 
+            animation: pulse-light 3s infinite ease-in-out;
+        }
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(255, 204, 0, 0.8);
+            animation: none;
+        }
+        
+        /* Feature Card */
+        .feature-card {
+            transition: all 0.3s ease-in-out;
+        }
+        .feature-card:hover {
+            border-color: #ffcc00;
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(255, 204, 0, 0.25);
+        }
 
-        .feature-icon {
-            width: 64px; 
-            height: 64px;
-            margin-left: auto;
-            margin-right: auto;
-            filter: drop-shadow(0 0 8px rgba(255, 204, 0, 0.8));
-            transition: transform 0.3s;
-        }
-        .feature-card:hover .feature-icon {
-             transform: rotate(3deg) scale(1.1);
-        }
+        /* Feature Icon */
+        .feature-icon {
+            width: 64px; 
+            height: 64px;
+            margin-left: auto;
+            margin-right: auto;
+            filter: drop-shadow(0 0 8px rgba(255, 204, 0, 0.8));
+            transition: transform 0.3s;
+        }
+        .feature-card:hover .feature-icon {
+             transform: rotate(3deg) scale(1.1);
+        }
 
-        .detail-icon {
-            width: 32px; 
-            height: 32px;
-            margin-right: 12px;
-            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6));
-        }
+        /* Detail Icon */
+        .detail-icon {
+            width: 32px; 
+            height: 32px;
+            margin-right: 12px;
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6));
+        }
 
-        .trailer-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 1rem;
-        }
-        .trailer-container iframe,
-        .trailer-container img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
-    </style>
+        /* Trailer Container */
+        .trailer-container {
+            position: relative;
+            padding-bottom: 56.25%; /* Tỷ lệ 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+        .trailer-container iframe,
+        .trailer-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Icon trong nút Donate (nếu dùng ảnh nhỏ) */
+        .button-icon {
+            width: 32px;
+            height: 32px;
+            margin-right: 8px;
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6));
+        }
+    </style>
 </head>
 <body class="bg-primary-dark text-white font-sans">
 
-    <header class="sticky top-0 z-50 bg-secondary-dark/95 backdrop-blur-md shadow-2xl border-b border-accent-blue/20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-        <a href="#" class="flex items-center space-x-2">
-            <img src="img_src/icon_server.png" 
-                onerror="this.onerror=null; this.src='https://placehold.co/48x48/ffcc00/0a0d1b?text=SH';"
-                alt="Server Icon" 
-                class="w-16 h-16 object-cover rounded-full shadow-lg border-2 border-accent-gold"
-            />
-        </a>
-        
-        <nav class="hidden md:flex space-x-8 text-lg font-medium">
-            <a href="#home" class="text-white hover:text-accent-gold transition duration-150">Trang Chủ</a>
-            <a href="#features" class="text-white hover:text-accent-gold transition duration-150">Lối Chơi</a>
-            <a href="#trailer" class="text-white hover:text-accent-gold transition duration-150">Trailer</a>
-            <a href="#donate" class="text-white hover:text-accent-gold transition duration-150">Nạp Thẻ</a>
-            <a href="https://discord.gg/hnMT4UR3aH" target="_blank" class="text-white bg-accent-blue px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-150 shadow-md">Discord</a>
-        </nav>
-        
-        <div class="md:hidden">
-            <button class="text-white focus:outline-none p-2 rounded-md hover:bg-secondary-dark/50">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-        </div>
-    </div>
+    <header class="sticky top-0 z-50 bg-secondary-dark/95 backdrop-blur-md shadow-2xl border-b border-accent-blue/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex justify-between items-center">
+        <a href="#" class="flex items-center space-x-2">
+            <img src="img_src/icon_server.png" 
+                onerror="this.onerror=null; this.src='https://placehold.co/48x48/ffcc00/0a0d1b?text=SH';"
+                alt="Server Icon" 
+                class="w-12 h-12 object-cover rounded-full shadow-lg border-2 border-accent-gold"
+            />
+            <span class="text-2xl font-black text-accent-gold hidden sm:block">SkyHunter</span>
+        </a>
+        
+        <nav class="hidden md:flex space-x-8 text-lg font-medium items-center">
+            <a href="#home" class="text-white hover:text-accent-gold transition duration-150">Trang Chủ</a>
+            <a href="#features" class="text-white hover:text-accent-gold transition duration-150">Lối Chơi</a>
+            <a href="#trailer" class="text-white hover:text-accent-gold transition duration-150">Trailer</a>
+            <a href="#donate" class="text-white hover:text-accent-gold transition duration-150">Nạp Thẻ</a>
+            <a href="https://discord.gg/hnMT4UR3aH" target="_blank" class="text-white bg-accent-blue px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-150 shadow-md">Discord</a>
+        </nav>
+        
+        <div class="md:hidden">
+            <button class="text-white focus:outline-none p-2 rounded-md hover:bg-secondary-dark/50">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </div>
 </header>
 
-    <main>
-        <section id="home" class="hero-section text-center p-8">
-            <div class="max-w-5xl space-y-8 p-8 md:p-14 rounded-2xl shadow-2xl backdrop-blur-sm border border-accent-blue/30 glow-shadow-blue title-animate">
-                <h1 class="text-5xl md:text-8xl font-extrabold leading-tight tracking-tighter">
-                    <span class="text-accent-gold">SKYHUNTER</span>
-                </h1>
-                
-                <p class="text-xl md:text-3xl font-semibold text-slate-300">
-                    Săn Quái, Đi Hầm Ngục, Nâng Cấp Trang Bị — Cuộc Phiêu Lưu Bắt Đầu Từ Đảo Của Bạn!
-                </p>
+    <main>
+        <section id="home" class="hero-section text-center p-8">
+            <div class="max-w-4xl space-y-6 p-6 md:p-10 rounded-2xl shadow-2xl backdrop-blur-sm border border-accent-blue/30 glow-shadow-blue title-animate">
+                <h1 class="text-4xl md:text-7xl font-extrabold leading-tight tracking-tighter">
+                    <span class="text-accent-gold">SKYHUNTER</span>
+                </h1>
+                
+                <p class="text-lg md:text-2xl font-semibold text-slate-300">
+                    Săn Quái, Đi Hầm Ngục, Nâng Cấp Trang Bị — Cuộc Phiêu Lưu Bắt Đầu!
+                </p>
 
-                <div class="space-y-4 pt-4 md:flex md:justify-center md:space-x-4 md:space-y-0">
-                                        <button id="joinButton" class="btn-primary w-full md:w-auto text-2xl font-black px-12 py-4 rounded-xl bg-accent-blue hover:bg-blue-600 transition duration-300" onclick="copyIP('play.skymc.online')">
-                        <span class="flex items-center justify-center">
-                            <svg class="w-7 h-7 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3v-1m3-4H5a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2h-3"></path></svg>
-                            BẮT ĐẦU CHƠI NGAY
-                        </span>
-                    </button>
-                                        <a href="pack_download.html" class="btn-secondary w-full md:w-auto text-2xl font-black px-12 py-4 rounded-xl bg-accent-gold text-primary-dark hover:bg-yellow-600 transition duration-300 flex items-center justify-center" target="_blank">
-                        <svg class="w-7 h-7 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                        TẢI PACK MÁY CHỦ
-                    </a>
-                </div>
+                <div class="space-y-4 pt-4 flex justify-center">
+                    <button id="joinButton" class="btn-primary w-full md:w-auto text-2xl font-black px-12 py-4 rounded-xl bg-accent-blue hover:bg-blue-600 transition duration-300" onclick="copyIP('play.skymc.online')">
+                        <span class="flex items-center justify-center">
+                            <svg class="w-7 h-7 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3v-1m3-4H5a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2h-3"></path></svg>
+                            BẮT ĐẦU CHƠI NGAY
+                        </span>
+                    </button>
+                    </div>
 
-                <div class="flex items-center justify-center space-x-3">
-                    <span id="ipDisplay" class="text-2xl md:text-3xl font-mono px-6 py-3 bg-secondary-dark rounded-xl border border-accent-gold/50 cursor-pointer glow-shadow-gold/50" onclick="copyIP('play.skymc.online')">
-                        play.skymc.online
-                    </span>
-                    <span id="copyMessage" class="text-mc-green text-lg hidden font-bold">Đã sao chép!</span>
-                </div>
+                <div class="flex items-center justify-center space-x-3 pt-2">
+                    <span id="ipDisplay" class="text-xl md:text-2xl font-mono px-5 py-2 bg-secondary-dark rounded-xl border border-accent-gold/50 cursor-pointer glow-shadow-gold/50" onclick="copyIP('play.skymc.online')">
+                        play.skymc.online
+                    </span>
+                    <span id="copyMessage" class="text-mc-green text-base hidden font-bold">Đã sao chép!</span>
+                </div>
 
-                <div class="pt-6">
-                    <span id="serverStatus" class="inline-flex items-center px-4 py-2 rounded-full text-lg font-semibold bg-mc-green text-white shadow-md">
-                        <span class="w-3 h-3 bg-white rounded-full mr-2 animate-pulse"></span>
-                        Đang tải trạng thái server...
-                    </span>
-                </div>
-            </div>
-        </section>
+                <div class="pt-4">
+                    <span id="serverStatus" class="inline-flex items-center px-4 py-2 rounded-full text-base font-semibold bg-mc-green text-white shadow-md">
+                        <span class="w-3 h-3 bg-white rounded-full mr-2 animate-pulse"></span>
+                        Đang tải trạng thái server...
+                    </span>
+                </div>
+            </div>
+        </section>
 
-        <section id="trailer" class="py-16 bg-primary-dark">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="text-5xl font-extrabold text-accent-gold mb-10">TRAILER CHÍNH THỨC</h2>
-                
-                <div class="p-4 bg-secondary-dark rounded-xl shadow-2xl border-4 border-accent-blue/50">
-                    <div class="trailer-container">
-                        <iframe 
-                            src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen
-                            title="Trailer Server SkyHunter (Ví dụ)">
-                        </iframe>
-                    </div>
-                    <p class="text-slate-400 mt-4 text-sm italic">
-                        Trailer máy chủ!
-                    </p>
-                </div>
-                            </div>
-        </section>
+        <section id="trailer" class="py-16 bg-primary-dark">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-5xl font-extrabold text-accent-gold mb-10">TRAILER CHÍNH THỨC 🎬</h2>
+                
+                <div class="p-4 bg-secondary-dark rounded-xl shadow-2xl border-4 border-accent-blue/50">
+                    <div class="trailer-container">
+                        <iframe 
+                            src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen
+                            title="Trailer Server SkyHunter (Ví dụ)">
+                        </iframe>
+                    </div>
+                    <p class="text-slate-400 mt-4 text-sm italic">
+                        Trailer máy chủ!
+                    </p>
+                </div>
+            </div>
+        </section>
 
-        <section id="features" class="py-20 bg-primary-dark">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="text-5xl font-extrabold text-accent-gold mb-16">KHÁM PHÁ LỐI CHƠI ĐỘC QUYỀN</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    
-                    <div class="feature-card bg-primary-dark p-6 rounded-xl shadow-xl transition duration-300 border-2 border-primary-dark hover:border-accent-gold">
-                        <div class="mb-4">
-                            <img src="img_src/island.png" 
-                                onerror="this.onerror=null; this.src='https://placehold.co/64x64/4c7cff/ffffff?text=ISLAND';"
-                              alt="Icon Hòn Đảo Cá Nhân" 
-                            class="feature-icon" />
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">Hòn Đảo Cá Nhân</h3>
-                        <p class="text-slate-400">
-                            Khởi đầu cuộc phiêu lưu trên hòn đảo của riêng bạn. Thiết lập căn cứ và mở rộng giới hạn khai phá.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card bg-primary-dark p-6 rounded-xl shadow-xl transition duration-300 border-2 border-primary-dark hover:border-accent-gold">
-                        <div class="mb-4">
-                            <img src="img_src/dungeon.png" 
-                                onerror="this.onerror=null; this.src='https://placehold.co/64x64/ffcc00/1c2135?text=DUNGEON';"
-                                alt="Icon Hầm Ngục & Săn Boss" 
-                              class="feature-icon" />
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">Hầm Ngục & Săn Boss</h3>
-                        <p class="text-slate-400">
-                            Thách thức các hầm ngục đa dạng, săn lùng quái vật mạnh mẽ để kiếm tài nguyên hiếm và trang bị huyền thoại.
-                        </p>
-                    </div>
+        <section id="features" class="py-20 bg-primary-dark">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-5xl font-extrabold text-accent-gold mb-16">KHÁM PHÁ LỐI CHƠI ĐỘC QUYỀN ✨</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                    <div class="feature-card bg-secondary-dark p-6 rounded-xl shadow-xl transition duration-300 border-2 border-secondary-dark hover:border-accent-gold">
+                        <div class="mb-4">
+                            <img src="img_src/island.png" 
+                                onerror="this.onerror=null; this.src='https://placehold.co/64x64/4c7cff/ffffff?text=ISLAND';"
+                                alt="Icon Hòn Đảo Cá Nhân" 
+                                class="feature-icon" />
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Hòn Đảo Cá Nhân</h3>
+                        <p class="text-slate-400">
+                            Khởi đầu cuộc phiêu lưu trên hòn đảo của riêng bạn. Thiết lập căn cứ và mở rộng giới hạn khai phá.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card bg-secondary-dark p-6 rounded-xl shadow-xl transition duration-300 border-2 border-secondary-dark hover:border-accent-gold">
+                        <div class="mb-4">
+                            <img src="img_src/dungeon.png" 
+                                onerror="this.onerror=null; this.src='https://placehold.co/64x64/ffcc00/1c2135?text=DUNGEON';"
+                                alt="Icon Hầm Ngục & Săn Boss" 
+                                class="feature-icon" />
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Hầm Ngục & Săn Boss</h3>
+                        <p class="text-slate-400">
+                            Thách thức các hầm ngục đa dạng, săn lùng quái vật mạnh mẽ để kiếm tài nguyên hiếm và trang bị huyền thoại.
+                        </p>
+                    </div>
 
-                    <div class="feature-card bg-primary-dark p-6 rounded-xl shadow-xl transition duration-300 border-2 border-primary-dark hover:border-accent-gold">
-                        <div class="mb-4">
-                            <img src="img_src/tien.png" 
-                                onerror="this.onerror=null; this.src='https://placehold.co/64x64/ef4444/1c2135?text=ECONOMY';"
-                                alt="Icon Thị Trường & Nâng Cấp" 
-                                class="feature-icon" />
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">Thị Trường & Nâng Cấp</h3>
-                        <p class="text-slate-400">
-                            Sử dụng tiền tệ để nâng cấp trang bị, mua bán vật phẩm với người chơi khác, và xây dựng cơ ngơi.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card bg-primary-dark p-6 rounded-xl shadow-xl transition duration-300 border-2 border-primary-dark hover:border-accent-gold">
-                        <div class="mb-4">
-                            <img src="img_src/pvp.png" 
-                              onerror="this.onerror=null; this.src='https://placehold.co/64x64/10b981/1c2135?text=PVP';"
-                              alt="Icon Đấu Trường PvP" 
-                              class="feature-icon" />
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">Đấu Trường PvP</h3>
-                        <p class="text-slate-400">
-                            Chế độ nhỏ nơi bạn có thể thử thách kỹ năng chiến đấu với những người chơi khác và leo hạng vinh quang.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
+                    <div class="feature-card bg-secondary-dark p-6 rounded-xl shadow-xl transition duration-300 border-2 border-secondary-dark hover:border-accent-gold">
+                        <div class="mb-4">
+                            <img src="img_src/tien.png" 
+                                onerror="this.onerror=null; this.src='https://placehold.co/64x64/ef4444/1c2135?text=ECONOMY';"
+                                alt="Icon Thị Trường & Nâng Cấp" 
+                                class="feature-icon" />
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Thị Trường & Nâng Cấp</h3>
+                        <p class="text-slate-400">
+                            Sử dụng tiền tệ để nâng cấp trang bị, mua bán vật phẩm với người chơi khác, và xây dựng cơ ngơi.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card bg-secondary-dark p-6 rounded-xl shadow-xl transition duration-300 border-2 border-secondary-dark hover:border-accent-gold">
+                        <div class="mb-4">
+                            <img src="img_src/pvp.png" 
+                                onerror="this.onerror=null; this.src='https://placehold.co/64x64/10b981/1c2135?text=PVP';"
+                                alt="Icon Đấu Trường PvP" 
+                                class="feature-icon" />
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Đấu Trường PvP</h3>
+                        <p class="text-slate-400">
+                            Chế độ nhỏ nơi bạn có thể thử thách kỹ năng chiến đấu với những người chơi khác và leo hạng vinh quang.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <section id="gameplay" class="py-20 bg-secondary-dark">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-4xl font-extrabold text-accent-blue text-center mb-12">HỆ THỐNG TRANG BỊ VÀ THU THẬP</h2>
-                
-                <div class="flex flex-col lg:flex-row items-center space-y-10 lg:space-y-0 lg:space-x-12">
-                    <div class="lg:w-1/2 p-4 rounded-xl bg-primary-dark border border-accent-gold/30 glow-shadow-gold/30">
-                        <img src="img_src/dungeon_im.png" 
-                              onerror="this.onerror=null; this.src='https://placehold.co/800x450/1e293b/ffffff?text=H%C3%80M+NG%E1%BB%A4C+V%C3%80+TRANG+B%E1%BB%8A';"
-                              alt="Hình ảnh Trang bị Tùy chỉnh và Hầm ngục" 
-                              class="rounded-lg w-full h-auto object-cover border-4 border-accent-gold/50" />
-                    </div>
-                    
-                    <div class="lg:w-1/2 space-y-6">
-                        
-                        <div class="p-4 bg-primary-dark rounded-lg border-l-4 border-accent-gold shadow-lg">
-                            <h3 class="text-2xl font-bold text-accent-gold mb-2 flex items-center">
-                                <img src="img_src/3.png" 
-                                    onerror="this.onerror=null; this.src='https://placehold.co/32x32/ffcc00/1c2135?text=R';"
-                                    alt="Icon Tài Nguyên" 
-                                    class="detail-icon" />
-                                Tài Nguyên Tùy Biến
-                            </h3>
-                            <p class="text-slate-300">
-                                Khai thác các loại khoáng sản và tài nguyên mới chỉ có tại SkyHunter. Chúng là chìa khóa để chế tạo những vật phẩm mạnh mẽ nhất.
-                            </p>
-                        </div>
-                        
-                        <div class="p-4 bg-primary-dark rounded-lg border-l-4 border-accent-blue shadow-lg">
-                            <h3 class="text-2xl font-bold text-accent-blue mb-2 flex items-center">
-                                <img src="img_src/2.png" 
-                                    onerror="this.onerror=null; this.src='https://placehold.co/32x32/4c7cff/ffffff?text=C';"
-                                    class="detail-icon" />
-                                Chế Tạo Đồ Hiếm
-                            </h3>
-                            <p class="text-slate-300">
-                                Hệ thống chế tạo nâng cao cho phép bạn thêm các chỉ số và bùa phép (Enchants) độc đáo vào trang bị, tạo nên phong cách chiến đấu riêng.
-                            </p>
-                        </div>
-                        
-                        <div class="p-4 bg-primary-dark rounded-lg border-l-4 border-mc-green shadow-lg">
-                            <h3 class="text-2xl font-bold text-mc-green mb-2 flex items-center">
-                                <img src="img_src/1.png" 
-                                    onerror="this.onerror=null; this.src='https://placehold.co/32x32/4CAF50/1c2135?text=B';"
-                                    alt="Icon Xây Dựng" 
-                                    class="detail-icon" />
-                                Xây Dựng & Thư Giãn
-                            </h3>
-                            <p class="text-slate-300">
-                                Sau những trận chiến căng thẳng, trở về hòn đảo của mình để xây nhà, trang trí và thư giãn cùng bạn bè.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <section id="gameplay" class="py-20 bg-secondary-dark">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-extrabold text-accent-blue text-center mb-12">HỆ THỐNG TRANG BỊ VÀ THU THẬP ⚔️</h2>
+                
+                <div class="flex flex-col lg:flex-row items-center space-y-10 lg:space-y-0 lg:space-x-12">
+                    <div class="lg:w-1/2 p-4 rounded-xl bg-primary-dark border border-accent-gold/30 glow-shadow-gold/30">
+                        <img src="img_src/dungeon_im.png" 
+                                onerror="this.onerror=null; this.src='https://placehold.co/800x450/1e293b/ffffff?text=H%C3%80M+NG%E1%BB%A4C+V%C3%80+TRANG+B%E1%BB%8A';"
+                                alt="Hình ảnh Trang bị Tùy chỉnh và Hầm ngục" 
+                                class="rounded-lg w-full h-auto object-cover border-4 border-accent-gold/50" />
+                    </div>
+                    
+                    <div class="lg:w-1/2 space-y-6">
+                        
+                        <div class="p-4 bg-primary-dark rounded-lg border-l-4 border-accent-gold shadow-lg">
+                            <h3 class="text-2xl font-bold text-accent-gold mb-2 flex items-center">
+                                <img src="img_src/3.png" 
+                                        onerror="this.onerror=null; this.src='https://placehold.co/32x32/ffcc00/1c2135?text=R';"
+                                        alt="Icon Tài Nguyên" 
+                                        class="detail-icon" />
+                                Tài Nguyên Tùy Biến
+                            </h3>
+                            <p class="text-slate-300">
+                                Khai thác các loại khoáng sản và tài nguyên mới chỉ có tại SkyHunter. Chúng là chìa khóa để chế tạo những vật phẩm mạnh mẽ nhất.
+                            </p>
+                        </div>
+                        
+                        <div class="p-4 bg-primary-dark rounded-lg border-l-4 border-accent-blue shadow-lg">
+                            <h3 class="text-2xl font-bold text-accent-blue mb-2 flex items-center">
+                                <img src="img_src/2.png" 
+                                        onerror="this.onerror=null; this.src='https://placehold.co/32x32/4c7cff/ffffff?text=C';"
+                                        class="detail-icon" />
+                                Chế Tạo Đồ Hiếm
+                            </h3>
+                            <p class="text-slate-300">
+                                Hệ thống chế tạo nâng cao cho phép bạn thêm các chỉ số và bùa phép (Enchants) độc đáo vào trang bị, tạo nên phong cách chiến đấu riêng.
+                            </p>
+                        </div>
+                        
+                        <div class="p-4 bg-primary-dark rounded-lg border-l-4 border-mc-green shadow-lg">
+                            <h3 class="text-2xl font-bold text-mc-green mb-2 flex items-center">
+                                <img src="img_src/1.png" 
+                                        onerror="this.onerror=null; this.src='https://placehold.co/32x32/4CAF50/1c2135?text=B';"
+                                        alt="Icon Xây Dựng" 
+                                        class="detail-icon" />
+                                Xây Dựng & Thư Giãn
+                            </h3>
+                            <p class="text-slate-300">
+                                Sau những trận chiến căng thẳng, trở về hòn đảo của mình để xây nhà, trang trí và thư giãn cùng bạn bè.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <section id="donate" class="py-16 bg-primary-dark text-center">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 p-10 bg-secondary-dark rounded-2xl shadow-2xl border border-accent-gold/30">
-        <h2 class="text-4xl font-extrabold text-accent-gold mb-4">Cửa Hàng & Nạp Thẻ</h2>
-        <p class="text-xl text-slate-300 mb-8">
-            Ủng hộ để giúp server duy trì hoạt động và nhận về các vật phẩm hoặc quyền lợi độc quyền trong game.
-        </p>
-        <a href="napte.html" target="_blank" class="inline-block text-2xl font-bold px-10 py-3 rounded-full bg-accent-gold text-primary-dark hover:bg-yellow-600 transition duration-300 shadow-xl glow-shadow-gold">
-            <span class="flex items-center">
-                <img src="img_src/phalevip.png" 
-                    alt="Icon Pha Lê" class="button-icon" />
-                Nhấn Để Đi Đến Store
-            </span>
-        </a>
-    </div>
-</section>
+        <section id="donate" class="py-16 bg-primary-dark text-center">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 p-10 bg-secondary-dark rounded-2xl shadow-2xl border border-accent-gold/30">
+                <h2 class="text-4xl font-extrabold text-accent-gold mb-4">Cửa Hàng & Nạp Thẻ 💎</h2>
+                <p class="text-xl text-slate-300 mb-8">
+                    Ủng hộ để giúp server duy trì hoạt động và nhận về các vật phẩm hoặc quyền lợi độc quyền trong game.
+                </p>
+                <a href="napte.html" target="_blank" class="inline-block text-2xl font-bold px-10 py-3 rounded-full bg-accent-gold text-primary-dark hover:bg-yellow-600 transition duration-300 shadow-xl glow-shadow-gold">
+                    <span class="flex items-center justify-center">
+                        <img src="img_src/phalevip.png" 
+                            onerror="this.onerror=null; this.src='https://placehold.co/32x32/ffcc00/0a0d1b?text=S';"
+                            alt="Icon Pha Lê" class="button-icon" />
+                        Nhấn Để Đi Đến Store
+                    </span>
+                </a>
+            </div>
+        </section>
 
-        <section id="discord" class="py-16 bg-secondary-dark text-center">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 p-10 bg-primary-dark rounded-2xl shadow-2xl border border-accent-blue/30">
-        <h2 class="text-4xl font-extrabold text-white mb-4">CỘNG ĐỒNG THỢ SĂN LỚN NHẤT</h2>
-        <p class="text-xl text-slate-300 mb-8">
-            Tham gia Discord để nhận Code Quà Tặng tân thủ, thông báo sự kiện hàng ngày và hỗ trợ nhanh nhất!
-        </p>
-        <a href="https://discord.gg/hnMT4UR3aH" target="_blank" class="inline-block text-2xl font-bold px-10 py-3 rounded-full bg-accent-blue text-white hover:bg-blue-600 transition duration-300 shadow-xl glow-shadow-blue">
-            <span class="flex items-center">
-                <img src="img_src/discord.png" 
-                  onerror="this.onerror=null; this.src='https://placehold.co/32x32/5865F2/ffffff?text=D';"
-                    alt="Icon Discord" class="button-icon" />
-                Tham Gia Discord SKYHUNTER
-            </span>
-        </a>
-    </div>
-</section>
+        <section id="discord" class="py-16 bg-secondary-dark text-center">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 p-10 bg-primary-dark rounded-2xl shadow-2xl border border-accent-blue/30">
+                <h2 class="text-4xl font-extrabold text-white mb-4">CỘNG ĐỒNG THỢ SĂN LỚN NHẤT 💬</h2>
+                <p class="text-xl text-slate-300 mb-8">
+                    Tham gia Discord để nhận Code Quà Tặng tân thủ, thông báo sự kiện hàng ngày và hỗ trợ nhanh nhất!
+                </p>
+                <a href="https://discord.gg/hnMT4UR3aH" target="_blank" class="inline-block text-2xl font-bold px-10 py-3 rounded-full bg-accent-blue text-white hover:bg-blue-600 transition duration-300 shadow-xl glow-shadow-blue">
+                    <span class="flex items-center justify-center">
+                        <img src="img_src/discord.png" 
+                            onerror="this.onerror=null; this.src='https://placehold.co/32x32/5865F2/ffffff?text=D';"
+                            alt="Icon Discord" class="button-icon" />
+                        Tham Gia Discord SKYHUNTER
+                    </span>
+                </a>
+            </div>
+        </section>
 
-    </main>
+    </main>
 
-    <footer class="bg-secondary-dark border-t border-accent-gold/20 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-400">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
-                <div>
-                    <h4 class="text-white font-bold mb-2">Liên Kết</h4>
-                    <ul class="space-y-1">
-                        <li><a href="#features" class="hover:text-accent-gold">Lối Chơi</a></li>
-                        <li><a href="#trailer" class="hover:text-accent-gold">Trailer</a></li>
-                        <li><a href="#donate" class="hover:text-accent-gold">Ủng Hộ (Shop)</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-white font-bold mb-2">Hỗ Trợ</h4>
-                    <p>Email: support@skymc.online</p>
-                    <p>Phiên bản: 1.20.4 - 1.21.6+</p>
-                </div>
-                <div>
-                    <h4 class="text-white font-bold mb-2">Kết Nối</h4>
-                    <p>
-                        <a href="https://facebook.com/skymc" target="_blank" class="hover:text-accent-blue mx-1">Facebook</a> | 
-                        <a href="https://tiktok.com/@skymc" target="_blank" class="hover:text-accent-blue mx-1">TikTok</a>
-                    </p>
-                </div>
-            </div>
-            <p class="mt-8 pt-4 border-t border-slate-700">
-                &copy; 2025 SkyHunter Minecraft Server. All rights reserved. Design by **@waki**
-            </p>
-        </div>
-    </footer>
+    <footer class="bg-secondary-dark border-t border-accent-gold/20 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-400">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
+                <div>
+                    <h4 class="text-white font-bold mb-2">Liên Kết</h4>
+                    <ul class="space-y-1">
+                        <li><a href="#features" class="hover:text-accent-gold transition">Lối Chơi</a></li>
+                        <li><a href="#trailer" class="hover:text-accent-gold transition">Trailer</a></li>
+                        <li><a href="#donate" class="hover:text-accent-gold transition">Ủng Hộ (Shop)</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-2">Hỗ Trợ</h4>
+                    <p>Email: support@skymc.online</p>
+                    <p>Phiên bản: 1.20.4 - 1.21.6+</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-2">Kết Nối</h4>
+                    <p>
+                        <a href="https://facebook.com/skymc" target="_blank" class="hover:text-accent-blue mx-1 transition">Facebook</a> | 
+                        <a href="https://tiktok.com/@skymc" target="_blank" class="hover:text-accent-blue mx-1 transition">TikTok</a>
+                    </p>
+                </div>
+            </div>
+            <p class="mt-8 pt-4 border-t border-slate-700 text-sm">
+                &copy; 2025 SkyHunter Minecraft Server. All rights reserved. Design by **@waki**
+            </p>
+        </div>
+    </footer>
 
-    <script>
-        const SERVER_ADDRESS = 'play.skymc.online';
-        const statusElement = document.getElementById('serverStatus');
+    <script>
+        const SERVER_ADDRESS = 'play.skymc.online';
+        const statusElement = document.getElementById('serverStatus');
 
-        function displayFixedStatus() {
-            statusElement.classList.remove('bg-gray-500', 'bg-red-500');
-            statusElement.classList.add('bg-mc-green');
-            
-            statusElement.innerHTML = `
-                <span class="w-3 h-3 bg-white rounded-full mr-2 animate-ping"></span>
-                Đang Hoạt Động
-            `;
-        }
+        function displayFixedStatus() {
+            // Thay đổi màu nền ban đầu (từ 'Đang tải...')
+            statusElement.classList.remove('bg-gray-500', 'bg-red-500');
+            statusElement.classList.add('bg-mc-green');
+            
+            // Cập nhật trạng thái
+            statusElement.innerHTML = `
+                <span class="w-3 h-3 bg-white rounded-full mr-2 animate-ping"></span>
+                Đang Hoạt Động
+            `;
+        }
 
-        function copyIP(ip) {
-            const tempInput = document.createElement('input');
-            tempInput.value = ip;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            
-            let success = false;
-            try {
-                success = document.execCommand('copy');
-            } catch (err) {
-                console.error('Lỗi khi sao chép IP:', err);
-            }
+        function copyIP(ip) {
+            const tempInput = document.createElement('input');
+            tempInput.value = ip;
+            document.body.appendChild(tempInput);
+            
+            // Xử lý sao chép (tối ưu cho các trình duyệt hiện đại)
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(ip)
+                    .then(() => {
+                        showCopyMessage('Đã sao chép IP: ' + ip + '!');
+                    })
+                    .catch(err => {
+                        fallbackCopy(tempInput, ip);
+                    })
+            } else {
+                fallbackCopy(tempInput, ip);
+            }
 
-            document.body.removeChild(tempInput);
+            document.body.removeChild(tempInput);
+        }
+        
+        // Phương thức sao chép dự phòng cho trình duyệt cũ
+        function fallbackCopy(tempInput, ip) {
+            tempInput.select();
+            let success = false;
+            try {
+                success = document.execCommand('copy');
+            } catch (err) {
+                console.error('Lỗi khi sao chép IP:', err);
+            }
+            
+            if (success) {
+                showCopyMessage('Đã sao chép IP: ' + ip + '!');
+            } else {
+                 showCopyMessage('Lỗi sao chép! Hãy sao chép thủ công: ' + ip, true);
+            }
+        }
 
-            const copyMessage = document.getElementById('copyMessage');
-            if (success) {
-                copyMessage.textContent = 'Đã sao chép IP: ' + ip + '!';
-                copyMessage.classList.remove('hidden');
-                copyMessage.classList.add('inline-block');
-                
-                setTimeout(() => {
-                    copyMessage.classList.add('hidden');
-                    copyMessage.classList.remove('inline-block');
-                }, 3000);
-            } else {
-                copyMessage.textContent = 'Lỗi sao chép! Hãy sao chép thủ công: ' + ip;
-                copyMessage.classList.remove('hidden');
-                copyMessage.classList.remove('text-mc-green');
-                copyMessage.classList.add('text-red-400');
-                
-                setTimeout(() => {
-                    copyMessage.classList.add('hidden');
-                    copyMessage.classList.remove('text-red-400');
-                    copyMessage.classList.add('text-mc-green');
-                }, 5000);
-            }
-        }
-        
-        window.onload = function() {
-            displayFixedStatus();
-        }
-    </script>
+        function showCopyMessage(message, isError = false) {
+            const copyMessage = document.getElementById('copyMessage');
+            copyMessage.textContent = message;
+            
+            copyMessage.classList.remove('hidden', 'text-mc-green', 'text-red-400');
+            copyMessage.classList.add(isError ? 'text-red-400' : 'text-mc-green', 'inline-block');
+            
+            setTimeout(() => {
+                copyMessage.classList.add('hidden');
+                copyMessage.classList.remove('inline-block');
+                if (isError) {
+                    copyMessage.classList.remove('text-red-400');
+                    copyMessage.classList.add('text-mc-green'); // reset color
+                }
+            }, isError ? 5000 : 3000);
+        }
+        
+        // Khởi động khi trang tải xong
+        window.onload = function() {
+            displayFixedStatus();
+        }
+    </script>
 </body>
 </html>

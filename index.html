@@ -21,9 +21,6 @@
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                    },
-                    backgroundImage: {
-                        'hero-pattern': 'linear-gradient(135deg, rgba(10, 13, 27, 0.95) 0%, rgba(28, 33, 53, 0.9) 100%)',
                     }
                 }
             }
@@ -31,106 +28,216 @@
     </script>
     
     <style>
-        /* Đảm bảo scroll khi click vào menu */
-        #home, #features, #trailer, #donate {
-            scroll-margin-top: 6rem;
+        * {
+            scroll-behavior: smooth;
         }
 
-        /* Hero Section - KẾT HỢP GRADIENT VÀ BACKGROUND IMAGE */
+        #home, #features, #trailer, #donate {
+            scroll-margin-top: 6rem; 
+        }
+
+        .mobile-menu {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .mobile-menu.open {
+            max-height: 500px; 
+            opacity: 1;
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
         .hero-section {
-            background: linear-gradient(rgba(10, 13, 27, 0.75), rgba(10, 13, 27, 0.9)), 
-                        url('https://i.ibb.co/JF8BKJjV/server.png'); 
-            background-size: cover;
-            background-position: center;
+            position: relative;
+            background: linear-gradient(135deg, #0a0d1b 0%, #1c2135 50%, #0a0d1b 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             min-height: 85vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
         }
 
-        /* Keyframes cho hiệu ứng Pulse */
-        @keyframes pulse-light {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.01); opacity: 0.95; }
-        }
-        
-        .title-animate {
-            animation: pulse-light 4s infinite ease-in-out;
-        }
-
-        /* Hiệu ứng Glow Shadow */
-        .glow-shadow-blue {
-            box-shadow: 0 0 15px rgba(76, 124, 255, 0.5), 0 0 5px rgba(76, 124, 255, 0.8);
-        }
-        .glow-shadow-gold {
-            box-shadow: 0 0 15px rgba(255, 204, 0, 0.5), 0 0 5px rgba(255, 204, 0, 0.8);
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://i.ibb.co/JF8BKJjV/server.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            animation: zoomPulse 20s ease-in-out infinite;
         }
 
-        /* Nút Primary (Màu xanh) */
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes zoomPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(255, 204, 0, 0.5), 0 0 30px rgba(255, 204, 0, 0.3); }
+            50% { text-shadow: 0 0 30px rgba(255, 204, 0, 0.8), 0 0 50px rgba(255, 204, 0, 0.5); }
+        }
+
+        @keyframes shine {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes pulseScale {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes rotate360 {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .title-main {
+            animation: glow 3s ease-in-out infinite;
+            background: linear-gradient(90deg, #ffcc00, #ffd700, #ffcc00);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shine 3s linear infinite, glow 3s ease-in-out infinite;
+        }
+
         .btn-primary {
-            transition: all 0.2s;
-            box-shadow: 0 5px 20px rgba(76, 124, 255, 0.6);
-            animation: pulse-light 3s infinite ease-in-out;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(76, 124, 255, 0.5);
         }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(76, 124, 255, 0.8);
-            animation: none;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(76, 124, 255, 0.8);
         }
 
-        /* Nút Secondary (Màu vàng) - Giữ lại style này dù đã bỏ nút trong trang chủ */
-        .btn-secondary {
-            transition: all 0.2s;
-            box-shadow: 0 5px 20px rgba(255, 204, 0, 0.6); 
-            animation: pulse-light 3s infinite ease-in-out;
+        .btn-primary:active {
+            transform: translateY(-2px) scale(1.02);
         }
-        .btn-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(255, 204, 0, 0.8);
-            animation: none;
+
+        .ip-box {
+            position: relative;
+            background: linear-gradient(135deg, #1c2135, #0a0d1b);
+            animation: pulseScale 3s ease-in-out infinite;
+            z-index: 2;
         }
-        
-        /* Feature Card */
+
+        .ip-box::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg, #ffcc00, #4c7cff, #ffcc00);
+            background-size: 400% 400%;
+            border-radius: 0.75rem;
+            z-index: -1;
+            animation: gradientShift 3s ease infinite;
+        }
+
         .feature-card {
-            transition: all 0.3s ease-in-out;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
+
         .feature-card:hover {
-            border-color: #ffcc00;
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(255, 204, 0, 0.25);
+            transform: translateY(-15px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 25px 60px rgba(255, 204, 0, 0.4);
         }
 
-        /* Feature Icon */
         .feature-icon {
-            width: 64px; 
+            width: 64px;
             height: 64px;
-            margin-left: auto;
-            margin-right: auto;
-            filter: drop-shadow(0 0 8px rgba(255, 204, 0, 0.8));
-            transition: transform 0.3s;
-        }
-        .feature-card:hover .feature-icon {
-             transform: rotate(3deg) scale(1.1);
+            margin: 0 auto;
+            filter: drop-shadow(0 0 15px rgba(255, 204, 0, 0.8));
+            transition: all 0.4s ease;
+            animation: float 4s ease-in-out infinite;
         }
 
-        /* Detail Icon */
+        .feature-card:hover .feature-icon {
+            transform: rotate(360deg) scale(1.2);
+            filter: drop-shadow(0 0 25px rgba(255, 204, 0, 1));
+        }
+
         .detail-icon {
-            width: 32px; 
+            width: 32px;
             height: 32px;
             margin-right: 12px;
-            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6));
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+            transition: transform 0.3s ease;
         }
 
-        /* Trailer Container */
+        .detail-box:hover .detail-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
         .trailer-container {
             position: relative;
-            padding-bottom: 56.25%; /* Tỷ lệ 16:9 */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             border-radius: 1rem;
+            box-shadow: 0 20px 60px rgba(76, 124, 255, 0.5);
+            transition: all 0.4s ease;
         }
-        .trailer-container iframe,
-        .trailer-container img {
+
+        .trailer-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 80px rgba(76, 124, 255, 0.7);
+        }
+
+        .trailer-container iframe {
             position: absolute;
             top: 0;
             left: 0;
@@ -138,50 +245,163 @@
             height: 100%;
             border: none;
         }
-        
-        /* Icon trong nút Donate (nếu dùng ảnh nhỏ) */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        header {
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        nav a {
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ffcc00, #4c7cff);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
         .button-icon {
             width: 32px;
             height: 32px;
             margin-right: 8px;
-            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6));
+            transition: transform 0.4s ease;
+        }
+
+        .btn-gold:hover .button-icon {
+            transform: rotate(360deg) scale(1.1);
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(135deg, #1c2135, #0a0d1b);
+            border-radius: 1rem;
+            z-index: 2;
+        }
+
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: linear-gradient(45deg, #4c7cff, #ffcc00, #4c7cff);
+            background-size: 400% 400%;
+            border-radius: 1rem;
+            z-index: -1;
+            animation: gradientShift 4s ease infinite;
+        }
+
+        @media (max-width: 768px) {
+            .feature-card:hover {
+                transform: translateY(-10px);
+            }
+            
+            .hero-content {
+                animation: float 8s ease-in-out infinite;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0d1b;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #4c7cff, #ffcc00);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #ffcc00, #4c7cff);
         }
     </style>
 </head>
 <body class="bg-primary-dark text-white font-sans">
 
-    <header class="sticky top-0 z-50 bg-secondary-dark/95 backdrop-blur-md shadow-2xl border-b border-accent-blue/20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex justify-between items-center">
-        <a href="#" class="flex items-center space-x-2">
-            <img src="img_src/icon_server.png" 
-                onerror="this.onerror=null; this.src='https://placehold.co/48x48/ffcc00/0a0d1b?text=SH';"
-                alt="Server Icon" 
-                class="w-12 h-12 object-cover rounded-full shadow-lg border-2 border-accent-gold"
-            />
-            <span class="text-2xl font-black text-accent-gold hidden sm:block">SkyHunter</span>
-        </a>
-        
-        <nav class="hidden md:flex space-x-8 text-lg font-medium items-center">
-            <a href="#home" class="text-white hover:text-accent-gold transition duration-150">Trang Chủ</a>
-            <a href="#features" class="text-white hover:text-accent-gold transition duration-150">Lối Chơi</a>
-            <a href="#trailer" class="text-white hover:text-accent-gold transition duration-150">Trailer</a>
-            <a href="#donate" class="text-white hover:text-accent-gold transition duration-150">Nạp Thẻ</a>
-            <a href="https://discord.gg/hnMT4UR3aH" target="_blank" class="text-white bg-accent-blue px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-150 shadow-md">Discord</a>
-        </nav>
-        
-        <div class="md:hidden">
-            <button class="text-white focus:outline-none p-2 rounded-md hover:bg-secondary-dark/50">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
+    <header id="header" class="sticky top-0 z-50 bg-secondary-dark/95 backdrop-blur-md shadow-2xl border-b border-accent-blue/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-2">
+                <img src="img_src/icon_server.png" 
+                    onerror="this.onerror=null; this.src='https://placehold.co/48x48/ffcc00/0a0d1b?text=SH';"
+                    alt="Server Icon" 
+                    class="w-12 h-12 object-cover rounded-full shadow-lg border-2 border-accent-gold transition-transform duration-300 hover:scale-110 hover:rotate-12"
+                />
+                <span class="text-2xl font-black text-accent-gold hidden sm:block">SkyHunter</span>
+            </a>
+            
+            <nav class="hidden md:flex space-x-8 text-lg font-medium items-center">
+                <a href="#home" class="text-white hover:text-accent-gold transition duration-150">Trang Chủ</a>
+                <a href="#features" class="text-white hover:text-accent-gold transition duration-150">Lối Chơi</a>
+                <a href="#trailer" class="text-white hover:text-accent-gold transition duration-150">Trailer</a>
+                <a href="#donate" class="text-white hover:text-accent-gold transition duration-150">Nạp Thẻ</a>
+                <a href="https://discord.gg/hnMT4UR3aH" target="_blank" class="text-white bg-accent-blue px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-150 shadow-md hover:shadow-xl hover:scale-105">Discord</a>
+            </nav>
+            
+            <div class="md:hidden">
+                <button id="mobileMenuButton" class="text-white focus:outline-none p-2 rounded-md hover:bg-secondary-dark/50">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
         </div>
-    </div>
-</header>
 
-    <main>
+        <nav id="mobileMenu" class="mobile-menu md:hidden bg-secondary-dark/95 w-full">
+            <div class="px-4 pb-4 space-y-2 flex flex-col text-center font-medium">
+                <a href="#home" class="block py-2 text-white hover:text-accent-gold hover:bg-primary-dark/50 rounded-lg transition" onclick="toggleMobileMenu()">Trang Chủ</a>
+                <a href="#features" class="block py-2 text-white hover:text-accent-gold hover:bg-primary-dark/50 rounded-lg transition" onclick="toggleMobileMenu()">Lối Chơi</a>
+                <a href="#trailer" class="block py-2 text-white hover:text-accent-gold hover:bg-primary-dark/50 rounded-lg transition" onclick="toggleMobileMenu()">Trailer</a>
+                <a href="#donate" class="block py-2 text-white hover:text-accent-gold hover:bg-primary-dark/50 rounded-lg transition" onclick="toggleMobileMenu()">Nạp Thẻ</a>
+                <a href="https://discord.gg/hnMT4UR3aH" target="_blank" class="block mt-4 text-white bg-accent-blue px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-150 shadow-md" onclick="toggleMobileMenu()">Discord</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="z-10 relative">
         <section id="home" class="hero-section text-center p-8">
-            <div class="max-w-4xl space-y-6 p-6 md:p-10 rounded-2xl shadow-2xl backdrop-blur-sm border border-accent-blue/30 glow-shadow-blue title-animate">
+            <div id="particles-js"></div>
+            
+            <div class="hero-content max-w-4xl space-y-6 p-6 md:p-10 rounded-2xl shadow-2xl backdrop-blur-sm border border-accent-blue/30">
                 <h1 class="text-4xl md:text-7xl font-extrabold leading-tight tracking-tighter">
-                    <span class="text-accent-gold">SKYHUNTER</span>
+                    <span class="title-main">SKYHUNTER</span>
                 </h1>
                 
                 <p class="text-lg md:text-2xl font-semibold text-slate-300">
@@ -189,16 +409,16 @@
                 </p>
 
                 <div class="space-y-4 pt-4 flex justify-center">
-                    <button id="joinButton" class="btn-primary w-full md:w-auto text-2xl font-black px-12 py-4 rounded-xl bg-accent-blue hover:bg-blue-600 transition duration-300" onclick="copyIP('play.skymc.online')">
-                        <span class="flex items-center justify-center">
+                    <button class="btn-primary w-full md:w-auto text-2xl font-black px-12 py-4 rounded-xl bg-accent-blue hover:bg-blue-600 transition duration-300" onclick="copyIP('play.skymc.online')">
+                        <span class="flex items-center justify-center relative z-10">
                             <svg class="w-7 h-7 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3v-1m3-4H5a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2h-3"></path></svg>
                             BẮT ĐẦU CHƠI NGAY
                         </span>
                     </button>
-                    </div>
+                </div>
 
                 <div class="flex items-center justify-center space-x-3 pt-2">
-                    <span id="ipDisplay" class="text-xl md:text-2xl font-mono px-5 py-2 bg-secondary-dark rounded-xl border border-accent-gold/50 cursor-pointer glow-shadow-gold/50" onclick="copyIP('play.skymc.online')">
+                    <span class="ip-box text-xl md:text-2xl font-mono px-5 py-2 rounded-xl cursor-pointer" onclick="copyIP('play.skymc.online')">
                         play.skymc.online
                     </span>
                     <span id="copyMessage" class="text-mc-green text-base hidden font-bold">Đã sao chép!</span>
@@ -212,8 +432,8 @@
                 </div>
             </div>
         </section>
-
-        <section id="trailer" class="py-16 bg-primary-dark">
+        
+        <section id="trailer" class="py-16 bg-primary-dark reveal">
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h2 class="text-5xl font-extrabold text-accent-gold mb-10">TRAILER CHÍNH THỨC 🎬</h2>
                 
@@ -224,7 +444,7 @@
                             frameborder="0" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                             allowfullscreen
-                            title="Trailer Server SkyHunter (Ví dụ)">
+                            title="Trailer Server SkyHunter">
                         </iframe>
                     </div>
                     <p class="text-slate-400 mt-4 text-sm italic">
@@ -234,7 +454,7 @@
             </div>
         </section>
 
-        <section id="features" class="py-20 bg-primary-dark">
+        <section id="features" class="py-20 bg-primary-dark reveal">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h2 class="text-5xl font-extrabold text-accent-gold mb-16">KHÁM PHÁ LỐI CHƠI ĐỘC QUYỀN ✨</h2>
                 
@@ -295,26 +515,26 @@
             </div>
         </section>
 
-        <section id="gameplay" class="py-20 bg-secondary-dark">
+        <section id="gameplay" class="py-20 bg-secondary-dark reveal">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-4xl font-extrabold text-accent-blue text-center mb-12">HỆ THỐNG TRANG BỊ VÀ THU THẬP ⚔️</h2>
                 
                 <div class="flex flex-col lg:flex-row items-center space-y-10 lg:space-y-0 lg:space-x-12">
-                    <div class="lg:w-1/2 p-4 rounded-xl bg-primary-dark border border-accent-gold/30 glow-shadow-gold/30">
+                    <div class="lg:w-1/2 p-4 rounded-xl bg-primary-dark border border-accent-gold/30 transition-all duration-500 hover:scale-105 hover:shadow-2xl">
                         <img src="img_src/dungeon_im.png" 
                                 onerror="this.onerror=null; this.src='https://placehold.co/800x450/1e293b/ffffff?text=H%C3%80M+NG%E1%BB%A4C+V%C3%80+TRANG+B%E1%BB%8A';"
-                                alt="Hình ảnh Trang bị Tùy chỉnh và Hầm ngục" 
+                                alt="Hình ảnh Trang bị" 
                                 class="rounded-lg w-full h-auto object-cover border-4 border-accent-gold/50" />
                     </div>
                     
                     <div class="lg:w-1/2 space-y-6">
                         
-                        <div class="p-4 bg-primary-dark rounded-lg border-l-4 border-accent-gold shadow-lg">
+                        <div class="detail-box p-4 bg-primary-dark rounded-lg border-l-4 border-accent-gold shadow-lg transition-all duration-300 hover:transform hover:translate-x-2">
                             <h3 class="text-2xl font-bold text-accent-gold mb-2 flex items-center">
                                 <img src="img_src/3.png" 
-                                        onerror="this.onerror=null; this.src='https://placehold.co/32x32/ffcc00/1c2135?text=R';"
-                                        alt="Icon Tài Nguyên" 
-                                        class="detail-icon" />
+                                    onerror="this.onerror=null; this.src='https://placehold.co/32x32/ffcc00/1c2135?text=R';"
+                                    alt="Icon Tài Nguyên" 
+                                    class="detail-icon" />
                                 Tài Nguyên Tùy Biến
                             </h3>
                             <p class="text-slate-300">
@@ -322,11 +542,11 @@
                             </p>
                         </div>
                         
-                        <div class="p-4 bg-primary-dark rounded-lg border-l-4 border-accent-blue shadow-lg">
+                        <div class="detail-box p-4 bg-primary-dark rounded-lg border-l-4 border-accent-blue shadow-lg transition-all duration-300 hover:transform hover:translate-x-2">
                             <h3 class="text-2xl font-bold text-accent-blue mb-2 flex items-center">
                                 <img src="img_src/2.png" 
-                                        onerror="this.onerror=null; this.src='https://placehold.co/32x32/4c7cff/ffffff?text=C';"
-                                        class="detail-icon" />
+                                    onerror="this.onerror=null; this.src='https://placehold.co/32x32/4c7cff/ffffff?text=C';"
+                                    class="detail-icon" />
                                 Chế Tạo Đồ Hiếm
                             </h3>
                             <p class="text-slate-300">
@@ -334,12 +554,12 @@
                             </p>
                         </div>
                         
-                        <div class="p-4 bg-primary-dark rounded-lg border-l-4 border-mc-green shadow-lg">
+                        <div class="detail-box p-4 bg-primary-dark rounded-lg border-l-4 border-mc-green shadow-lg transition-all duration-300 hover:transform hover:translate-x-2">
                             <h3 class="text-2xl font-bold text-mc-green mb-2 flex items-center">
                                 <img src="img_src/1.png" 
-                                        onerror="this.onerror=null; this.src='https://placehold.co/32x32/4CAF50/1c2135?text=B';"
-                                        alt="Icon Xây Dựng" 
-                                        class="detail-icon" />
+                                    onerror="this.onerror=null; this.src='https://placehold.co/32x32/4CAF50/1c2135?text=B';"
+                                    alt="Icon Xây Dựng" 
+                                    class="detail-icon" />
                                 Xây Dựng & Thư Giãn
                             </h3>
                             <p class="text-slate-300">
@@ -351,13 +571,13 @@
             </div>
         </section>
 
-        <section id="donate" class="py-16 bg-primary-dark text-center">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 p-10 bg-secondary-dark rounded-2xl shadow-2xl border border-accent-gold/30">
+        <section id="donate" class="py-16 bg-primary-dark text-center reveal">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 p-10 gradient-border shadow-2xl">
                 <h2 class="text-4xl font-extrabold text-accent-gold mb-4">Cửa Hàng & Nạp Thẻ 💎</h2>
                 <p class="text-xl text-slate-300 mb-8">
                     Ủng hộ để giúp server duy trì hoạt động và nhận về các vật phẩm hoặc quyền lợi độc quyền trong game.
                 </p>
-                <a href="napte.html" target="_blank" class="inline-block text-2xl font-bold px-10 py-3 rounded-full bg-accent-gold text-primary-dark hover:bg-yellow-600 transition duration-300 shadow-xl glow-shadow-gold">
+                <a href="napte.html" target="_blank" class="btn-gold inline-block text-2xl font-bold px-10 py-3 rounded-full bg-accent-gold text-primary-dark hover:bg-yellow-600 transition duration-300 shadow-xl">
                     <span class="flex items-center justify-center">
                         <img src="img_src/phalevip.png" 
                             onerror="this.onerror=null; this.src='https://placehold.co/32x32/ffcc00/0a0d1b?text=S';"
@@ -368,13 +588,13 @@
             </div>
         </section>
 
-        <section id="discord" class="py-16 bg-secondary-dark text-center">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 p-10 bg-primary-dark rounded-2xl shadow-2xl border border-accent-blue/30">
+        <section id="discord" class="py-16 bg-secondary-dark text-center reveal">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 p-10 gradient-border shadow-2xl">
                 <h2 class="text-4xl font-extrabold text-white mb-4">CỘNG ĐỒNG THỢ SĂN LỚN NHẤT 💬</h2>
                 <p class="text-xl text-slate-300 mb-8">
                     Tham gia Discord để nhận Code Quà Tặng tân thủ, thông báo sự kiện hàng ngày và hỗ trợ nhanh nhất!
                 </p>
-                <a href="https://discord.gg/hnMT4UR3aH" target="_blank" class="inline-block text-2xl font-bold px-10 py-3 rounded-full bg-accent-blue text-white hover:bg-blue-600 transition duration-300 shadow-xl glow-shadow-blue">
+                <a href="https://discord.gg/hnMT4UR3aH" target="_blank" class="btn-gold inline-block text-2xl font-bold px-10 py-3 rounded-full bg-accent-blue text-white hover:bg-blue-600 transition duration-300 shadow-xl">
                     <span class="flex items-center justify-center">
                         <img src="img_src/discord.png" 
                             onerror="this.onerror=null; this.src='https://placehold.co/32x32/5865F2/ffffff?text=D';"
@@ -416,17 +636,45 @@
             </p>
         </div>
     </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
     <script>
         const SERVER_ADDRESS = 'play.skymc.online';
         const statusElement = document.getElementById('serverStatus');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const header = document.getElementById('header');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('open');
+        }
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+
+        function initParticles() {
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                    "color": { "value": "#ffcc00" }, 
+                    "shape": { "type": "circle" },
+                    "opacity": { "value": 0.5, "random": false, "anim": { "enable": false } },
+                    "size": { "value": 3, "random": true, "anim": { "enable": false } },
+                    "line_linked": { "enable": true, "distance": 150, "color": "#4c7cff", "opacity": 0.4, "width": 1 },
+                    "move": { "enable": true, "speed": 4, "direction": "none", "random": false, "straight": false, "out_mode": "out" }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+                    "modes": { "repulse": { "distance": 100, "duration": 0.4 } }
+                },
+                "retina_detect": true
+            });
+        }
 
         function displayFixedStatus() {
-            // Thay đổi màu nền ban đầu (từ 'Đang tải...')
-            statusElement.classList.remove('bg-gray-500', 'bg-red-500');
+            statusElement.classList.remove('bg-gray-500', 'bg-red-500', 'animate-pulse');
             statusElement.classList.add('bg-mc-green');
             
-            // Cập nhật trạng thái
             statusElement.innerHTML = `
                 <span class="w-3 h-3 bg-white rounded-full mr-2 animate-ping"></span>
                 Đang Hoạt Động
@@ -438,7 +686,6 @@
             tempInput.value = ip;
             document.body.appendChild(tempInput);
             
-            // Xử lý sao chép (tối ưu cho các trình duyệt hiện đại)
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(ip)
                     .then(() => {
@@ -454,7 +701,6 @@
             document.body.removeChild(tempInput);
         }
         
-        // Phương thức sao chép dự phòng cho trình duyệt cũ
         function fallbackCopy(tempInput, ip) {
             tempInput.select();
             let success = false;
@@ -467,7 +713,7 @@
             if (success) {
                 showCopyMessage('Đã sao chép IP: ' + ip + '!');
             } else {
-                 showCopyMessage('Lỗi sao chép! Hãy sao chép thủ công: ' + ip, true);
+                showCopyMessage('Lỗi sao chép! Hãy sao chép thủ công: ' + ip, true);
             }
         }
 
@@ -483,14 +729,39 @@
                 copyMessage.classList.remove('inline-block');
                 if (isError) {
                     copyMessage.classList.remove('text-red-400');
-                    copyMessage.classList.add('text-mc-green'); // reset color
+                    copyMessage.classList.add('text-mc-green'); 
                 }
             }, isError ? 5000 : 3000);
         }
+
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const revealTop = reveals[i].getBoundingClientRect().top;
+                const revealPoint = 150;
+                if (revealTop < windowHeight - revealPoint) {
+                    reveals[i].classList.add('active');
+                } else {
+                    reveals[i].classList.remove('active');
+                }
+            }
+        }
+        function handleScroll() {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            revealOnScroll(); 
+        }
+
         
-        // Khởi động khi trang tải xong
+        window.addEventListener('scroll', handleScroll);
         window.onload = function() {
             displayFixedStatus();
+            initParticles(); 
+            revealOnScroll(); 
         }
     </script>
 </body>

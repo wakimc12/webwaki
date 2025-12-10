@@ -4,19 +4,21 @@
     <link rel="icon" type="image/x-icon" href="img_src/icon_server.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nạp ATM/QR | Nạp Thẻ SkyHunter</title>
+    <title>Nạp ATM/QR | Nạp Thẻ SkyHunter - Nâng Cấp</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+        // Màu sắc mới và cấu hình Tailwind
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'primary-dark': '#0a0d1b',
-                        'secondary-dark': '#1c2135',
-                        'accent-blue': '#4c7cff',
-                        'accent-gold': '#ffcc00',
-                        'promo-red': '#ff4c4c',
-                        'bidv-green': '#006C5B',
+                        'primary-dark': '#0d111c', // Nền tối hơn
+                        'secondary-dark': '#1e2637', // Nền khối phụ
+                        'accent-blue': '#5c95ff', // Blue sáng hơn, bắt mắt hơn
+                        'accent-gold': '#ffcc00', // Vàng chủ đạo
+                        'promo-red': '#ff5a5a', // Đỏ khuyến mãi
+                        'bidv-green': '#008c73', // Xanh BIDV sáng hơn
+                        'event-bg': '#30184b', 
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -26,6 +28,7 @@
                         'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
                         'slide-up': 'slide-up 0.5s ease-out',
                         'shimmer': 'shimmer 2s linear infinite',
+                        'pulse-event': 'pulse-event 1.5s infinite',
                     },
                     keyframes: {
                         float: {
@@ -33,8 +36,8 @@
                             '50%': { transform: 'translateY(-10px)' },
                         },
                         'pulse-glow': {
-                            '0%, 100%': { boxShadow: '0 0 20px rgba(255, 204, 0, 0.3)' },
-                            '50%': { boxShadow: '0 0 40px rgba(255, 204, 0, 0.6)' },
+                            '0%, 100%': { boxShadow: '0 0 20px rgba(255, 204, 0, 0.4)' },
+                            '50%': { boxShadow: '0 0 40px rgba(255, 204, 0, 0.8)' },
                         },
                         'slide-up': {
                             '0%': { opacity: '0', transform: 'translateY(20px)' },
@@ -43,6 +46,10 @@
                         shimmer: {
                             '0%': { backgroundPosition: '-1000px 0' },
                             '100%': { backgroundPosition: '1000px 0' },
+                        },
+                        'pulse-event': {
+                            '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+                            '50%': { opacity: '0.95', transform: 'scale(1.02)' },
                         },
                     },
                 }
@@ -53,8 +60,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     
     <style>
+        /* Thay đổi màu nền tổng thể */
         body {
-            background: linear-gradient(135deg, #0a0d1b 0%, #1a1d35 50%, #0a0d1b 100%);
+            background: linear-gradient(135deg, #0d111c 0%, #1a2033 50%, #0d111c 100%);
             background-size: 400% 400%;
             animation: gradient 15s ease infinite;
             position: relative;
@@ -67,7 +75,7 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Particles background */
+        /* Particles background - màu sắc nổi bật hơn */
         body::before {
             content: '';
             position: fixed;
@@ -76,114 +84,57 @@
             width: 100%;
             height: 100%;
             background-image: 
-                radial-gradient(circle at 20% 50%, rgba(76, 124, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 204, 0, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(255, 76, 76, 0.1) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(92, 149, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 204, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 90, 90, 0.15) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
         }
 
+        /* Hiệu ứng Glass/Mờ */
         .glass-effect {
-            background: rgba(28, 33, 53, 0.7);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(30, 38, 55, 0.9); /* Độ mờ cao hơn */
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
         }
 
+        /* Bóng đổ sáng */
         .glow-shadow-gold {
-            box-shadow: 0 0 30px rgba(255, 204, 0, 0.3), 0 0 60px rgba(255, 204, 0, 0.1);
+            box-shadow: 0 0 40px rgba(255, 204, 0, 0.5), 0 0 80px rgba(255, 204, 0, 0.2);
         }
 
         .glow-shadow-blue {
-            box-shadow: 0 0 30px rgba(76, 124, 255, 0.3), 0 0 60px rgba(76, 124, 255, 0.1);
+            box-shadow: 0 0 40px rgba(92, 149, 255, 0.5), 0 0 80px rgba(92, 149, 255, 0.2);
         }
 
-        .glow-shadow-red {
-            box-shadow: 0 0 30px rgba(255, 76, 76, 0.3), 0 0 60px rgba(255, 76, 76, 0.1);
-        }
-
+        /* Input tùy chỉnh */
         .custom-input {
-            background: rgba(10, 13, 27, 0.8);
-            border: 2px solid rgba(76, 124, 255, 0.3);
+            background: rgba(13, 17, 28, 0.9);
+            border: 2px solid rgba(92, 149, 255, 0.4);
             transition: all 0.3s ease;
+            color: #fff;
         }
 
         .custom-input:focus {
             outline: none;
-            border-color: #4c7cff;
-            box-shadow: 0 0 20px rgba(76, 124, 255, 0.4);
-            transform: translateY(-2px);
+            border-color: #5c95ff;
+            box-shadow: 0 0 20px rgba(92, 149, 255, 0.6);
         }
 
-        .custom-input:hover {
-            border-color: rgba(76, 124, 255, 0.5);
-        }
-
-        .quantity-input {
-            -moz-appearance: textfield;
-            background: rgba(10, 13, 27, 0.9);
-            transition: all 0.2s;
-            border: none; /* Bỏ border trên input để border nằm ở div bao ngoài */
-        }
-        
-        .quantity-input::-webkit-outer-spin-button,
-        .quantity-input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        .quantity-input:focus {
-            outline: none;
-        }
-
-        .quantity-control-btn {
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            line-height: 1;
-            font-weight: bold;
-            color: #0a0d1b;
-            background-color: #ffcc00;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .quantity-control-btn:hover {
-            background-color: #ffde59;
-            transform: scale(1.05);
-        }
-
+        /* Hàng gói nạp */
         .package-row {
             transition: all 0.3s ease;
             position: relative;
         }
 
-        .package-row::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 3px;
-            background: linear-gradient(180deg, #4c7cff, #ffcc00);
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
-        }
-
         .package-row:hover {
-            background: rgba(76, 124, 255, 0.1);
-            transform: translateX(5px);
+            background: rgba(92, 149, 255, 0.15); /* Màu hover nổi hơn */
         }
-
-        .package-row:hover::before {
-            transform: scaleY(1);
-        }
-
+        
+        /* Text lấp lánh */
         .shimmer-text {
-            background: linear-gradient(90deg, #fff 0%, #ffcc00 50%, #fff 100%);
+            background: linear-gradient(90deg, #ffffff 0%, #ffcc00 50%, #ffffff 100%);
             background-size: 200% 100%;
             -webkit-background-clip: text;
             background-clip: text;
@@ -191,239 +142,231 @@
             animation: shimmer 3s linear infinite;
         }
 
-        .gradient-border {
-            position: relative;
-            background: linear-gradient(135deg, rgba(76, 124, 255, 0.1), rgba(255, 204, 0, 0.1));
-            border: 2px solid transparent;
-        }
-
-        .gradient-border::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 2px;
-            background: linear-gradient(135deg, #4c7cff, #ffcc00, #ff4c4c);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            animation: rotate 4s linear infinite;
-        }
-
-        @keyframes rotate {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-
-        .promo-badge {
-            background: linear-gradient(135deg, #ff4c4c, #ff6b6b);
-            box-shadow: 0 4px 15px rgba(255, 76, 76, 0.4);
-            animation: pulse-glow 2s ease-in-out infinite;
-        }
-
-        .crystal-icon {
-            filter: drop-shadow(0 0 10px rgba(255, 204, 0, 0.6));
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .header-logo {
-            transition: all 0.3s ease;
-        }
-
-        .header-logo:hover {
-            transform: scale(1.1) rotate(5deg);
-            filter: drop-shadow(0 0 20px rgba(255, 204, 0, 0.8));
-        }
-
+        /* Nút QR */
         .btn-generate {
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
         }
 
-        .btn-generate::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .btn-generate:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
         .btn-generate:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(76, 124, 255, 0.5);
-        }
-
-        .info-card {
-            transition: all 0.3s ease;
-        }
-
-        .info-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 108, 91, 0.3);
+            box-shadow: 0 15px 40px rgba(92, 149, 255, 0.6);
         }
 
+        /* Banner khuyến mãi chạy chữ */
+        .promo-banner {
+            background: linear-gradient(90deg, #ff5a5a, #ffcc00, #ff5a5a);
+            background-size: 200% 100%;
+            animation: shimmer 4s linear infinite;
+        }
+
+        /* Container QR */
         .qr-container {
-            background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
-            padding: 1rem;
-            border-radius: 1rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #fff 0%, #e0e0e0 100%);
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
             animation: slide-up 0.5s ease-out;
         }
 
-        .stat-card {
-            background: linear-gradient(135deg, rgba(76, 124, 255, 0.1) 0%, rgba(255, 204, 0, 0.1) 100%);
-            border: 2px solid rgba(255, 204, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: scale(1.05);
-            border-color: rgba(255, 204, 0, 0.5);
-        }
-
-        /* Scrollbar styling */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #0a0d1b;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #4c7cff, #ffcc00);
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #ffcc00, #ff4c4c);
+        /* Card sự kiện */
+        .event-card {
+            position: relative;
+            overflow: hidden;
+            background: #151927; 
         }
         
-        /* Mobile Specific Adjustments */
-        @media (max-width: 768px) {
-            .shimmer-text {
-                font-size: 2rem; /* Giảm kích thước font title trên mobile */
-            }
-            .header-logo {
-                width: 48px;
-                height: 48px;
-            }
-            .btn-generate {
-                font-size: 1.125rem; /* Giảm kích thước font button */
-            }
-            .qr-container-mobile {
-                width: 12rem; /* Giảm kích thước QR code */
-                height: 12rem;
-            }
-            .info-text-mobile {
-                font-size: 1.25rem; /* Điều chỉnh font text quan trọng */
-            }
-            .table-scroll-wrapper {
-                overflow-x: auto; /* Cho phép cuộn ngang bảng */
-            }
+        /* Viền xoay card sự kiện */
+        .event-card-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.25rem;
+            padding: 3px;
+            background: conic-gradient(from 0deg, #ff5a5a, #ffcc00, #5c95ff, #ff5a5a);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: rotate 8s linear infinite;
         }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Nút điều chỉnh số lượng */
+        .quantity-control-btn {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            line-height: 1;
+            font-weight: bold;
+            color: #0d111c;
+            background-color: #ffcc00;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .quantity-control-btn:hover {
+            background-color: #ffde59;
+            transform: scale(1.1);
+        }
+        
+        /* Input số lượng */
+        .quantity-input {
+            background: transparent !important; /* Loại bỏ nền input trong nút */
+            border: none !important;
+        }
+        
+        /* Nội dung chuyển khoản */
+        #transferContent {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
     </style>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body class="text-white font-sans min-h-screen flex flex-col items-center relative">
 
-    <header class="w-full glass-effect shadow-2xl border-b border-accent-gold/30 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 py-3 relative flex items-center justify-center">
+    <header class="w-full glass-effect shadow-2xl border-b border-accent-gold/50 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 relative flex items-center justify-center">
             
             <div class="absolute left-4 top-1/2 transform -translate-y-1/2">
                 <a href="index.html" class="flex items-center space-x-1 md:space-x-2 text-slate-300 hover:text-accent-gold transition duration-300 group">
                     <img src="img_src/icon_server.png" 
-                onerror="this.onerror=null; this.src='https://placehold.co/48x48/ffcc00/0a0d1b?text=SH';"
+                onerror="this.onerror=null; this.src='https://placehold.co/48x48/ffcc00/0d111c?text=SH';"
                 alt="Server Icon" 
-                class="header-logo w-12 h-12 md:w-16 md:h-16 object-cover rounded-full shadow-lg border-2 border-accent-gold">
-                    <span class="text-base md:text-lg font-bold hidden sm:inline group-hover:translate-x-1 transition-transform">⇦ Trang Chủ</span>
+                class="header-logo w-14 h-14 object-cover rounded-full shadow-lg border-2 border-accent-gold group-hover:scale-105">
+                    <span class="text-base md:text-lg font-bold hidden sm:inline group-hover:text-accent-blue transition-colors">⇦ Trang Chủ</span>
                 </a>
             </div>
             
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold shimmer-text text-center">NAPTHE SKYHUNTER</h1>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold shimmer-text text-center tracking-wider">NAPTHE SKYHUNTER</h1>
         </div>
     </header>
 
-    <main class="max-w-6xl w-full mx-auto p-4 md:p-8 flex-grow mt-4 md:mt-8 relative z-10">
+    <main class="max-w-7xl w-full mx-auto p-4 md:p-8 flex-grow mt-6 md:mt-10 relative z-10">
         
-        <div class="text-center mb-6 md:mb-8 animate-slide-up">
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-bidv-green via-accent-blue to-accent-gold mb-3">
-                CHỌN SỐ LƯỢNG GÓI NẠP
+        <div class="mb-10 md:mb-12 animate-slide-up event-card p-5 md:p-6 rounded-3xl shadow-2xl event-card-border overflow-hidden">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-5 pb-3 border-b-2 border-accent-gold/50 text-accent-gold flex items-center justify-center">
+                <i class="fas fa-bullhorn mr-3 text-promo-red animate-pulse-event"></i> SỰ KIỆN NẠP ĐANG DIỄN RA!
             </h2>
-            <p class="text-base md:text-lg text-slate-300 mb-4">Nạp từ <span class="text-accent-gold font-bold">200.000 VNĐ</span> nhận <span class="text-promo-red font-bold">10% Pha Lê</span>. Từ <span class="text-accent-gold font-bold">500.000 VNĐ</span> nhận ngay <span class="text-promo-red font-bold">20% Pha Lê!</span></p>
             
-            <div class="flex justify-center gap-3 md:gap-4 flex-wrap text-sm md:text-base">
-                <div class="promo-badge px-4 py-2 md:px-6 md:py-3 rounded-full text-white font-bold">
-                    <i class="fas fa-fire mr-1 md:mr-2"></i>HOT DEAL
-                </div>
-                <div class="stat-card px-4 py-2 md:px-6 md:py-3 rounded-full font-bold">
-                    <i class="fas fa-users mr-1 md:mr-2"></i>1000+ Người Chơi Tin Tùng
-                </div>
-            </div>
-        </div>
+            <div class="text-center mb-5 p-4 bg-promo-red/15 rounded-xl border border-promo-red/70 shadow-lg shadow-promo-red/20">
+                <p class="text-lg md:text-xl font-bold text-promo-red mb-3 border-b border-promo-red/50 pb-2">
+                    <i class="fas fa-calendar-alt mr-2"></i> THỜI GIAN: 5/12 - 15/12
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="p-3 bg-secondary-dark/50 rounded-lg">
+                        <p class="text-xl font-extrabold text-accent-gold mb-3 flex items-center justify-center md:justify-start">
+                            <i class="fas fa-star mr-2 text-promo-red"></i> EVENT ĐẶC BIỆT (Key)
+                        </p>
+                        <ul class="list-none space-y-2 text-slate-200 text-sm md:text-base pl-0">
+                            <li class="flex items-center"><i class="fas fa-key mr-2 text-yellow-400"></i> **Nạp 100K**: nhận ngay <span class="font-bold text-white ml-1">x30 Key Cao Cấp</span></li>
+                            <li class="flex items-center"><i class="fas fa-key mr-2 text-yellow-400"></i> **Nạp 200K**: nhận ngay <span class="font-bold text-white ml-1">x70 Key Cao Cấp</span></li>
+                            <li class="flex items-center"><i class="fas fa-key mr-2 text-yellow-400"></i> **Nạp 500K**: nhận ngay <span class="font-bold text-white ml-1">x150 Key Cao Cấp</span></li>
+                        </ul>
+                    </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
-            
-            <div class="lg:col-span-1 glass-effect p-5 md:p-6 rounded-2xl shadow-2xl glow-shadow-blue h-fit order-2 lg:order-1 animate-slide-up">
-                <div class="flex items-center justify-between mb-5 border-b border-accent-blue/30 pb-3">
-                    <h3 class="text-xl md:text-2xl font-bold text-accent-blue">BƯỚC 1: THÔNG TIN</h3>
-                    <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-accent-blue/20 flex items-center justify-center">
-                        <span class="text-accent-blue font-bold text-lg md:text-xl">1</span>
+                    <div class="p-3 bg-secondary-dark/50 rounded-lg">
+                        <p class="text-xl font-extrabold text-accent-gold mb-3 flex items-center justify-center md:justify-start">
+                            <i class="fas fa-bolt mr-2 text-accent-blue"></i> SỰ KIỆN NẠP THƯỞNG (Item)
+                        </p>
+                        <ul class="list-none space-y-2 text-slate-200 text-sm md:text-base pl-0">
+                            <li class="flex items-center"><i class="fas fa-ticket-alt mr-2 text-accent-blue"></i> **Nạp 200K**: Nhận ngay <span class="font-bold text-white ml-1">x20 Vé Cao Cấp</span></li>
+                            <li class="flex items-center"><i class="fas fa-hat-wizard mr-2 text-accent-blue"></i> **Nạp 500K**: Nhận ngay <span class="font-bold text-white ml-1">Kiếm Huyết Nha</span></li>
+                            <li class="flex items-center text-transparent">.</li> </ul>
                     </div>
                 </div>
                 
-                <form id="depositForm" class="space-y-4 md:space-y-5">
+                <p class="text-sm md:text-base font-medium text-yellow-400 mt-5 pt-3 border-t border-slate-700/50">
+                    *Lưu ý: Khuyến mãi **Pha Lê (10% cho 200K / 20% cho 500K)** vẫn được áp dụng tự động cho tổng nạp của bạn.
+                </p>
+            </div>
+            <div class="relative rounded-xl overflow-hidden border-2 border-promo-red/50 shadow-inner shadow-promo-red/50">
+                <img id="eventImage" src="img_src/evvent1.png" 
+                     onerror="this.onerror=null; this.src='https://placehold.co/1200x350/30184b/ffcc00?text=EVENT+BANNER+90+Ng%C3%A0y+V%C3%A0ng';" 
+                     alt="Banner Sự Kiện Nạp Thẻ" 
+                     class="w-full object-cover max-h-96 hover:opacity-90 transition-opacity duration-300">
+                
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center pointer-events-none">
+                     <p class="text-2xl md:text-3xl font-extrabold text-white p-3 rounded-lg backdrop-blur-sm tracking-wider">
+                        <span class="text-promo-red">SIÊU ƯU ĐÃI</span> | NHẬN THÊM VẬT PHẨM MIỄN PHÍ!
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mb-6 md:mb-8 animate-slide-up">
+            <div class="flex justify-center gap-4 md:gap-6 flex-wrap text-sm md:text-base">
+                <div class="promo-banner px-6 py-3 md:px-8 md:py-4 rounded-full text-primary-dark font-bold shadow-2xl tracking-wide">
+                    <i class="fas fa-trophy mr-2"></i>CƠ HỘI NHẬN PHA LÊ & VẬT PHẨM KHUYẾN MÃI
+                </div>
+                <div class="stat-card px-6 py-3 md:px-8 md:py-4 rounded-full font-bold bg-secondary-dark border border-accent-blue/50 text-slate-300 shadow-md">
+                    <i class="fas fa-shield-alt mr-2"></i>Giao Dịch An Toàn, Tự Động 24/7
+                </div>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10">
+            
+            <div class="lg:col-span-1 glass-effect p-6 md:p-8 rounded-3xl shadow-2xl glow-shadow-blue h-fit order-1 animate-slide-up">
+                <div class="flex items-center justify-between mb-5 border-b border-accent-blue/50 pb-3">
+                    <h3 class="text-xl md:text-2xl font-bold text-accent-blue tracking-wide">BƯỚC 1: NHẬP THÔNG TIN</h3>
+                    <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-accent-blue/20 flex items-center justify-center">
+                        <span class="text-accent-blue font-bold text-xl md:text-2xl">1</span>
+                    </div>
+                </div>
+                
+                <form id="depositForm" class="space-y-6 md:space-y-7">
                     
                     <div>
                         <label for="username" class="block text-base md:text-lg font-semibold text-white mb-2 md:mb-3 flex items-center">
-                            <i class="fas fa-user mr-2 text-accent-blue"></i>
-                            Tên Tài Khoản (In-game Name)
+                            <i class="fas fa-user-circle mr-2 text-accent-blue"></i>
+                            Tên Tài Khoản (In-game Name) <span class="text-red-400 ml-1">*</span>
                         </label>
                         <input type="text" id="username" name="username" required
-                            class="custom-input w-full p-3 md:p-4 rounded-xl text-base md:text-lg placeholder-slate-500"
-                            placeholder="Nhập tên tài khoản của bạn"
+                            class="custom-input w-full p-4 rounded-xl text-base md:text-lg placeholder-slate-500"
+                            placeholder="Nhập tên tài khoản của bạn (3-16 ký tự)"
                             pattern="[A-Za-z0-9_]{3,16}"
                             oninput="updateTransferContent()"> 
-                        <p class="text-sm text-red-400 mt-2 flex items-center" id="usernameError"></p>
+                        <p class="text-sm text-promo-red mt-2 flex items-center" id="usernameError">
+                            <i class="fas fa-exclamation-circle mr-1 hidden" id="errorIcon"></i>
+                        </p>
                     </div>
 
-                    <div class="info-card glass-effect p-4 md:p-5 rounded-xl border border-bidv-green/50 glow-shadow-blue">
+                    <div class="glass-effect p-5 md:p-6 rounded-xl border-2 border-bidv-green/70 hover:shadow-xl hover:shadow-bidv-green/40 transition duration-300">
                         <h4 class="text-lg md:text-xl font-bold text-accent-gold mb-3 flex items-center">
                             <i class="fas fa-university mr-2"></i>
                             Thông tin tài khoản nhận
                         </h4>
-                        <div class="space-y-2 text-slate-200 text-sm md:text-base">
-                            <p class="flex items-center"><i class="fas fa-building w-5 text-bidv-green"></i> Ngân hàng: <span class="font-bold ml-2">BIDV</span></p>
-                            <p class="flex items-center"><i class="fas fa-credit-card w-5 text-bidv-green"></i> Số TK: <span class="text-bidv-green font-bold ml-2" id="accountNoDisplay">8890956287</span></p>
-                            <p class="flex items-center"><i class="fas fa-user-circle w-5 text-bidv-green"></i> Chủ TK: <span class="text-bidv-green font-bold ml-2" id="accountNameDisplay">DOAN CHI BAO</span></p>
+                        <div class="space-y-3 text-slate-200 text-sm md:text-base">
+                            <p class="flex justify-between items-center"><i class="fas fa-building w-5 text-bidv-green"></i> Ngân hàng: <span class="font-bold ml-2 text-bidv-green">BIDV</span></p>
+                            <p class="flex justify-between items-center"><i class="fas fa-credit-card w-5 text-bidv-green"></i> Số TK: <span class="text-accent-gold font-bold ml-2 text-xl" id="accountNoDisplay">8890956287</span></p>
+                            <p class="flex justify-between items-center"><i class="fas fa-user-circle w-5 text-bidv-green"></i> Chủ TK: <span class="text-bidv-green font-bold ml-2" id="accountNameDisplay">DOAN CHI BAO</span></p>
                         </div>
-                        <div class="mt-4 p-3 bg-yellow-500/10 rounded-lg border border-yellow-400/30">
+                        <div class="mt-5 p-3 bg-yellow-500/15 rounded-lg border border-yellow-400/50">
                             <p class="text-xs md:text-sm text-yellow-400 flex items-start">
-                                <i class="fas fa-exclamation-triangle mt-1 mr-2"></i>
-                                <span>Vui lòng đảm bảo Số Tài Khoản này là của BIDV.</span>
+                                <i class="fas fa-exclamation-triangle mt-1 mr-2 flex-shrink-0"></i>
+                                <span>Lưu ý: Luôn kiểm tra kỹ thông tin trước khi chuyển. Hệ thống tự động xử lý.</span>
                             </p>
                         </div>
                     </div>
 
-                    <div class="mt-6">
+                    <div class="pt-2">
                         <button type="button" onclick="generateQR()"
-                            class="btn-generate w-full bg-gradient-to-r from-accent-blue to-blue-600 hover:from-blue-600 hover:to-accent-blue text-white text-lg md:text-xl font-bold py-3 md:py-4 rounded-xl transition duration-300 shadow-xl disabled:opacity-50 disabled:cursor-not-allowed relative z-10"
+                            class="btn-generate w-full bg-gradient-to-r from-accent-blue to-blue-700 hover:from-blue-700 hover:to-accent-blue text-white text-xl md:text-2xl font-bold py-4 rounded-xl transition duration-300 shadow-xl disabled:opacity-50 disabled:cursor-not-allowed relative z-10 tracking-wider"
                             id="generateQrButton" disabled>
                             <i class="fas fa-qrcode mr-2"></i>
-                            BƯỚC 2: TẠO MÃ QR CHUYỂN KHOẢN
+                            BƯỚC 2: TẠO MÃ QR
                         </button>
                     </div>
 
@@ -431,153 +374,155 @@
 
             </div>
 
-            <div class="lg:col-span-2 glass-effect p-5 md:p-6 rounded-2xl shadow-2xl gradient-border glow-shadow-gold order-1 lg:order-2 animate-slide-up">
-                <div class="text-center mb-5">
-                    <h3 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-promo-red via-accent-gold to-promo-red mb-2">
-                        CHỌN GÓI NẠP
+            <div class="lg:col-span-2 glass-effect p-6 md:p-8 rounded-3xl shadow-2xl glow-shadow-gold h-fit order-2 animate-slide-up">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-promo-red via-accent-gold to-promo-red mb-2 tracking-wider">
+                        CHỌN GÓI NẠP & TÍNH TOÁN
                     </h3>
-                    <p class="text-slate-400 text-sm md:text-base">Nhập số lượng gói bạn muốn mua</p>
+                    <p class="text-slate-400 text-sm md:text-base">Nhập số lượng gói bạn muốn mua để xem tổng Pha Lê</p>
                 </div>
                 
                 <div class="overflow-x-auto table-scroll-wrapper"> 
-                    <table class="min-w-full text-left text-sm font-light table-auto">
-                        <thead class="border-b-2 font-medium border-accent-gold/50 text-accent-gold">
+                    <table class="min-w-full text-left text-base font-light table-auto">
+                        <thead class="border-b-2 font-bold border-accent-gold/70 text-accent-gold">
                             <tr>
-                                <th scope="col" class="px-2 md:px-4 py-3 text-sm md:text-base"><i class="fas fa-coins mr-1 md:mr-2"></i>Mệnh Giá</th>
-                                <th scope="col" class="px-2 md:px-4 py-3 text-sm md:text-base"><i class="fas fa-gem mr-1 md:mr-2"></i>Pha Lê Gốc</th>
-                                <th scope="col" class="px-2 md:px-4 py-3 text-sm md:text-base text-center"><i class="fas fa-shopping-cart mr-1 md:mr-2"></i>SL</th>
-                                <th scope="col" class="px-2 md:px-4 py-3 text-sm md:text-base text-right"><i class="fas fa-calculator mr-1 md:mr-2"></i>Tạm Tính</th>
+                                <th scope="col" class="px-3 md:px-5 py-3 text-sm md:text-base"><i class="fas fa-coins mr-2"></i>MỆNH GIÁ</th>
+                                <th scope="col" class="px-3 md:px-5 py-3 text-sm md:text-base"><i class="fas fa-gem mr-2"></i>PHA LÊ GỐC</th>
+                                <th scope="col" class="px-3 md:px-5 py-3 text-sm md:text-base text-center"><i class="fas fa-shopping-cart mr-2"></i>SỐ LƯỢNG</th>
+                                <th scope="col" class="px-3 md:px-5 py-3 text-sm md:text-base text-right"><i class="fas fa-calculator mr-2"></i>TẠM TÍNH</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="package-row border-b border-slate-700/50" data-price="10000" data-crystal="1">
-                                <td class="whitespace-nowrap px-2 md:px-4 py-3 md:py-4 font-semibold text-white text-sm">10.000 VNĐ</td>
-                                <td class="whitespace-nowrap px-2 md:px-4 py-3 md:py-4 text-accent-gold font-bold flex items-center text-sm">
-                                    <i class="fas fa-gem mr-1 md:mr-2"></i>1
+                            <tr class="package-row border-b border-slate-700/60" data-price="10000" data-crystal="1">
+                                <td class="whitespace-nowrap px-3 md:px-5 py-4 font-semibold text-white text-base">10.000 VNĐ</td>
+                                <td class="whitespace-nowrap px-3 md:px-5 py-4 text-accent-gold font-bold flex items-center text-base">
+                                    <i class="fas fa-gem mr-2"></i>1
                                 </td>
-                                <td class="whitespace-nowrap px-2 md:px-4 py-3 md:py-4">
-                                    <div class="flex items-center justify-between border border-slate-600 rounded-lg overflow-hidden w-28 md:w-32 mx-auto">
+                                <td class="whitespace-nowrap px-3 md:px-5 py-4">
+                                    <div class="flex items-center justify-between border border-slate-600 rounded-xl overflow-hidden w-32 md:w-36 mx-auto">
                                         <button type="button" class="quantity-control-btn" onclick="decreaseQuantity(this)">
                                             <i class="fas fa-minus"></i>
                                         </button>
-                                        <input type="number" min="0" value="0" class="quantity-input w-full p-1 text-center text-sm" oninput="calculateTotal()">
+                                        <input type="number" min="0" value="0" class="quantity-input w-full p-2 text-center text-base text-white" oninput="calculateTotal()">
                                         <button type="button" class="quantity-control-btn" onclick="increaseQuantity(this)">
                                             <i class="fas fa-plus"></i>
                                         </button>
                                     </div>
                                 </td>
-                                <td class="whitespace-nowrap px-2 md:px-4 py-3 md:py-4 text-right text-accent-blue font-bold text-sm" data-temp-price>0 VNĐ</td>
+                                <td class="whitespace-nowrap px-3 md:px-5 py-4 text-right text-accent-blue font-bold text-base" data-temp-price>0 VNĐ</td>
                             </tr>
-                            <tr class="package-row border-b border-slate-700/50" data-price="50000" data-crystal="5">
-                                <td class="whitespace-nowrap px-2 md:px-4 py-3 md:py-4 font-semibold text-white text-sm">50.000 VNĐ</td>
-                                <td class="whitespace-nowrap px-2 md:px-4 py-3 md:py-4 text-accent-gold font-bold flex items-center text-sm">
-                                    <i class="fas fa-gem mr-1 md:mr-2"></i>5
+                            <tr class="package-row border-b border-slate-700/60" data-price="50000" data-crystal="5">
+                                <td class="whitespace-nowrap px-3 md:px-5 py-4 font-semibold text-white text-base">50.000 VNĐ</td>
+                                <td class="whitespace-nowrap px-3 md:px-5 py-4 text-accent-gold font-bold flex items-center text-base">
+                                    <i class="fas fa-gem mr-2"></i>5
                                 </td>
-                                <td class="whitespace-nowrap px-2 md:px-4 py-3 md:py-4">
-                                    <div class="flex items-center justify-between border border-slate-600 rounded-lg overflow-hidden w-28 md:w-32 mx-auto">
+                                <td class="whitespace-nowrap px-3 md:px-5 py-4">
+                                    <div class="flex items-center justify-between border border-slate-600 rounded-xl overflow-hidden w-32 md:w-36 mx-auto">
                                         <button type="button" class="quantity-control-btn" onclick="decreaseQuantity(this)">
                                             <i class="fas fa-minus"></i>
                                         </button>
-                                        <input type="number" min="0" value="0" class="quantity-input w-full p-1 text-center text-sm" oninput="calculateTotal()">
+                                        <input type="number" min="0" value="0" class="quantity-input w-full p-2 text-center text-base text-white" oninput="calculateTotal()">
                                         <button type="button" class="quantity-control-btn" onclick="increaseQuantity(this)">
                                             <i class="fas fa-plus"></i>
                                         </button>
                                     </div>
                                 </td>
-                                <td class="whitespace-nowrap px-2 md:px-4 py-3 md:py-4 text-right text-accent-blue font-bold text-sm" data-temp-price>0 VNĐ</td>
+                                <td class="whitespace-nowrap px-3 md:px-5 py-4 text-right text-accent-blue font-bold text-base" data-temp-price>0 VNĐ</td>
                             </tr>
-                            <tr class="package-row border-b border-slate-700/50" data-price="100000" data-crystal="10">
-                                <td class="whitespace-nowrap px-2 md:px-4 py-3 md:py-4 font-semibold text-white text-sm">100.000 VNĐ</td>
-                                <td class="whitespace-nowrap px-2 md:px-4 py-3 md:py-4 text-accent-gold font-bold flex items-center text-sm">
-                                    <i class="fas fa-gem mr-1 md:mr-2"></i>10
+                            <tr class="package-row border-b border-slate-700/60" data-price="100000" data-crystal="10">
+                                <td class="whitespace-nowrap px-3 md:px-5 py-4 font-semibold text-white text-base">100.000 VNĐ</td>
+                                <td class="whitespace-nowrap px-3 md:px-5 py-4 text-accent-gold font-bold flex items-center text-base">
+                                    <i class="fas fa-gem mr-2"></i>10
                                 </td>
-                                <td class="whitespace-nowrap px-2 md:px-4 py-3 md:py-4">
-                                    <div class="flex items-center justify-between border border-slate-600 rounded-lg overflow-hidden w-28 md:w-32 mx-auto">
+                                <td class="whitespace-nowrap px-3 md:px-5 py-4">
+                                    <div class="flex items-center justify-between border border-slate-600 rounded-xl overflow-hidden w-32 md:w-36 mx-auto">
                                         <button type="button" class="quantity-control-btn" onclick="decreaseQuantity(this)">
                                             <i class="fas fa-minus"></i>
                                         </button>
-                                        <input type="number" min="0" value="0" class="quantity-input w-full p-1 text-center text-sm" oninput="calculateTotal()">
+                                        <input type="number" min="0" value="0" class="quantity-input w-full p-2 text-center text-base text-white" oninput="calculateTotal()">
                                         <button type="button" class="quantity-control-btn" onclick="increaseQuantity(this)">
                                             <i class="fas fa-plus"></i>
                                         </button>
                                     </div>
                                 </td>
-                                <td class="whitespace-nowrap px-2 md:px-4 py-3 md:py-4 text-right text-accent-blue font-bold text-sm" data-temp-price>0 VNĐ</td>
+                                <td class="whitespace-nowrap px-3 md:px-5 py-4 text-right text-accent-blue font-bold text-base" data-temp-price>0 VNĐ</td>
                             </tr>
-                            <tr class="package-row border-b border-slate-700/50" data-price="200000" data-crystal="20">
-                                <td class="whitespace-nowrap px-2 md:px-4 py-3 md:py-4 font-semibold text-white text-sm">
+                            <tr class="package-row border-b border-slate-700/60" data-price="200000" data-crystal="20">
+                                <td class="whitespace-nowrap px-3 md:px-5 py-4 font-semibold text-white text-base">
                                     200.000 VNĐ
-                                    <span class="ml-1 text-xs bg-yellow-500/20 text-yellow-400 px-1 py-0.5 rounded-full">+10%</span>
+                                    <span class="ml-2 text-xs bg-yellow-500/30 text-yellow-400 px-2 py-0.5 rounded-full font-extrabold">+10% BONUS</span>
                                 </td>
-                                <td class="whitespace-nowrap px-2 md:px-4 py-3 md:py-4 text-accent-gold font-bold flex items-center text-sm">
-                                    <i class="fas fa-gem mr-1 md:mr-2"></i>20
+                                <td class="whitespace-nowrap px-3 md:px-5 py-4 text-accent-gold font-bold flex items-center text-base">
+                                    <i class="fas fa-gem mr-2"></i>20
                                 </td>
-                                <td class="whitespace-nowrap px-2 md:px-4 py-3 md:py-4">
-                                    <div class="flex items-center justify-between border border-slate-600 rounded-lg overflow-hidden w-28 md:w-32 mx-auto">
+                                <td class="whitespace-nowrap px-3 md:px-5 py-4">
+                                    <div class="flex items-center justify-between border border-slate-600 rounded-xl overflow-hidden w-32 md:w-36 mx-auto">
                                         <button type="button" class="quantity-control-btn" onclick="decreaseQuantity(this)">
                                             <i class="fas fa-minus"></i>
                                         </button>
-                                        <input type="number" min="0" value="0" class="quantity-input w-full p-1 text-center text-sm" oninput="calculateTotal()">
+                                        <input type="number" min="0" value="0" class="quantity-input w-full p-2 text-center text-base text-white" oninput="calculateTotal()">
                                         <button type="button" class="quantity-control-btn" onclick="increaseQuantity(this)">
                                             <i class="fas fa-plus"></i>
                                         </button>
                                     </div>
                                 </td>
-                                <td class="whitespace-nowrap px-2 md:px-4 py-3 md:py-4 text-right text-accent-blue font-bold text-sm" data-temp-price>0 VNĐ</td>
+                                <td class="whitespace-nowrap px-3 md:px-5 py-4 text-right text-accent-blue font-bold text-base" data-temp-price>0 VNĐ</td>
                             </tr>
-                            <tr class="package-row border-b border-slate-700/50" data-price="500000" data-crystal="50">
-                                <td class="whitespace-nowrap px-2 md:px-4 py-3 md:py-4 font-semibold text-white text-sm">
+                            <tr class="package-row border-b border-slate-700/60" data-price="500000" data-crystal="50">
+                                <td class="whitespace-nowrap px-3 md:px-5 py-4 font-semibold text-white text-base">
                                     500.000 VNĐ
-                                    <span class="ml-1 text-xs bg-red-500/20 text-red-400 px-1 py-0.5 rounded-full">+20%</span>
+                                    <span class="ml-2 text-xs bg-red-500/30 text-promo-red px-2 py-0.5 rounded-full font-extrabold">+20% BEST DEAL</span>
                                 </td>
-                                <td class="whitespace-nowrap px-2 md:px-4 py-3 md:py-4 text-accent-gold font-bold flex items-center text-sm">
-                                    <i class="fas fa-gem mr-1 md:mr-2"></i>50
+                                <td class="whitespace-nowrap px-3 md:px-5 py-4 text-accent-gold font-bold flex items-center text-base">
+                                    <i class="fas fa-gem mr-2"></i>50
                                 </td>
-                                <td class="whitespace-nowrap px-2 md:px-4 py-3 md:py-4">
-                                    <div class="flex items-center justify-between border border-slate-600 rounded-lg overflow-hidden w-28 md:w-32 mx-auto">
+                                <td class="whitespace-nowrap px-3 md:px-5 py-4">
+                                    <div class="flex items-center justify-between border border-slate-600 rounded-xl overflow-hidden w-32 md:w-36 mx-auto">
                                         <button type="button" class="quantity-control-btn" onclick="decreaseQuantity(this)">
                                             <i class="fas fa-minus"></i>
                                         </button>
-                                        <input type="number" min="0" value="0" class="quantity-input w-full p-1 text-center text-sm" oninput="calculateTotal()">
+                                        <input type="number" min="0" value="0" class="quantity-input w-full p-2 text-center text-base text-white" oninput="calculateTotal()">
                                         <button type="button" class="quantity-control-btn" onclick="increaseQuantity(this)">
                                             <i class="fas fa-plus"></i>
                                         </button>
                                     </div>
                                 </td>
-                                <td class="whitespace-nowrap px-2 md:px-4 py-3 md:py-4 text-right text-accent-blue font-bold text-sm" data-temp-price>0 VNĐ</td>
+                                <td class="whitespace-nowrap px-3 md:px-5 py-4 text-right text-accent-blue font-bold text-base" data-temp-price>0 VNĐ</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <div class="mt-5 glass-effect p-4 md:p-6 rounded-xl border-2 border-accent-gold/50 glow-shadow-gold">
-                    <div class="flex justify-between items-center text-lg md:text-xl font-semibold py-2 md:py-3 border-b border-slate-700/50">
-                        <span class="flex items-center"><i class="fas fa-money-bill-wave mr-2 text-accent-blue"></i>Tổng Tiền Nạp:</span>
-                        <span id="totalAmountDisplay" class="text-accent-blue font-bold text-xl md:text-2xl">0 VNĐ</span>
+                <div class="mt-8 glass-effect p-5 md:p-7 rounded-2xl border-2 border-accent-gold/70 glow-shadow-gold">
+                    <div class="flex justify-between items-center text-lg md:text-xl font-semibold py-3 border-b border-slate-700/60">
+                        <span class="flex items-center"><i class="fas fa-money-bill-wave mr-3 text-accent-blue"></i>TỔNG SỐ TIỀN NẠP:</span>
+                        <span id="totalAmountDisplay" class="text-accent-blue font-bold text-2xl md:text-3xl">0 VNĐ</span>
                     </div>
-                    <div class="flex justify-between items-center text-lg md:text-xl font-semibold py-2 md:py-3 border-b border-slate-700/50">
-                        <span class="flex items-center"><i class="fas fa-gem mr-2 text-accent-gold"></i>Pha Lê Gốc:</span>
-                        <span id="baseCrystalContainer" class="text-accent-gold font-bold text-xl md:text-2xl">
-                            <span id="baseCrystalDisplay">0</span> Pha Lê
+                    <div class="flex justify-between items-center text-lg md:text-xl font-semibold py-3 border-b border-slate-700/60">
+                        <span class="flex items-center"><i class="fas fa-gem mr-3 text-accent-gold"></i>TỔNG PHA LÊ GỐC:</span>
+                        <span id="baseCrystalContainer" class="text-accent-gold font-bold text-2xl md:text-3xl">
+                            <span id="baseCrystalDisplay">0</span>
+                            <i class="fas fa-gem ml-1 text-base"></i>
                         </span>
                     </div>
 
                     <div id="promoSection" class="hidden">
-                         <div class="flex justify-between items-center text-base md:text-lg font-medium py-3 bg-promo-red/10 rounded-lg px-4 my-2">
-                            <span class="flex items-center"><i class="fas fa-gift mr-2 text-promo-red"></i>Khuyến Mãi (<span id="promoPercentDisplay">0%</span>):</span>
-                            <span id="promoCrystalContainer" class="text-promo-red font-bold">
-                                + <span id="promoCrystalDisplay">0</span> Pha Lê
+                         <div class="flex justify-between items-center text-base md:text-lg font-medium py-3 bg-promo-red/20 rounded-lg px-4 my-3 border border-promo-red/50">
+                            <span class="flex items-center"><i class="fas fa-gift mr-3 text-promo-red"></i>KHUYẾN MÃI (<span id="promoPercentDisplay">0%</span>):</span>
+                            <span id="promoCrystalContainer" class="text-promo-red font-bold text-xl md:text-2xl">
+                                + <span id="promoCrystalDisplay">0</span>
+                                <i class="fas fa-gem ml-1 text-base"></i>
                             </span>
                         </div>
                     </div>
                     
-                <div class="flex justify-between text-2xl md:text-3xl font-extrabold pt-3">
+                    <div class="flex justify-between text-2xl md:text-3xl font-extrabold pt-4 border-t border-slate-700/60 mt-2">
                         <span>TỔNG PHA LÊ NHẬN:</span>
-                        <span id="finalCrystalContainer" class="text-promo-red flex items-center space-x-1 md:space-x-2">
-                            <span id="finalCrystalDisplay">0</span>
+                        <span id="finalCrystalContainer" class="text-promo-red flex items-center space-x-2">
+                            <span id="finalCrystalDisplay" class="text-3xl md:text-4xl">0</span>
                             <img src="img_src/phalevip.png" 
-                            onerror="this.onerror=null; this.src='https://placehold.co/28x28/ffcc00/0a0d1b?text=💎';"
-                            alt="Pha Lê" class="h-6 w-6 md:h-7 md:w-7 object-contain">
+                            onerror="this.onerror=null; this.src='https://placehold.co/32x32/ffcc00/0d111c?text=💎';"
+                            alt="Pha Lê" class="h-8 w-8 md:h-10 md:w-10 object-contain animate-pulse-event">
                         </span>
                     </div>
                 </div>
@@ -585,33 +530,42 @@
             </div>
         </div>
 
-        <div id="qrCodeSection" class="mt-8 md:mt-10 p-6 md:p-8 bg-secondary-dark rounded-xl shadow-2xl border-2 border-bidv-green/50 hidden">
-            <h3 class="text-2xl md:text-3xl font-bold text-promo-red text-center mb-5 md:mb-6">BƯỚC 3: QUÉT MÃ VÀ CHUYỂN KHOẢN</h3>
+        <div id="qrCodeSection" class="mt-10 md:mt-12 p-8 md:p-10 bg-secondary-dark rounded-3xl shadow-2xl border-2 border-bidv-green/70 hidden animate-slide-up">
+            <h3 class="text-2xl md:text-3xl font-bold text-promo-red text-center mb-6 md:mb-8 tracking-wider">BƯỚC 3: QUÉT MÃ VÀ CHUYỂN KHOẢN</h3>
             
-            <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8">
-                <div class="w-48 h-48 md:w-64 md:h-64 border-4 border-accent-gold rounded-lg p-2 bg-white flex items-center justify-center qr-container-mobile" id="qrContainer">
-                    </div>
+            <div class="flex flex-col lg:flex-row items-center justify-center gap-8 md:gap-10">
                 
-                <div class="text-left space-y-3 w-full md:w-auto">
-                    <p class="text-lg md:text-xl font-semibold text-white">Số tiền cần chuyển:</p>
-                    <p class="text-3xl md:text-4xl font-extrabold text-promo-red info-text-mobile" id="transferAmount">0 VNĐ</p>
-                    
-                    <p class="text-lg md:text-xl font-semibold text-white mt-4">Nội dung chuyển khoản **(Cực kỳ quan trọng)**:</p>
-                    <div class="overflow-x-auto">
-                        <p class="text-xl md:text-2xl font-extrabold text-red-400 bg-primary-dark p-3 rounded-lg border border-red-400 inline-block" id="transferContent">
-                            Vui lòng nhập Tên Tài Khoản
-                        </p>
+                <div class="w-56 h-56 md:w-72 md:h-72 border-4 border-accent-gold rounded-xl p-3 bg-white flex items-center justify-center qr-container" id="qrContainer">
+                    <p class="text-sm text-center text-primary-dark font-medium">QR sẽ hiện tại đây</p>
+                </div>
+                
+                <div class="text-left space-y-5 w-full lg:w-auto lg:max-w-lg">
+                    <div class="p-3 bg-primary-dark rounded-xl border border-accent-blue/50">
+                        <p class="text-lg md:text-xl font-semibold text-white">Số tiền cần chuyển:</p>
+                        <p class="text-4xl md:text-5xl font-extrabold text-promo-red mt-1" id="transferAmount">0 VNĐ</p>
                     </div>
-                    <p class="text-xs md:text-sm text-red-500 mt-2">Tuyệt đối **KHÔNG CHỈNH SỬA** nội dung. Mã này là duy nhất cho giao dịch của bạn.</p>
+                    
+                    <div class="p-3 bg-primary-dark rounded-xl border border-promo-red/50">
+                        <p class="text-lg md:text-xl font-semibold text-white">Nội dung chuyển khoản **(Cực kỳ quan trọng)**:</p>
+                        <div class="overflow-x-auto mt-1">
+                            <p class="text-xl md:text-2xl font-extrabold text-red-400 bg-secondary-dark p-3 rounded-lg border border-red-400 inline-block break-all select-all" id="transferContent">
+                                Vui lòng nhập Tên Tài Khoản
+                            </p>
+                        </div>
+                    </div>
+                    <p class="text-sm md:text-base text-yellow-400 mt-2 flex items-start">
+                        <i class="fas fa-exclamation-triangle mt-1 mr-2 flex-shrink-0 text-promo-red"></i>
+                        Tuyệt đối **KHÔNG CHỈNH SỬA** nội dung. Mã này là duy nhất cho giao dịch của bạn.
+                    </p>
                 </div>
             </div>
         </div>
 
     </main>
 
-    <footer class="w-full bg-secondary-dark border-t border-accent-gold/20 py-4 mt-auto">
+    <footer class="w-full bg-secondary-dark border-t border-accent-gold/30 py-6 mt-12">
         <div class="max-w-6xl mx-auto px-4 text-center text-slate-400 text-xs md:text-sm">
-            <p>&copy; 2025 Cửa Hàng SkyHunter. TK BIDV: <span id="footerAccountNo">8890956287</span> <span id="footerAccountName">DOAN CHI BAO</span>. Mã QR có hiệu lực trong 30 phút.</p>
+            <p>&copy; 2025 Cửa Hàng SkyHunter. TK BIDV: <span id="footerAccountNo">8890956287</span> <span id="footerAccountName">DOAN CHI BAO</span>. Mã QR có hiệu lực trong 30 phút. Vui lòng liên hệ hỗ trợ nếu gặp lỗi.</p>
         </div>
     </footer>
 
@@ -619,7 +573,7 @@
     const BANK_ID = 'BIDV';
     const ACCOUNT_NO = '8890956287';
     const ACCOUNT_NAME = 'DOAN CHI BAO';
-    const PREFIX = 'NapPlayer';
+    const PREFIX = 'NapPlayer'; // Tiền tố cố định
 
     const PROMO_THRESHOLD_500K = 500000;
     const PROMO_PERCENT_500K = 0.20;
@@ -627,6 +581,7 @@
     const PROMO_THRESHOLD_200K = 200000;
     const PROMO_PERCENT_200K = 0.10;
 
+    // Cập nhật thông tin TK
     document.getElementById('accountNoDisplay').textContent = ACCOUNT_NO;
     document.getElementById('accountNameDisplay').textContent = ACCOUNT_NAME;
     document.getElementById('footerAccountNo').textContent = ACCOUNT_NO;
@@ -635,14 +590,10 @@
     const usernameInput = document.getElementById('username');
     const generateQrButton = document.getElementById('generateQrButton');
     const usernameError = document.getElementById('usernameError');
+    const errorIcon = document.getElementById('errorIcon');
     const packageRows = document.querySelectorAll('tbody tr');
     const qrContainer = document.getElementById('qrContainer');
     const qrSection = document.getElementById('qrCodeSection');
-
-
-    const baseCrystalContainer = document.getElementById('baseCrystalContainer');
-    const promoCrystalContainer = document.getElementById('promoCrystalContainer');
-    const finalCrystalDisplay = document.getElementById('finalCrystalDisplay');
 
 
     let totalAmount = 0;
@@ -652,14 +603,17 @@
     function formatVND(amount) {
         return Number(amount).toLocaleString('vi-VN') + ' VNĐ';
     }
+    
+    // Hàm định dạng số Pha Lê
+    function formatCrystal(crystal) {
+        return Number(crystal).toLocaleString('vi-VN');
+    }
 
     /**
      * Tăng số lượng của input liên quan.
-     * @param {HTMLElement} button - Nút (+) được nhấn.
      */
     function increaseQuantity(button) {
-        // Tìm input gần nhất với nút này (input liền kề)
-        const input = button.parentNode.querySelector('input[type="number"]');
+        const input = button.closest('.flex').querySelector('input[type="number"]');
         let quantity = parseInt(input.value) || 0;
         input.value = quantity + 1;
         calculateTotal();
@@ -667,10 +621,9 @@
 
     /**
      * Giảm số lượng của input liên quan.
-     * @param {HTMLElement} button - Nút (-) được nhấn.
      */
     function decreaseQuantity(button) {
-        const input = button.parentNode.querySelector('input[type="number"]');
+        const input = button.closest('.flex').querySelector('input[type="number"]');
         let quantity = parseInt(input.value) || 0;
         if (quantity > 0) {
             input.value = quantity - 1;
@@ -706,6 +659,7 @@
         let promoCrystal = 0;
         let promoPercent = 0;
 
+        // Logic khuyến mãi Pha Lê vẫn giữ nguyên như cũ (10% và 20%)
         if (totalAmount >= PROMO_THRESHOLD_500K) {
             promoPercent = PROMO_PERCENT_500K;
         } else if (totalAmount >= PROMO_THRESHOLD_200K) {
@@ -726,13 +680,10 @@
 
         document.getElementById('totalAmountDisplay').textContent = formatVND(totalAmount);
         
+        document.getElementById('baseCrystalDisplay').textContent = formatCrystal(baseCrystal);
+        document.getElementById('promoCrystalDisplay').textContent = formatCrystal(promoCrystal);
+        document.getElementById('finalCrystalDisplay').textContent = formatCrystal(finalCrystal);
 
-        baseCrystalContainer.innerHTML = `<span id="baseCrystalDisplay">${baseCrystal.toLocaleString('vi-VN')}</span> Pha Lê`;
-        
-        promoCrystalContainer.innerHTML = `+ <span id="promoCrystalDisplay">${promoCrystal.toLocaleString('vi-VN')}</span> Pha Lê`;
-        finalCrystalDisplay.textContent = finalCrystal.toLocaleString('vi-VN');
-
-        // GỌI HÀM CẬP NHẬT NỘI DUNG CHUYỂN KHOẢN VÀ TRẠNG THÁI NÚT SAU KHI TÍNH TỔNG TIỀN
         updateTransferContent(); 
     }
 
@@ -745,14 +696,16 @@
         if (totalAmount > 0 && isValidUsername) {
 
             // Cập nhật nội dung chuyển khoản mới
-            finalContent = `${PREFIX}.....${username}.....${finalCrystalGlobal}`;
+            finalContent = `${PREFIX}${username}`; // Nội dung chuyển khoản: NapPlayer[Username]
             document.getElementById('transferContent').textContent = finalContent;
             generateQrButton.disabled = false; // Kích hoạt nút
             usernameError.textContent = '';
+            errorIcon.classList.add('hidden');
         } else if (!isValidUsername && username.length > 0) {
             // Tên không hợp lệ
             document.getElementById('transferContent').textContent = 'Tên Tài Khoản không hợp lệ';
             usernameError.textContent = 'Tên tài khoản không hợp lệ (3-16 ký tự, chỉ chứa chữ, số, gạch dưới).';
+            errorIcon.classList.remove('hidden');
             generateQrButton.disabled = true; // Vô hiệu hóa nút
             qrSection.classList.add('hidden');
         } else {
@@ -761,6 +714,7 @@
                 ? 'Vui lòng chọn gói nạp' 
                 : 'Vui lòng nhập Tên Tài Khoản';
             usernameError.textContent = '';
+            errorIcon.classList.add('hidden');
             generateQrButton.disabled = true; // Vô hiệu hóa nút
             qrSection.classList.add('hidden');
         }
@@ -774,6 +728,7 @@
 
         const content = finalContent;
 
+        // URL QR code
         const qrUrl =
             `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-compact.png?amount=${totalAmount}&addInfo=${encodeURIComponent(content)}&accountName=${encodeURIComponent(ACCOUNT_NAME)}`;
 
@@ -787,7 +742,7 @@
         newQrImage.style.display = 'block';
 
         qrContainer.appendChild(newQrImage);
-        qrContainer.classList.add('bg-white', 'p-2');
+        qrContainer.classList.add('bg-white', 'p-4');
         qrContainer.classList.remove('flex', 'items-center', 'justify-center');
 
         document.getElementById('transferAmount').textContent = formatVND(totalAmount);
@@ -798,7 +753,6 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         calculateTotal();
-        
         usernameInput.addEventListener('input', updateTransferContent);
     });
 </script>

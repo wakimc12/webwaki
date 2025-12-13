@@ -132,6 +132,27 @@
             background: rgba(92, 149, 255, 0.15); /* Màu hover nổi hơn */
         }
         
+        /* Card Mốc Nạp */
+        .milestone-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            background: rgba(30, 38, 55, 0.7); /* Sử dụng secondary-dark */
+        }
+        .milestone-card:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(92, 149, 255, 0.6);
+            border-color: #ffcc00 !important;
+        }
+
+        /* Khung mô tả phần thưởng */
+        .milestone-card .reward-desc {
+            min-height: 4.5rem; /* ~72px, cho phép 2-3 dòng text */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
         /* Text lấp lánh */
         .shimmer-text {
             background: linear-gradient(90deg, #ffffff 0%, #ffcc00 50%, #ffffff 100%);
@@ -550,8 +571,141 @@
                 </div>
             </div>
         </div>
+        
+        <div class="mt-10 md:mt-12 animate-slide-up">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-6 pb-3 border-b-2 border-accent-gold/50 text-accent-gold flex items-center justify-center tracking-wider">
+                <i class="fas fa-trophy mr-3 text-promo-red"></i> MỐC NẠP TÍCH LŨY
+            </h2>
+            <p class="text-center text-slate-400 mb-8 text-lg">
+                <i class="fas fa-info-circle mr-1 text-accent-blue"></i> 
+                Danh sách các mốc nạp tích lũy (Chỉ hiển thị phần thưởng cho thành viên)
+            </p>
 
-    </main>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+                
+                <div class="milestone-card glass-effect p-4 rounded-xl text-center border-2 border-accent-blue/50">
+                    <h4 class="text-lg md:text-xl font-bold text-accent-blue mb-2">100K VNĐ</h4>
+                    <div class="h-16 flex items-center justify-center mb-3">
+                        <img src="img_src/hinh1.png" alt="Kiếm Máu Lửa" class="w-16 h-16 object-contain"
+                        onerror="this.onerror=null; this.src='https://placehold.co/64x64/5c95ff/ffffff?text=100K';" />
+                    </div>
+                    <div class="reward-desc text-slate-300 text-sm mb-0 p-2 bg-primary-dark/50 rounded-lg">
+                        <p class="font-bold text-accent-gold">Kiếm Máu Lửa</p>
+                        <p class="text-xs italic text-slate-400 mt-1">"Kèm: KC VIP x32, Vàng VIP x32, Sắt VIP x32, Sao VIP x10."</p>
+                    </div>
+                </div>
+                
+                <div class="milestone-card glass-effect p-4 rounded-xl text-center border-2 border-accent-blue/50">
+                    <h4 class="text-lg md:text-xl font-bold text-accent-blue mb-2">200K VNĐ</h4>
+                    <div class="h-16 flex items-center justify-center mb-3">
+                        <img src="img_src/hinh2.png" alt="Nhẫn Bá Tốc" class="w-16 h-16 object-contain"
+                        onerror="this.onerror=null; this.src='https://placehold.co/64x64/5c95ff/ffffff?text=200K';" />
+                    </div>
+                    <div class="reward-desc text-slate-300 text-sm mb-0 p-2 bg-primary-dark/50 rounded-lg">
+                        <p class="font-bold text-accent-gold">Nhẫn Bá Tốc</p>
+                        <p class="text-xs italic text-slate-400 mt-1">"Kèm: KC VIP x32, Vàng VIP x32, Sắt VIP x32, Hắc Diện Thạch Khóc x32."</p>
+                    </div>
+                </div>
+                
+                <div class="milestone-card glass-effect p-4 rounded-xl text-center border-2 border-accent-blue/50">
+                    <h4 class="text-lg md:text-xl font-bold text-accent-blue mb-2">300K VNĐ</h4>
+                    <div class="h-16 flex items-center justify-center mb-3">
+                        <img src="img_src/hinh3.png" alt="Khiên Ác Mộng" class="w-16 h-16 object-contain"
+                        onerror="this.onerror=null; this.src='https://placehold.co/64x64/5c95ff/ffffff?text=300K';" />
+                    </div>
+                    <div class="reward-desc text-slate-300 text-sm mb-0 p-2 bg-primary-dark/50 rounded-lg">
+                        <p class="font-bold text-accent-gold">Khiên Ác Mộng</p>
+                        <p class="text-xs italic text-slate-400 mt-1">"Kèm: Melatic x18, Ngọc Crimson x18, KC Bóng Ma x18, Sao VIP x25."</p>
+                    </div>
+                </div>
+                
+                <div class="milestone-card glass-effect p-4 rounded-xl text-center border-2 border-accent-blue/50">
+                    <h4 class="text-lg md:text-xl font-bold text-accent-blue mb-2">500K VNĐ</h4>
+                    <div class="h-16 flex items-center justify-center mb-3">
+                        <img src="img_src/hinh4.png" alt="Cổ Vật Cuồng Bạo" class="w-16 h-16 object-contain"
+                        onerror="this.onerror=null; this.src='https://placehold.co/64x64/5c95ff/ffffff?text=500K';" />
+                    </div>
+                    <div class="reward-desc text-slate-300 text-sm mb-0 p-2 bg-primary-dark/50 rounded-lg">
+                        <p class="font-bold text-accent-gold">Cổ Vật Cuồng Bạo</p>
+                        <p class="text-xs italic text-slate-400 mt-1">"Kèm: Đá Ngàn Năm x32, Melatic x32, Sao VIP x30, Táo Phù Phép x64."</p>
+                    </div>
+                </div>
+
+                <div class="milestone-card glass-effect p-4 rounded-xl text-center border-2 border-accent-blue/50">
+                    <h4 class="text-lg md:text-xl font-bold text-accent-blue mb-2">1 Triệu VNĐ</h4>
+                    <div class="h-16 flex items-center justify-center mb-3">
+                        <img src="img_src/hinh5.png" alt="Chìa Khóa Rương Cao Cấp" class="w-16 h-16 object-contain"
+                        onerror="this.onerror=null; this.src='https://placehold.co/64x64/5c95ff/ffffff?text=1M';" />
+                    </div>
+                    <div class="reward-desc text-slate-300 text-sm mb-0 p-2 bg-primary-dark/50 rounded-lg">
+                        <p class="font-bold text-accent-gold">Mảnh Nâng Cấp x18</p>
+                        <p class="text-xs italic text-slate-400 mt-1">"Kèm: Vé Cao Cấp x15, Túi Ngọc Xanh x64, 128 Chìa Khóa Rương Cao Cấp."</p>
+                    </div>
+                </div>
+                
+                <div class="milestone-card glass-effect p-4 rounded-xl text-center border-2 border-accent-blue/50 opacity-50 grayscale hover:grayscale-0 hover:opacity-100">
+                    <h4 class="text-lg md:text-xl font-bold text-accent-blue mb-2">2 Triệu VNĐ (Chưa Mở)</h4>
+                    <div class="h-16 flex items-center justify-center mb-3">
+                        <img src="img_src/hinh0.png" alt="Sắp Ra Mắt" class="w-16 h-16 object-contain"
+                        onerror="this.onerror=null; this.src='https://placehold.co/64x64/5c95ff/ffffff?text=2M';" />
+                    </div>
+                    <div class="reward-desc text-slate-300 text-sm mb-0 p-2 bg-primary-dark/50 rounded-lg">
+                        <p class="font-bold text-accent-gold">Sắp Ra Mắt</p>
+                        <p class="text-xs italic text-slate-400 mt-1">"Các mốc nạp tiếp theo đang được cập nhật."</p>
+                    </div>
+                </div>
+                
+                <div class="milestone-card glass-effect p-4 rounded-xl text-center border-2 border-accent-blue/50 opacity-50 grayscale hover:grayscale-0 hover:opacity-100">
+                    <h4 class="text-lg md:text-xl font-bold text-accent-blue mb-2">3 Triệu VNĐ (Chưa Mở)</h4>
+                    <div class="h-16 flex items-center justify-center mb-3">
+                        <img src="img_src/hinh0.png" alt="Sắp Ra Mắt" class="w-16 h-16 object-contain"
+                        onerror="this.onerror=null; this.src='https://placehold.co/64x64/5c95ff/ffffff?text=3M';" />
+                    </div>
+                    <div class="reward-desc text-slate-300 text-sm mb-0 p-2 bg-primary-dark/50 rounded-lg">
+                        <p class="font-bold text-accent-gold">Sắp Ra Mắt</p>
+                        <p class="text-xs italic text-slate-400 mt-1">"Các mốc nạp tiếp theo đang được cập nhật."</p>
+                    </div>
+                </div>
+                
+                <div class="milestone-card glass-effect p-4 rounded-xl text-center border-2 border-accent-blue/50 opacity-50 grayscale hover:grayscale-0 hover:opacity-100">
+                    <h4 class="text-lg md:text-xl font-bold text-accent-blue mb-2">5 Triệu VNĐ (Chưa Mở)</h4>
+                    <div class="h-16 flex items-center justify-center mb-3">
+                        <img src="img_src/hinh0.png" alt="Sắp Ra Mắt" class="w-16 h-16 object-contain"
+                        onerror="this.onerror=null; this.src='https://placehold.co/64x64/5c95ff/ffffff?text=5M';" />
+                    </div>
+                    <div class="reward-desc text-slate-300 text-sm mb-0 p-2 bg-primary-dark/50 rounded-lg">
+                        <p class="font-bold text-accent-gold">Sắp Ra Mắt</p>
+                        <p class="text-xs italic text-slate-400 mt-1">"Các mốc nạp tiếp theo đang được cập nhật."</p>
+                    </div>
+                </div>
+                
+                <div class="milestone-card glass-effect p-4 rounded-xl text-center border-2 border-accent-blue/50 opacity-50 grayscale hover:grayscale-0 hover:opacity-100">
+                    <h4 class="text-lg md:text-xl font-bold text-accent-blue mb-2">10 Triệu VNĐ (Chưa Mở)</h4>
+                    <div class="h-16 flex items-center justify-center mb-3">
+                        <img src="img_src/hinh0.png" alt="Sắp Ra Mắt" class="w-16 h-16 object-contain"
+                        onerror="this.onerror=null; this.src='https://placehold.co/64x64/5c95ff/ffffff?text=10M';" />
+                    </div>
+                    <div class="reward-desc text-slate-300 text-sm mb-0 p-2 bg-primary-dark/50 rounded-lg">
+                        <p class="font-bold text-accent-gold">Sắp Ra Mắt</p>
+                        <p class="text-xs italic text-slate-400 mt-1">"Các mốc nạp tiếp theo đang được cập nhật."</p>
+                    </div>
+                </div>
+
+                <div class="milestone-card glass-effect p-4 rounded-xl text-center border-2 border-accent-blue/50 opacity-50 grayscale hover:grayscale-0 hover:opacity-100">
+                    <h4 class="text-lg md:text-xl font-bold text-accent-blue mb-2">15 Triệu VNĐ (Chưa Mở)</h4>
+                    <div class="h-16 flex items-center justify-center mb-3">
+                        <img src="img_src/hinh0.png" alt="Sắp Ra Mắt" class="w-16 h-16 object-contain"
+                        onerror="this.onerror=null; this.src='https://placehold.co/64x64/5c95ff/ffffff?text=15M';" />
+                    </div>
+                    <div class="reward-desc text-slate-300 text-sm mb-0 p-2 bg-primary-dark/50 rounded-lg">
+                        <p class="font-bold text-accent-gold">Sắp Ra Mắt</p>
+                        <p class="text-xs italic text-slate-400 mt-1">"Các mốc nạp tiếp theo đang được cập nhật."</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        </main>
 
     <footer class="w-full bg-secondary-dark border-t border-accent-gold/30 py-6 mt-12">
         <div class="max-w-6xl mx-auto px-4 text-center text-slate-400 text-xs md:text-sm">

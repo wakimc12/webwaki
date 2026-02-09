@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <link rel="icon" type="image/x-icon" href="img_src/icon_server.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyHunter - Săn Quái, Nâng Cấp, Khai Phá!</title>
+    <title>SuperHunter - RPG MMO Server</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'primary-dark': '#0a0d1b',
-                        'secondary-dark': '#1c2135',
-                        'accent-blue': '#4c7cff',
-                        'accent-gold': '#ffcc00',
-                        'mc-green': '#4CAF50',
+                        'dark-bg': '#0a0a0a',
+                        'dark-secondary': '#1a1a1a',
+                        'dark-accent': '#252525',
+                        'primary-red': '#dc2626',
+                        'primary-dark-red': '#991b1b',
+                        'accent-orange': '#f97316',
+                        'accent-gray': '#6b7280',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -32,8 +33,13 @@
             scroll-behavior: smooth;
         }
 
-        #home, #features, #trailer, #donate {
-            scroll-margin-top: 6rem; 
+        body {
+            background: #0a0a0a;
+            min-height: 100vh;
+        }
+
+        #home, #features, #gameplay, #trailer, #donate {
+            scroll-margin-top: 5rem;
         }
 
         .mobile-menu {
@@ -43,25 +49,15 @@
             overflow: hidden;
         }
         .mobile-menu.open {
-            max-height: 500px; 
+            max-height: 500px;
             opacity: 1;
         }
 
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0;
-        }
-
+        /* Hero Section */
         .hero-section {
             position: relative;
-            background: linear-gradient(135deg, #0a0d1b 0%, #1c2135 50%, #0a0d1b 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            min-height: 85vh;
+            background: #0a0a0a;
+            min-height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -75,166 +71,129 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('https://i.ibb.co/JF8BKJjV/server.png');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.3;
-            animation: zoomPulse 20s ease-in-out infinite;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        @keyframes zoomPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes glow {
-            0%, 100% { text-shadow: 0 0 20px rgba(255, 204, 0, 0.5), 0 0 30px rgba(255, 204, 0, 0.3); }
-            50% { text-shadow: 0 0 30px rgba(255, 204, 0, 0.8), 0 0 50px rgba(255, 204, 0, 0.5); }
-        }
-
-        @keyframes shine {
-            0% { background-position: -200% center; }
-            100% { background-position: 200% center; }
-        }
-
-        @keyframes pulseScale {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        @keyframes rotate360 {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(220, 38, 38, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(220, 38, 38, 0.05) 0%, transparent 50%);
         }
 
         .hero-content {
             position: relative;
             z-index: 10;
-            animation: float 6s ease-in-out infinite;
         }
 
-        .title-main {
-            animation: glow 3s ease-in-out infinite;
-            background: linear-gradient(90deg, #ffcc00, #ffd700, #ffcc00);
+        .title-gradient {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #f87171 100%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: shine 3s linear infinite, glow 3s ease-in-out infinite;
+            animation: shimmer 6s linear infinite;
         }
 
+        @keyframes shimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* Buttons */
         .btn-primary {
             position: relative;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 30px rgba(76, 124, 255, 0.5);
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #dc2626, #991b1b);
         }
 
         .btn-primary::before {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
         }
 
         .btn-primary:hover::before {
-            width: 300px;
-            height: 300px;
+            left: 100%;
         }
 
         .btn-primary:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 50px rgba(76, 124, 255, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
         }
 
-        .btn-primary:active {
-            transform: translateY(-2px) scale(1.02);
+        /* IP Box */
+        .ip-container {
+            position: relative;
+            display: inline-block;
         }
 
         .ip-box {
             position: relative;
-            background: linear-gradient(135deg, #1c2135, #0a0d1b);
-            animation: pulseScale 3s ease-in-out infinite;
-            z-index: 2;
+            background: rgba(26, 26, 26, 0.8);
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            transition: all 0.3s ease;
         }
 
-        .ip-box::before {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            background: linear-gradient(45deg, #ffcc00, #4c7cff, #ffcc00);
-            background-size: 400% 400%;
-            border-radius: 0.75rem;
-            z-index: -1;
-            animation: gradientShift 3s ease infinite;
+        .ip-box:hover {
+            border-color: rgba(220, 38, 38, 0.5);
+            box-shadow: 0 0 15px rgba(220, 38, 38, 0.2);
         }
 
+        /* Feature Cards */
         .feature-card {
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-            perspective: 1000px;
+            position: relative;
+            background: rgba(26, 26, 26, 0.6);
+            border: 1px solid rgba(220, 38, 38, 0.15);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
         .feature-card:hover {
-            transform: translateY(-15px) rotateX(5deg) rotateY(5deg);
-            box-shadow: 0 25px 60px rgba(255, 204, 0, 0.4);
+            transform: translateY(-5px);
+            border-color: rgba(220, 38, 38, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .feature-icon {
-            width: 64px;
-            height: 64px;
+            width: 56px;
+            height: 56px;
             margin: 0 auto;
-            filter: drop-shadow(0 0 15px rgba(255, 204, 0, 0.8));
-            transition: all 0.4s ease;
-            animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px rgba(220, 38, 38, 0.4));
+            transition: all 0.3s ease;
         }
 
         .feature-card:hover .feature-icon {
-            transform: rotate(360deg) scale(1.2);
-            filter: drop-shadow(0 0 25px rgba(255, 204, 0, 1));
+            filter: drop-shadow(0 0 12px rgba(220, 38, 38, 0.6));
+            transform: scale(1.05);
         }
 
-        .detail-icon {
-            width: 32px;
-            height: 32px;
-            margin-right: 12px;
-            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
-            transition: transform 0.3s ease;
+        /* Detail Boxes */
+        .detail-box {
+            background: rgba(26, 26, 26, 0.4);
+            border-left: 3px solid;
+            transition: all 0.3s ease;
         }
 
-        .detail-box:hover .detail-icon {
-            transform: scale(1.2) rotate(10deg);
+        .detail-box:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
+        /* Trailer */
         .trailer-container {
             position: relative;
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             border-radius: 1rem;
-            box-shadow: 0 20px 60px rgba(76, 124, 255, 0.5);
-            transition: all 0.4s ease;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
         }
 
         .trailer-container:hover {
-            transform: scale(1.02);
-            box-shadow: 0 30px 80px rgba(76, 124, 255, 0.7);
+            box-shadow: 0 20px 50px rgba(220, 38, 38, 0.2);
         }
 
         .trailer-container iframe {
@@ -246,9 +205,10 @@
             border: none;
         }
 
+        /* Reveal Animation */
         .reveal {
             opacity: 0;
-            transform: translateY(50px);
+            transform: translateY(40px);
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -257,17 +217,21 @@
             transform: translateY(0);
         }
 
+        /* Header */
         header {
             backdrop-filter: blur(20px);
+            background: rgba(10, 10, 10, 0.9);
             transition: all 0.3s ease;
         }
 
         header.scrolled {
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            background: rgba(10, 10, 10, 0.95);
         }
 
         nav a {
             position: relative;
+            transition: color 0.3s ease;
         }
 
         nav a::after {
@@ -277,7 +241,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, #ffcc00, #4c7cff);
+            background: #dc2626;
             transition: width 0.3s ease;
         }
 
@@ -285,285 +249,256 @@
             width: 100%;
         }
 
-        .button-icon {
-            width: 32px;
-            height: 32px;
-            margin-right: 8px;
-            transition: transform 0.4s ease;
-        }
-
-        .btn-gold:hover .button-icon {
-            transform: rotate(360deg) scale(1.1);
-        }
-
-        .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
+        /* Gradient Border */
         .gradient-border {
             position: relative;
-            background: linear-gradient(135deg, #1c2135, #0a0d1b);
-            border-radius: 1rem;
-            z-index: 2;
+            background: rgba(26, 26, 26, 0.8);
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            backdrop-filter: blur(10px);
         }
 
-        .gradient-border::before {
-            content: '';
-            position: absolute;
-            inset: -3px;
-            background: linear-gradient(45deg, #4c7cff, #ffcc00, #4c7cff);
-            background-size: 400% 400%;
-            border-radius: 1rem;
-            z-index: -1;
-            animation: gradientShift 4s ease infinite;
+        /* Status Badge */
+        .status-online {
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
         }
 
-        @media (max-width: 768px) {
-            .feature-card:hover {
-                transform: translateY(-10px);
-            }
-            
-            .hero-content {
-                animation: float 8s ease-in-out infinite;
-            }
-        }
-
+        /* Scrollbar */
         ::-webkit-scrollbar {
-            width: 12px;
+            width: 10px;
         }
 
         ::-webkit-scrollbar-track {
-            background: #0a0d1b;
+            background: #0a0a0a;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #4c7cff, #ffcc00);
-            border-radius: 6px;
+            background: linear-gradient(180deg, #dc2626, #991b1b);
+            border-radius: 5px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #ffcc00, #4c7cff);
+            background: linear-gradient(180deg, #ef4444, #dc2626);
+        }
+
+        /* Particles */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .feature-card:hover {
+                transform: translateY(-4px);
+            }
         }
     </style>
 </head>
-<body class="bg-primary-dark text-white font-sans">
+<body class="text-white font-sans antialiased">
 
-    <header id="header" class="sticky top-0 z-50 bg-secondary-dark/95 backdrop-blur-md shadow-2xl border-b border-accent-blue/20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex justify-between items-center">
-            <a href="#" class="flex items-center space-x-2">
-                <img src="img_src/icon_server.png" 
-                    onerror="this.onerror=null; this.src='https://placehold.co/48x48/ffcc00/0a0d1b?text=SH';"
+    <!-- Header -->
+    <header id="header" class="sticky top-0 z-50 border-b border-primary-purple/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-3">
+                <img src="img_src/icon.png" 
+                    onerror="this.onerror=null; this.src='https://placehold.co/48x48/dc2626/ffffff?text=SH';"
                     alt="Server Icon" 
-                    class="w-12 h-12 object-cover rounded-full shadow-lg border-2 border-accent-gold transition-transform duration-300 hover:scale-110 hover:rotate-12"
+                    class="w-12 h-12 object-cover rounded-lg shadow-lg border-2 border-primary-red transition-transform duration-300 hover:scale-110"
                 />
-                <span class="text-2xl font-black text-accent-gold hidden sm:block">SkyHunter</span>
+                <span class="text-2xl font-bold title-gradient hidden sm:block">SuperHunter</span>
             </a>
             
-            <nav class="hidden md:flex space-x-8 text-lg font-medium items-center">
-                <a href="#home" class="text-white hover:text-accent-gold transition duration-150">Trang Chủ</a>
-                <a href="#features" class="text-white hover:text-accent-gold transition duration-150">Lối Chơi</a>
-                <a href="#trailer" class="text-white hover:text-accent-gold transition duration-150">Trailer</a>
-                <a href="#donate" class="text-white hover:text-accent-gold transition duration-150">Nạp Thẻ</a>
-                <a href="https://discord.gg/hnMT4UR3aH" target="_blank" class="text-white bg-accent-blue px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-150 shadow-md hover:shadow-xl hover:scale-105">Discord</a>
+            <nav class="hidden md:flex space-x-6 text-base font-medium items-center">
+                <a href="#home" class="text-gray-300 hover:text-white transition">Trang Chủ</a>
+                <a href="#features" class="text-gray-300 hover:text-white transition">Tính Năng</a>
+                <a href="#gameplay" class="text-gray-300 hover:text-white transition">Lối Chơi</a>
+                <a href="#trailer" class="text-gray-300 hover:text-white transition">Trailer</a>
+                <a href="#donate" class="text-gray-300 hover:text-white transition">Cửa Hàng</a>
+                <a href="https://discord.gg/hnMT4UR3aH" target="_blank" class="bg-primary-red px-5 py-2 rounded-lg hover:bg-red-700 transition shadow-md hover:shadow-xl">Discord</a>
             </nav>
             
             <div class="md:hidden">
-                <button id="mobileMenuButton" class="text-white focus:outline-none p-2 rounded-md hover:bg-secondary-dark/50">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <button id="mobileMenuButton" class="text-white focus:outline-none p-2 rounded-md hover:bg-dark-secondary/50">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </button>
             </div>
         </div>
 
-        <nav id="mobileMenu" class="mobile-menu md:hidden bg-secondary-dark/95 w-full">
+        <nav id="mobileMenu" class="mobile-menu md:hidden bg-dark-secondary/95">
             <div class="px-4 pb-4 space-y-2 flex flex-col text-center font-medium">
-                <a href="#home" class="block py-2 text-white hover:text-accent-gold hover:bg-primary-dark/50 rounded-lg transition" onclick="toggleMobileMenu()">Trang Chủ</a>
-                <a href="#features" class="block py-2 text-white hover:text-accent-gold hover:bg-primary-dark/50 rounded-lg transition" onclick="toggleMobileMenu()">Lối Chơi</a>
-                <a href="#trailer" class="block py-2 text-white hover:text-accent-gold hover:bg-primary-dark/50 rounded-lg transition" onclick="toggleMobileMenu()">Trailer</a>
-                <a href="#donate" class="block py-2 text-white hover:text-accent-gold hover:bg-primary-dark/50 rounded-lg transition" onclick="toggleMobileMenu()">Nạp Thẻ</a>
-                <a href="https://discord.gg/hnMT4UR3aH" target="_blank" class="block mt-4 text-white bg-accent-blue px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-150 shadow-md" onclick="toggleMobileMenu()">Discord</a>
+                <a href="#home" class="block py-2 text-gray-300 hover:text-white hover:bg-dark-bg/50 rounded-lg transition" onclick="toggleMobileMenu()">Trang Chủ</a>
+                <a href="#features" class="block py-2 text-gray-300 hover:text-white hover:bg-dark-bg/50 rounded-lg transition" onclick="toggleMobileMenu()">Tính Năng</a>
+                <a href="#gameplay" class="block py-2 text-gray-300 hover:text-white hover:bg-dark-bg/50 rounded-lg transition" onclick="toggleMobileMenu()">Lối Chơi</a>
+                <a href="#trailer" class="block py-2 text-gray-300 hover:text-white hover:bg-dark-bg/50 rounded-lg transition" onclick="toggleMobileMenu()">Trailer</a>
+                <a href="#donate" class="block py-2 text-gray-300 hover:text-white hover:bg-dark-bg/50 rounded-lg transition" onclick="toggleMobileMenu()">Cửa Hàng</a>
+                <a href="https://discord.gg/hnMT4UR3aH" target="_blank" class="block mt-4 bg-primary-red px-4 py-2 rounded-lg hover:bg-red-700 transition" onclick="toggleMobileMenu()">Discord</a>
             </div>
         </nav>
     </header>
 
-    <main class="z-10 relative">
-        <section id="home" class="hero-section text-center p-8">
+    <main class="relative">
+        <!-- Hero Section -->
+        <section id="home" class="hero-section text-center px-4 py-16">
             <div id="particles-js"></div>
             
-            <div class="hero-content max-w-4xl space-y-6 p-6 md:p-10 rounded-2xl shadow-2xl backdrop-blur-sm border border-accent-blue/30">
-                <h1 class="text-4xl md:text-7xl font-extrabold leading-tight tracking-tighter">
-                    <span class="title-main">SKYHUNTER</span>
-                </h1>
-                
-                <p class="text-lg md:text-2xl font-semibold text-slate-300">
-                    Săn Quái, Đi Hầm Ngục, Nâng Cấp Trang Bị — Cuộc Phiêu Lưu Bắt Đầu!
-                </p>
+            <div class="hero-content max-w-5xl mx-auto space-y-8">
+                <div class="space-y-4">
+                    <h1 class="text-5xl md:text-7xl font-black leading-tight">
+                        <span class="title-gradient">SUPERHUNTER</span>
+                    </h1>
+                    
+                    <p class="text-xl md:text-3xl font-bold text-gray-300">
+                        RPG MMO Server
+                    </p>
 
-                <div class="space-y-4 pt-4 flex justify-center">
-                    <button class="btn-primary w-full md:w-auto text-2xl font-black px-12 py-4 rounded-xl bg-accent-blue hover:bg-blue-600 transition duration-300" onclick="copyIP('play.skymc.online')">
+                    <p class="text-base md:text-lg text-gray-400 max-w-2xl mx-auto">
+                        Cày cuốc săn quái, kiếm tiền nâng cấp trang bị, chinh phục boss thế giới trong hành trình RPG đỉnh cao
+                    </p>
+                </div>
+
+                <div class="space-y-6 pt-4">
+                    <button class="btn-primary w-full md:w-auto text-xl font-bold px-10 py-4 rounded-xl transition duration-300 shadow-xl" onclick="copyIP('superhunter.online')">
                         <span class="flex items-center justify-center relative z-10">
-                            <svg class="w-7 h-7 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3v-1m3-4H5a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2h-3"></path></svg>
-                            BẮT ĐẦU CHƠI NGAY
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Tham Gia Ngay
                         </span>
                     </button>
-                </div>
 
-                <div class="flex items-center justify-center space-x-3 pt-2">
-                    <span class="ip-box text-xl md:text-2xl font-mono px-5 py-2 rounded-xl cursor-pointer" onclick="copyIP('play.skymc.online')">
-                        play.skymc.online
-                    </span>
-                    <span id="copyMessage" class="text-mc-green text-base hidden font-bold">Đã sao chép!</span>
-                </div>
+                    <div class="ip-container">
+                        <div class="ip-box text-lg md:text-xl font-mono px-6 py-3 rounded-xl cursor-pointer inline-block" onclick="copyIP('superhunter.online')">
+                            superhunter.online
+                        </div>
+                        <span id="copyMessage" class="block mt-2 text-primary-red text-sm hidden font-semibold">✓ Đã sao chép!</span>
+                    </div>
 
-                <div class="pt-4">
-                    <span id="serverStatus" class="inline-flex items-center px-4 py-2 rounded-full text-base font-semibold bg-mc-green text-white shadow-md">
-                        <span class="w-3 h-3 bg-white rounded-full mr-2 animate-pulse"></span>
-                        Đang tải trạng thái server...
-                    </span>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-gray-400">
+                        <span id="serverStatus" class="status-online inline-flex items-center px-4 py-2 rounded-full font-semibold">
+                            <span class="w-2.5 h-2.5 bg-white rounded-full mr-2 animate-pulse"></span>
+                            Đang Hoạt Động
+                        </span>
+                        <span class="flex items-center">
+                            <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20"><path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path></svg>
+                            Minecraft 1.21 - 1.21.5
+                        </span>
+                    </div>
                 </div>
             </div>
         </section>
         
-        <section id="trailer" class="py-16 bg-primary-dark reveal">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="text-5xl font-extrabold text-accent-gold mb-10">TRAILER CHÍNH THỨC 🎬</h2>
+        <!-- Features Section -->
+        <section id="features" class="py-20 px-4 reveal">
+            <div class="max-w-7xl mx-auto text-center">
+                <h2 class="text-4xl md:text-5xl font-black mb-4">
+                    <span class="title-gradient">Tính Năng Nổi Bật</span>
+                </h2>
+                <p class="text-gray-400 mb-12 text-lg">Trải nghiệm RPG MMO chuyên sâu với hệ thống đa dạng</p>
                 
-                <div class="p-4 bg-secondary-dark rounded-xl shadow-2xl border-4 border-accent-blue/50">
-                    <div class="trailer-container">
-                        <iframe 
-                            src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen
-                            title="Trailer Server SkyHunter">
-                        </iframe>
-                    </div>
-                    <p class="text-slate-400 mt-4 text-sm italic">
-                        Trailer máy chủ!
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section id="features" class="py-20 bg-primary-dark reveal">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="text-5xl font-extrabold text-accent-gold mb-16">KHÁM PHÁ LỐI CHƠI ĐỘC QUYỀN ✨</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     
-                    <div class="feature-card bg-secondary-dark p-6 rounded-xl shadow-xl transition duration-300 border-2 border-secondary-dark hover:border-accent-gold">
-                        <div class="mb-4">
-                            <img src="img_src/island.png" 
-                                onerror="this.onerror=null; this.src='https://placehold.co/64x64/4c7cff/ffffff?text=ISLAND';"
-                                alt="Icon Hòn Đảo Cá Nhân" 
-                                class="feature-icon" />
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">Hòn Đảo Cá Nhân</h3>
-                        <p class="text-slate-400">
-                            Khởi đầu cuộc phiêu lưu trên hòn đảo của riêng bạn. Thiết lập căn cứ và mở rộng giới hạn khai phá.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card bg-secondary-dark p-6 rounded-xl shadow-xl transition duration-300 border-2 border-secondary-dark hover:border-accent-gold">
+                    <div class="feature-card p-6 rounded-2xl">
                         <div class="mb-4">
                             <img src="img_src/dungeon.png" 
-                                onerror="this.onerror=null; this.src='https://placehold.co/64x64/ffcc00/1c2135?text=DUNGEON';"
-                                alt="Icon Hầm Ngục & Săn Boss" 
+                                onerror="this.onerror=null; this.src='https://placehold.co/56x56/dc2626/ffffff?text=⚔️';"
+                                alt="Săn Quái" 
                                 class="feature-icon" />
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">Hầm Ngục & Săn Boss</h3>
-                        <p class="text-slate-400">
-                            Thách thức các hầm ngục đa dạng, săn lùng quái vật mạnh mẽ để kiếm tài nguyên hiếm và trang bị huyền thoại.
-                        </p>
-                    </div>
-
-                    <div class="feature-card bg-secondary-dark p-6 rounded-xl shadow-xl transition duration-300 border-2 border-secondary-dark hover:border-accent-gold">
-                        <div class="mb-4">
-                            <img src="img_src/tien.png" 
-                                onerror="this.onerror=null; this.src='https://placehold.co/64x64/ef4444/1c2135?text=ECONOMY';"
-                                alt="Icon Thị Trường & Nâng Cấp" 
-                                class="feature-icon" />
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">Thị Trường & Nâng Cấp</h3>
-                        <p class="text-slate-400">
-                            Sử dụng tiền tệ để nâng cấp trang bị, mua bán vật phẩm với người chơi khác, và xây dựng cơ ngơi.
+                        <h3 class="text-xl font-bold mb-2 text-primary-red">Săn Quái Kiếm Tiền</h3>
+                        <p class="text-gray-400 text-sm">
+                            Tiêu diệt hàng trăm loại quái vật khác nhau, thu thập loot hiếm và tích lũy tài sản
                         </p>
                     </div>
                     
-                    <div class="feature-card bg-secondary-dark p-6 rounded-xl shadow-xl transition duration-300 border-2 border-secondary-dark hover:border-accent-gold">
+                    <div class="feature-card p-6 rounded-2xl">
                         <div class="mb-4">
-                            <img src="img_src/pvp.png" 
-                                onerror="this.onerror=null; this.src='https://placehold.co/64x64/10b981/1c2135?text=PVP';"
-                                alt="Icon Đấu Trường PvP" 
+                            <img src="img_src/tien.png" 
+                                onerror="this.onerror=null; this.src='https://placehold.co/56x56/f97316/ffffff?text=💰';"
+                                alt="Nâng Cấp" 
                                 class="feature-icon" />
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">Đấu Trường PvP</h3>
-                        <p class="text-slate-400">
-                            Chế độ nhỏ nơi bạn có thể thử thách kỹ năng chiến đấu với những người chơi khác và leo hạng vinh quang.
+                        <h3 class="text-xl font-bold mb-2 text-accent-orange">Nâng Cấp Trang Bị</h3>
+                        <p class="text-gray-400 text-sm">
+                            Hệ thống nâng cấp đa tầng với enchant độc quyền và chỉ số custom
+                        </p>
+                    </div>
+
+                    <div class="feature-card p-6 rounded-2xl">
+                        <div class="mb-4">
+                            <img src="img_src/3.png" 
+                                onerror="this.onerror=null; this.src='https://placehold.co/56x56/fbbf24/1a1a1a?text=👑';"
+                                alt="Boss Thế Giới" 
+                                class="feature-icon" />
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-yellow-500">Boss Thế Giới</h3>
+                        <p class="text-gray-400 text-sm">
+                            Chinh phục các boss khổng lồ xuất hiện định kỳ với phần thưởng cực khủng
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card p-6 rounded-2xl">
+                        <div class="mb-4">
+                            <img src="img_src/pvp.png" 
+                                onerror="this.onerror=null; this.src='https://placehold.co/56x56/991b1b/ffffff?text=⚡';"
+                                alt="PvP" 
+                                class="feature-icon" />
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-primary-dark-red">Đấu Trường PvP</h3>
+                        <p class="text-gray-400 text-sm">
+                            Thách đấu người chơi khác, leo rank và nhận thưởng danh vọng
                         </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="gameplay" class="py-20 bg-secondary-dark reveal">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-4xl font-extrabold text-accent-blue text-center mb-12">HỆ THỐNG TRANG BỊ VÀ THU THẬP ⚔️</h2>
+        <!-- Gameplay Section -->
+        <section id="gameplay" class="py-20 px-4 reveal">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-black text-center mb-12">
+                    <span class="title-gradient">Hệ Thống Gameplay</span>
+                </h2>
                 
-                <div class="flex flex-col lg:flex-row items-center space-y-10 lg:space-y-0 lg:space-x-12">
-                    <div class="lg:w-1/2 p-4 rounded-xl bg-primary-dark border border-accent-gold/30 transition-all duration-500 hover:scale-105 hover:shadow-2xl">
-                        <img src="img_src/dungeon_im.png" 
-                                onerror="this.onerror=null; this.src='https://placehold.co/800x450/1e293b/ffffff?text=H%C3%80M+NG%E1%BB%A4C+V%C3%80+TRANG+B%E1%BB%8A';"
-                                alt="Hình ảnh Trang bị" 
-                                class="rounded-lg w-full h-auto object-cover border-4 border-accent-gold/50" />
+                <div class="flex flex-col lg:flex-row items-center gap-12">
+                    <div class="lg:w-1/2">
+                        <img src="img_src/imge-_1_.png" 
+                            onerror="this.onerror=null; this.src='https://placehold.co/800x450/1a1a1a/dc2626?text=RPG+GAMEPLAY';"
+                            alt="Gameplay" 
+                            class="rounded-2xl w-full h-auto object-cover shadow-2xl border border-primary-red/20" />
                     </div>
                     
                     <div class="lg:w-1/2 space-y-6">
                         
-                        <div class="detail-box p-4 bg-primary-dark rounded-lg border-l-4 border-accent-gold shadow-lg transition-all duration-300 hover:transform hover:translate-x-2">
-                            <h3 class="text-2xl font-bold text-accent-gold mb-2 flex items-center">
-                                <img src="img_src/3.png" 
-                                    onerror="this.onerror=null; this.src='https://placehold.co/32x32/ffcc00/1c2135?text=R';"
-                                    alt="Icon Tài Nguyên" 
-                                    class="detail-icon" />
-                                Tài Nguyên Tùy Biến
+                        <div class="detail-box p-5 rounded-xl border-primary-red">
+                            <h3 class="text-xl font-bold text-primary-red mb-2 flex items-center">
+                                <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"></path></svg>
+                                Hệ Thống Cày Cuốc
                             </h3>
-                            <p class="text-slate-300">
-                                Khai thác các loại khoáng sản và tài nguyên mới chỉ có tại SkyHunter. Chúng là chìa khóa để chế tạo những vật phẩm mạnh mẽ nhất.
+                            <p class="text-gray-400">
+                                Farm tài nguyên, khai thác khoáng sản hiếm và chế tạo vật phẩm mạnh mẽ để chuẩn bị cho những thử thách khó khăn
                             </p>
                         </div>
                         
-                        <div class="detail-box p-4 bg-primary-dark rounded-lg border-l-4 border-accent-blue shadow-lg transition-all duration-300 hover:transform hover:translate-x-2">
-                            <h3 class="text-2xl font-bold text-accent-blue mb-2 flex items-center">
-                                <img src="img_src/2.png" 
-                                    onerror="this.onerror=null; this.src='https://placehold.co/32x32/4c7cff/ffffff?text=C';"
-                                    class="detail-icon" />
-                                Chế Tạo Đồ Hiếm
+                        <div class="detail-box p-5 rounded-xl border-accent-orange">
+                            <h3 class="text-xl font-bold text-accent-orange mb-2 flex items-center">
+                                <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                Quest & Nhiệm Vụ
                             </h3>
-                            <p class="text-slate-300">
-                                Hệ thống chế tạo nâng cao cho phép bạn thêm các chỉ số và bùa phép (Enchants) độc đáo vào trang bị, tạo nên phong cách chiến đấu riêng.
+                            <p class="text-gray-400">
+                                Hoàn thành hàng trăm nhiệm vụ hàng ngày, tuần và sự kiện đặc biệt để nhận EXP và phần thưởng giá trị
                             </p>
                         </div>
                         
-                        <div class="detail-box p-4 bg-primary-dark rounded-lg border-l-4 border-mc-green shadow-lg transition-all duration-300 hover:transform hover:translate-x-2">
-                            <h3 class="text-2xl font-bold text-mc-green mb-2 flex items-center">
-                                <img src="img_src/1.png" 
-                                    onerror="this.onerror=null; this.src='https://placehold.co/32x32/4CAF50/1c2135?text=B';"
-                                    alt="Icon Xây Dựng" 
-                                    class="detail-icon" />
-                                Xây Dựng & Thư Giãn
+                        <div class="detail-box p-5 rounded-xl border-yellow-500">
+                            <h3 class="text-xl font-bold text-yellow-500 mb-2 flex items-center">
+                                <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                Ranking & Thành Tích
                             </h3>
-                            <p class="text-slate-300">
-                                Sau những trận chiến căng thẳng, trở về hòn đảo của mình để xây nhà, trang trí và thư giãn cùng bạn bè.
+                            <p class="text-gray-400">
+                                Cạnh tranh với người chơi khác trên bảng xếp hạng, đạt thành tích và nhận danh hiệu độc quyền
                             </p>
                         </div>
                     </div>
@@ -571,77 +506,111 @@
             </div>
         </section>
 
-        <section id="donate" class="py-16 bg-primary-dark text-center reveal">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 p-10 gradient-border shadow-2xl">
-                <h2 class="text-4xl font-extrabold text-accent-gold mb-4">Cửa Hàng & Nạp Thẻ 💎</h2>
-                <p class="text-xl text-slate-300 mb-8">
-                    Ủng hộ để giúp server duy trì hoạt động và nhận về các vật phẩm hoặc quyền lợi độc quyền trong game.
-                </p>
-                <a href="napte.html" target="_blank" class="btn-gold inline-block text-2xl font-bold px-10 py-3 rounded-full bg-accent-gold text-primary-dark hover:bg-yellow-600 transition duration-300 shadow-xl">
-                    <span class="flex items-center justify-center">
-                        <img src="img_src/phalevip.png" 
-                            onerror="this.onerror=null; this.src='https://placehold.co/32x32/ffcc00/0a0d1b?text=S';"
-                            alt="Icon Pha Lê" class="button-icon" />
-                        Nhấn Để Đi Đến Store
-                    </span>
-                </a>
+        <!-- Trailer Section -->
+        <section id="trailer" class="py-20 px-4 reveal">
+            <div class="max-w-5xl mx-auto text-center">
+                <h2 class="text-4xl md:text-5xl font-black mb-4">
+                    <span class="title-gradient">Trailer Chính Thức</span>
+                </h2>
+                <p class="text-gray-400 mb-10 text-lg">Khám phá thế giới SuperHunter</p>
+                
+                <div class="gradient-border p-1 rounded-2xl">
+                    <div class="bg-dark-bg rounded-xl p-4 border border-primary-red/10">
+                        <div class="trailer-container">
+                            <iframe 
+                                src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=1" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                                title="SuperHunter Trailer">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="discord" class="py-16 bg-secondary-dark text-center reveal">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 p-10 gradient-border shadow-2xl">
-                <h2 class="text-4xl font-extrabold text-white mb-4">CỘNG ĐỒNG THỢ SĂN LỚN NHẤT 💬</h2>
-                <p class="text-xl text-slate-300 mb-8">
-                    Tham gia Discord để nhận Code Quà Tặng tân thủ, thông báo sự kiện hàng ngày và hỗ trợ nhanh nhất!
-                </p>
-                <a href="https://discord.gg/hnMT4UR3aH" target="_blank" class="btn-gold inline-block text-2xl font-bold px-10 py-3 rounded-full bg-accent-blue text-white hover:bg-blue-600 transition duration-300 shadow-xl">
-                    <span class="flex items-center justify-center">
-                        <img src="img_src/discord.png" 
-                            onerror="this.onerror=null; this.src='https://placehold.co/32x32/5865F2/ffffff?text=D';"
-                            alt="Icon Discord" class="button-icon" />
-                        Tham Gia Discord SKYHUNTER
-                    </span>
-                </a>
+        <!-- Donate Section -->
+        <section id="donate" class="py-20 px-4 reveal">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="gradient-border p-8 md:p-12 rounded-2xl">
+                    <h2 class="text-3xl md:text-4xl font-black mb-4">
+                        <span class="title-gradient">Cửa Hàng & Gói VIP</span>
+                    </h2>
+                    <p class="text-gray-400 mb-8 text-lg">
+                        Ủng hộ server và nhận các vật phẩm, quyền lợi độc quyền trong game
+                    </p>
+                    <a href="napte.html" target="_blank" class="inline-block bg-gradient-to-r from-primary-red to-primary-dark-red text-white text-xl font-bold px-10 py-4 rounded-xl hover:shadow-2xl transition duration-300 transform hover:scale-105">
+                        <span class="flex items-center justify-center">
+                            <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path></svg>
+                            Truy Cập Cửa Hàng
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Discord Section -->
+        <section id="discord" class="py-20 px-4 reveal">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="gradient-border p-8 md:p-12 rounded-2xl">
+                    <h2 class="text-3xl md:text-4xl font-black mb-4 text-white">Tham Gia Cộng Đồng</h2>
+                    <p class="text-gray-400 mb-8 text-lg">
+                        Kết nối với hàng nghìn thợ săn, nhận code quà tặng và cập nhật sự kiện mới nhất
+                    </p>
+                    <a href="https://discord.gg/hnMT4UR3aH" target="_blank" class="inline-block bg-primary-red text-white text-xl font-bold px-10 py-4 rounded-xl hover:bg-red-700 hover:shadow-2xl transition duration-300 transform hover:scale-105">
+                        <span class="flex items-center justify-center">
+                            <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path></svg>
+                            Tham Gia Discord
+                        </span>
+                    </a>
+                </div>
             </div>
         </section>
 
     </main>
 
-    <footer class="bg-secondary-dark border-t border-accent-gold/20 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-400">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
+    <!-- Footer -->
+    <footer class="bg-dark-secondary/50 border-t border-primary-purple/20 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
                 <div>
-                    <h4 class="text-white font-bold mb-2">Liên Kết</h4>
-                    <ul class="space-y-1">
-                        <li><a href="#features" class="hover:text-accent-gold transition">Lối Chơi</a></li>
-                        <li><a href="#trailer" class="hover:text-accent-gold transition">Trailer</a></li>
-                        <li><a href="#donate" class="hover:text-accent-gold transition">Ủng Hộ (Shop)</a></li>
+                    <h4 class="text-white font-bold mb-3 text-lg">Liên Kết</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#features" class="hover:text-primary-red transition">Tính Năng</a></li>
+                        <li><a href="#gameplay" class="hover:text-primary-red transition">Lối Chơi</a></li>
+                        <li><a href="#donate" class="hover:text-primary-red transition">Cửa Hàng</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-white font-bold mb-2">Hỗ Trợ</h4>
-                    <p>Email: support@skymc.online</p>
-                    <p>Phiên bản: 1.20.4 - 1.21.6+</p>
+                    <h4 class="text-white font-bold mb-3 text-lg">Hỗ Trợ</h4>
+                    <p class="text-gray-400">Email: support@superhunter.online</p>
+                    <p class="text-gray-400">Minecraft: 1.21 - 1.21.5</p>
                 </div>
                 <div>
-                    <h4 class="text-white font-bold mb-2">Kết Nối</h4>
-                    <p>
-                        <a href="https://facebook.com/skymc" target="_blank" class="hover:text-accent-blue mx-1 transition">Facebook</a> | 
-                        <a href="https://tiktok.com/@skymc" target="_blank" class="hover:text-accent-blue mx-1 transition">TikTok</a>
-                    </p>
+                    <h4 class="text-white font-bold mb-3 text-lg">Mạng Xã Hội</h4>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        <a href="https://facebook.com/superhunter" target="_blank" class="text-gray-400 hover:text-primary-red transition">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="https://discord.gg/hnMT4UR3aH" target="_blank" class="text-gray-400 hover:text-primary-red transition">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026c.462-.62.874-1.275 1.226-1.963.021-.04.001-.088-.041-.104a13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z"/></svg>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <p class="mt-8 pt-4 border-t border-slate-700 text-sm">
-                &copy; 2025 SkyHunter Minecraft Server. All rights reserved. Design by **@waki**
-            </p>
+            <div class="pt-8 border-t border-gray-700 text-center">
+                <p class="text-gray-500 text-sm">
+                    &copy; 2025 SuperHunter RPG MMO Server. Design by <span class="text-primary-red font-semibold">@waki</span>
+                </p>
+            </div>
         </div>
     </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
     <script>
-        const SERVER_ADDRESS = 'play.skymc.online';
-        const statusElement = document.getElementById('serverStatus');
+        const SERVER_ADDRESS = 'superhunter.online';
         const mobileMenu = document.getElementById('mobileMenu');
         const mobileMenuButton = document.getElementById('mobileMenuButton');
         const header = document.getElementById('header');
@@ -649,36 +618,46 @@
         function toggleMobileMenu() {
             mobileMenu.classList.toggle('open');
         }
+        
         mobileMenuButton.addEventListener('click', toggleMobileMenu);
 
         function initParticles() {
             particlesJS('particles-js', {
                 "particles": {
-                    "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
-                    "color": { "value": "#ffcc00" }, 
+                    "number": { "value": 50, "density": { "enable": true, "value_area": 800 } },
+                    "color": { "value": "#dc2626" },
                     "shape": { "type": "circle" },
-                    "opacity": { "value": 0.5, "random": false, "anim": { "enable": false } },
-                    "size": { "value": 3, "random": true, "anim": { "enable": false } },
-                    "line_linked": { "enable": true, "distance": 150, "color": "#4c7cff", "opacity": 0.4, "width": 1 },
-                    "move": { "enable": true, "speed": 4, "direction": "none", "random": false, "straight": false, "out_mode": "out" }
+                    "opacity": { "value": 0.3, "random": true },
+                    "size": { "value": 2, "random": true },
+                    "line_linked": { 
+                        "enable": true, 
+                        "distance": 150, 
+                        "color": "#dc2626", 
+                        "opacity": 0.2, 
+                        "width": 1 
+                    },
+                    "move": { 
+                        "enable": true, 
+                        "speed": 1.5, 
+                        "direction": "none", 
+                        "random": true, 
+                        "straight": false, 
+                        "out_mode": "out" 
+                    }
                 },
                 "interactivity": {
                     "detect_on": "canvas",
-                    "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
-                    "modes": { "repulse": { "distance": 100, "duration": 0.4 } }
+                    "events": { 
+                        "onhover": { "enable": true, "mode": "grab" }, 
+                        "onclick": { "enable": false }, 
+                        "resize": true 
+                    },
+                    "modes": { 
+                        "grab": { "distance": 120, "line_linked": { "opacity": 0.4 } }
+                    }
                 },
                 "retina_detect": true
             });
-        }
-
-        function displayFixedStatus() {
-            statusElement.classList.remove('bg-gray-500', 'bg-red-500', 'animate-pulse');
-            statusElement.classList.add('bg-mc-green');
-            
-            statusElement.innerHTML = `
-                <span class="w-3 h-3 bg-white rounded-full mr-2 animate-ping"></span>
-                Đang Hoạt Động
-            `;
         }
 
         function copyIP(ip) {
@@ -689,79 +668,65 @@
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(ip)
                     .then(() => {
-                        showCopyMessage('Đã sao chép IP: ' + ip + '!');
+                        showCopyMessage();
                     })
-                    .catch(err => {
-                        fallbackCopy(tempInput, ip);
-                    })
+                    .catch(() => {
+                        fallbackCopy(tempInput);
+                    });
             } else {
-                fallbackCopy(tempInput, ip);
+                fallbackCopy(tempInput);
             }
-
+            
             document.body.removeChild(tempInput);
         }
         
-        function fallbackCopy(tempInput, ip) {
+        function fallbackCopy(tempInput) {
             tempInput.select();
-            let success = false;
             try {
-                success = document.execCommand('copy');
+                document.execCommand('copy');
+                showCopyMessage();
             } catch (err) {
-                console.error('Lỗi khi sao chép IP:', err);
-            }
-            
-            if (success) {
-                showCopyMessage('Đã sao chép IP: ' + ip + '!');
-            } else {
-                showCopyMessage('Lỗi sao chép! Hãy sao chép thủ công: ' + ip, true);
+                console.error('Lỗi sao chép:', err);
             }
         }
 
-        function showCopyMessage(message, isError = false) {
+        function showCopyMessage() {
             const copyMessage = document.getElementById('copyMessage');
-            copyMessage.textContent = message;
-            
-            copyMessage.classList.remove('hidden', 'text-mc-green', 'text-red-400');
-            copyMessage.classList.add(isError ? 'text-red-400' : 'text-mc-green', 'inline-block');
+            copyMessage.classList.remove('hidden');
             
             setTimeout(() => {
                 copyMessage.classList.add('hidden');
-                copyMessage.classList.remove('inline-block');
-                if (isError) {
-                    copyMessage.classList.remove('text-red-400');
-                    copyMessage.classList.add('text-mc-green'); 
-                }
-            }, isError ? 5000 : 3000);
+            }, 3000);
         }
 
         function revealOnScroll() {
             const reveals = document.querySelectorAll('.reveal');
-            for (let i = 0; i < reveals.length; i++) {
-                const windowHeight = window.innerHeight;
-                const revealTop = reveals[i].getBoundingClientRect().top;
-                const revealPoint = 150;
+            const windowHeight = window.innerHeight;
+            
+            reveals.forEach(reveal => {
+                const revealTop = reveal.getBoundingClientRect().top;
+                const revealPoint = 100;
+                
                 if (revealTop < windowHeight - revealPoint) {
-                    reveals[i].classList.add('active');
-                } else {
-                    reveals[i].classList.remove('active');
+                    reveal.classList.add('active');
                 }
-            }
+            });
         }
+
         function handleScroll() {
             if (window.scrollY > 50) {
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
             }
-            revealOnScroll(); 
+            revealOnScroll();
         }
 
-        
         window.addEventListener('scroll', handleScroll);
+        
         window.onload = function() {
-            displayFixedStatus();
-            initParticles(); 
-            revealOnScroll(); 
+            initParticles();
+            revealOnScroll();
         }
     </script>
 </body>

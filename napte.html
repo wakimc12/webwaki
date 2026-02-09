@@ -4,886 +4,594 @@
     <link rel="icon" type="image/x-icon" href="img_src/icon_server.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nạp ATM/QR | Nạp Thẻ SkyHunter - Nâng Cấp</title>
+    <title>Nạp Thẻ | SuperHunter RPG</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        // Màu sắc mới và cấu hình Tailwind
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'primary-dark': '#0d111c', // Nền tối hơn
-                        'secondary-dark': '#1e2637', // Nền khối phụ
-                        'accent-blue': '#5c95ff', // Blue sáng hơn, bắt mắt hơn
-                        'accent-gold': '#ffcc00', // Vàng chủ đạo
-                        'promo-red': '#ff5a5a', // Đỏ khuyến mãi
-                        'bidv-green': '#008c73', // Xanh BIDV sáng hơn
-                        'event-bg': '#30184b', 
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    animation: {
-                        'float': 'float 3s ease-in-out infinite',
-                        'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
-                        'slide-up': 'slide-up 0.5s ease-out',
-                        'shimmer': 'shimmer 2s linear infinite',
-                        'pulse-event': 'pulse-event 1.5s infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        },
-                        'pulse-glow': {
-                            '0%, 100%': { boxShadow: '0 0 20px rgba(255, 204, 0, 0.4)' },
-                            '50%': { boxShadow: '0 0 40px rgba(255, 204, 0, 0.8)' },
-                        },
-                        'slide-up': {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        shimmer: {
-                            '0%': { backgroundPosition: '-1000px 0' },
-                            '100%': { backgroundPosition: '1000px 0' },
-                        },
-                        'pulse-event': {
-                            '0%, 100%': { opacity: '1', transform: 'scale(1)' },
-                            '50%': { opacity: '0.95', transform: 'scale(1.02)' },
-                        },
-                    },
+                        'dark-bg': '#0a0a0a',
+                        'dark-secondary': '#1a1a1a',
+                        'primary-red': '#dc2626',
+                        'primary-dark-red': '#991b1b',
+                        'accent-orange': '#f97316',
+                    }
                 }
             }
         }
     </script>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        /* Thay đổi màu nền tổng thể */
+        * {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background: linear-gradient(135deg, #0d111c 0%, #1a2033 50%, #0d111c 100%);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            position: relative;
-            overflow-x: hidden;
+            background: #0a0a0a;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
         }
 
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Particles background - màu sắc nổi bật hơn */
+        /* Background Effects */
         body::before {
             content: '';
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(92, 149, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 204, 0, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(255, 90, 90, 0.15) 0%, transparent 50%);
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(220, 38, 38, 0.08) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
+            animation: float 8s ease-in-out infinite;
         }
 
-        /* Hiệu ứng Glass/Mờ */
-        .glass-effect {
-            background: rgba(30, 38, 55, 0.9); /* Độ mờ cao hơn */
-            backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        @keyframes float {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
         }
 
-        /* Bóng đổ sáng */
-        .glow-shadow-gold {
-            box-shadow: 0 0 40px rgba(255, 204, 0, 0.5), 0 0 80px rgba(255, 204, 0, 0.2);
+        /* Title Gradient */
+        .title-gradient {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #f87171 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
         }
 
-        .glow-shadow-blue {
-            box-shadow: 0 0 40px rgba(92, 149, 255, 0.5), 0 0 80px rgba(92, 149, 255, 0.2);
+        @keyframes shimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
         }
 
-        /* Input tùy chỉnh */
-        .custom-input {
-            background: rgba(13, 17, 28, 0.9);
-            border: 2px solid rgba(92, 149, 255, 0.4);
+        /* Glass Card */
+        .glass-card {
+            background: rgba(26, 26, 26, 0.6);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            backdrop-filter: blur(20px);
             transition: all 0.3s ease;
-            color: #fff;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(220, 38, 38, 0.4);
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.2);
+            transform: translateY(-3px);
+        }
+
+        /* Input */
+        .custom-input {
+            background: rgba(10, 10, 10, 0.8);
+            border: 2px solid rgba(220, 38, 38, 0.3);
+            transition: all 0.3s ease;
         }
 
         .custom-input:focus {
             outline: none;
-            border-color: #5c95ff;
-            box-shadow: 0 0 20px rgba(92, 149, 255, 0.6);
+            border-color: #dc2626;
+            box-shadow: 0 0 20px rgba(220, 38, 38, 0.4);
         }
 
-        /* Hàng gói nạp */
+        /* Package Row */
         .package-row {
             transition: all 0.3s ease;
-            position: relative;
+            border-bottom: 1px solid rgba(107, 114, 128, 0.15);
         }
 
         .package-row:hover {
-            background: rgba(92, 149, 255, 0.15); /* Màu hover nổi hơn */
-        }
-        
-        /* Card Mốc Nạp */
-        .milestone-card {
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            background: rgba(30, 38, 55, 0.7); /* Sử dụng secondary-dark */
-        }
-        .milestone-card:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(92, 149, 255, 0.6);
-            border-color: #ffcc00 !important;
+            background: rgba(220, 38, 38, 0.08);
+            transform: translateX(5px);
         }
 
-        /* Khung mô tả phần thưởng */
-        .milestone-card .reward-desc {
-            min-height: 4.5rem; /* ~72px, cho phép 2-3 dòng text */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        /* Text lấp lánh */
-        .shimmer-text {
-            background: linear-gradient(90deg, #ffffff 0%, #ffcc00 50%, #ffffff 100%);
-            background-size: 200% 100%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 3s linear infinite;
-        }
-
-        /* Nút QR */
-        .btn-generate {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .btn-generate:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(92, 149, 255, 0.6);
-        }
-
-        /* Banner khuyến mãi chạy chữ */
-        .promo-banner {
-            background: linear-gradient(90deg, #ff5a5a, #ffcc00, #ff5a5a);
-            background-size: 200% 100%;
-            animation: shimmer 4s linear infinite;
-        }
-
-        /* Container QR */
-        .qr-container {
-            background: linear-gradient(135deg, #fff 0%, #e0e0e0 100%);
-            padding: 1.5rem;
-            border-radius: 1.5rem;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
-            animation: slide-up 0.5s ease-out;
-        }
-
-        /* Card sự kiện */
-        .event-card {
-            position: relative;
-            overflow: hidden;
-            background: #151927; 
-        }
-        
-        /* Viền xoay card sự kiện */
-        .event-card-border::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 1.25rem;
-            padding: 3px;
-            background: conic-gradient(from 0deg, #ff5a5a, #ffcc00, #5c95ff, #ff5a5a);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            animation: rotate 8s linear infinite;
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Nút điều chỉnh số lượng */
+        /* Quantity Controls */
         .quantity-control-btn {
-            width: 35px;
-            height: 35px;
+            width: 38px;
+            height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
-            line-height: 1;
-            font-weight: bold;
-            color: #0d111c;
-            background-color: #ffcc00;
-            border-radius: 8px;
+            background: linear-gradient(135deg, #dc2626, #991b1b);
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
-        
+
         .quantity-control-btn:hover {
-            background-color: #ffde59;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
             transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.5);
         }
-        
-        /* Input số lượng */
+
         .quantity-input {
-            background: transparent !important; /* Loại bỏ nền input trong nút */
+            background: transparent !important;
             border: none !important;
         }
-        
-        /* Nội dung chuyển khoản */
-        #transferContent {
-            white-space: pre-wrap;
-            word-wrap: break-word;
+
+        /* Button */
+        .btn-primary {
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            transition: all 0.3s ease;
         }
 
-    </style>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body class="text-white font-sans min-h-screen flex flex-col items-center relative">
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.5);
+        }
 
-    <header class="w-full glass-effect shadow-2xl border-b border-accent-gold/50 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 relative flex items-center justify-center">
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Event Banner */
+        .event-banner {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(153, 27, 27, 0.15));
+            border: 1px solid rgba(220, 38, 38, 0.4);
+        }
+
+        /* QR Container */
+        .qr-container {
+            background: linear-gradient(135deg, #fff 0%, #f3f4f6 100%);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            transition: all 0.4s ease;
+        }
+
+        .qr-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Info Box */
+        .info-box {
+            background: rgba(10, 10, 10, 0.6);
+            border: 1px solid rgba(220, 38, 38, 0.3);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #dc2626, #991b1b);
+            border-radius: 10px;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            animation: slideUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body class="text-white">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 backdrop-blur-xl bg-dark-bg/90 border-b border-primary-red/20">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <img src="img_src/icon_server.png" 
+                    onerror="this.onerror=null; this.src='https://placehold.co/48x48/dc2626/ffffff?text=SH';"
+                    alt="Icon" 
+                    class="w-12 h-12 rounded-lg border-2 border-primary-red group-hover:scale-110 transition-transform">
+                <span class="text-xl font-bold text-gray-300 group-hover:text-white transition hidden sm:inline">
+                    <i class="fas fa-arrow-left mr-2"></i>Trang Chủ
+                </span>
+            </a>
             
-            <div class="absolute left-4 top-1/2 transform -translate-y-1/2">
-                <a href="index.html" class="flex items-center space-x-1 md:space-x-2 text-slate-300 hover:text-accent-gold transition duration-300 group">
-                    <img src="img_src/icon_server.png" 
-                onerror="this.onerror=null; this.src='https://placehold.co/48x48/ffcc00/0d111c?text=SH';"
-                alt="Server Icon" 
-                class="header-logo w-14 h-14 object-cover rounded-full shadow-lg border-2 border-accent-gold group-hover:scale-105">
-                    <span class="text-base md:text-lg font-bold hidden sm:inline group-hover:text-accent-blue transition-colors">⇦ Trang Chủ</span>
-                </a>
-            </div>
-            
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold shimmer-text text-center tracking-wider">NAPTHE SKYHUNTER</h1>
+            <h1 class="text-2xl md:text-4xl lg:text-5xl font-black title-gradient">NẠP THẺ SUPERHUNTER</h1>
         </div>
     </header>
 
-    <main class="max-w-7xl w-full mx-auto p-4 md:p-8 flex-grow mt-6 md:mt-10 relative z-10">
+    <main class="max-w-7xl mx-auto px-4 py-8 relative z-10">
         
-        <div class="mb-10 md:mb-12 animate-slide-up event-card p-5 md:p-6 rounded-3xl shadow-2xl event-card-border overflow-hidden">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-5 pb-3 border-b-2 border-accent-gold/50 text-accent-gold flex items-center justify-center">
-                <i class="fas fa-bullhorn mr-3 text-promo-red animate-pulse-event"></i> SỰ KIỆN NẠP ĐANG DIỄN RA!
-            </h2>
-            
-            <div class="text-center mb-5 p-4 bg-promo-red/15 rounded-xl border border-promo-red/70 shadow-lg shadow-promo-red/20">
-                <p class="text-lg md:text-xl font-bold text-promo-red mb-3 border-b border-promo-red/50 pb-2">
-                    <i class="fas fa-calendar-alt mr-2"></i> THỜI GIAN: 18/12 - 28/12
-                </p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-                    <div class="p-3 bg-secondary-dark/50 rounded-lg">
-                        <p class="text-xl font-extrabold text-accent-gold mb-3 flex items-center justify-center md:justify-start">
-                            <i class="fas fa-star mr-2 text-promo-red"></i> EVENT NOEL
-                        </p>
-                        <ul class="list-none space-y-2 text-slate-200 text-sm md:text-base pl-0">
-                            <li class="flex items-center"><i class="fas fa-key mr-2 text-yellow-400"></i> Sự Kiện Đặc Biệt Nạp<span class="font-bold text-white ml-1">x2</span></li>
-                            <li class="flex items-center"><i class=></i> x2 áp dụng cho riêng tài khoản và chỉ áp dụng một lần trên một ingame với mệnh giá bất kì<span>
-            </div>
-            <div class="relative rounded-xl overflow-hidden border-2 border-promo-red/50 shadow-inner shadow-promo-red/50">
-                <img id="eventImage" src="img_src/x2.png"  
-                     alt="Banner Sự Kiện Nạp Thẻ" 
-                     class="w-full object-cover max-h-96 hover:opacity-90 transition-opacity duration-300">
-            </div>
-        </div>
-        <div class="text-center mb-6 md:mb-8 animate-slide-up">
-            <div class="flex justify-center gap-4 md:gap-6 flex-wrap text-sm md:text-base">
-                <div class="promo-banner px-6 py-3 md:px-8 md:py-4 rounded-full text-primary-dark font-bold shadow-2xl tracking-wide">
-                    <i class="fas fa-trophy mr-2"></i>CƠ HỘI NHẬN PHA LÊ & VẬT PHẨM KHUYẾN MÃI
-                </div>
-                <div class="stat-card px-6 py-3 md:px-8 md:py-4 rounded-full font-bold bg-secondary-dark border border-accent-blue/50 text-slate-300 shadow-md">
-                    <i class="fas fa-shield-alt mr-2"></i>Giao Dịch An Toàn, Tự Động 24/7
-                </div>
-            </div>
-        </div>
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10">
-            
-            <div class="lg:col-span-1 glass-effect p-6 md:p-8 rounded-3xl shadow-2xl glow-shadow-blue h-fit order-1 animate-slide-up">
-                <div class="flex items-center justify-between mb-5 border-b border-accent-blue/50 pb-3">
-                    <h3 class="text-xl md:text-2xl font-bold text-accent-blue tracking-wide">BƯỚC 1: NHẬP THÔNG TIN</h3>
-                    <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-accent-blue/20 flex items-center justify-center">
-                        <span class="text-accent-blue font-bold text-xl md:text-2xl">1</span>
-                    </div>
-                </div>
-                
-                <form id="depositForm" class="space-y-6 md:space-y-7">
-                    
-                    <div>
-                        <label for="username" class="block text-base md:text-lg font-semibold text-white mb-2 md:mb-3 flex items-center">
-                            <i class="fas fa-user-circle mr-2 text-accent-blue"></i>
-                            Tên Tài Khoản (In-game Name) <span class="text-red-400 ml-1">*</span>
-                        </label>
-                        <input type="text" id="username" name="username" required
-                            class="custom-input w-full p-4 rounded-xl text-base md:text-lg placeholder-slate-500"
-                            placeholder="Nhập tên tài khoản của bạn (3-16 ký tự)"
-                            pattern="[A-Za-z0-9_]{3,16}"
-                            oninput="updateTransferContent()"> 
-                        <p class="text-sm text-promo-red mt-2 flex items-center" id="usernameError">
-                            <i class="fas fa-exclamation-circle mr-1 hidden" id="errorIcon"></i>
-                        </p>
-                    </div>
+        <!-- Event Banner -->
+   
 
-                    <div class="glass-effect p-5 md:p-6 rounded-xl border-2 border-bidv-green/70 hover:shadow-xl hover:shadow-bidv-green/40 transition duration-300">
-                        <h4 class="text-lg md:text-xl font-bold text-accent-gold mb-3 flex items-center">
-                            <i class="fas fa-university mr-2"></i>
-                            Thông tin tài khoản nhận
-                        </h4>
-                        <div class="space-y-3 text-slate-200 text-sm md:text-base">
-                            <p class="flex justify-between items-center"><i class="fas fa-building w-5 text-bidv-green"></i> Ngân hàng: <span class="font-bold ml-2 text-bidv-green">BIDV</span></p>
-                            <p class="flex justify-between items-center"><i class="fas fa-credit-card w-5 text-bidv-green"></i> Số TK: <span class="text-accent-gold font-bold ml-2 text-xl" id="accountNoDisplay">8890956287</span></p>
-                            <p class="flex justify-between items-center"><i class="fas fa-user-circle w-5 text-bidv-green"></i> Chủ TK: <span class="text-bidv-green font-bold ml-2" id="accountNameDisplay">DOAN CHI BAO</span></p>
-                        </div>
-                        <div class="mt-5 p-3 bg-yellow-500/15 rounded-lg border border-yellow-400/50">
-                            <p class="text-xs md:text-sm text-yellow-400 flex items-start">
-                                <i class="fas fa-exclamation-triangle mt-1 mr-2 flex-shrink-0"></i>
-                                <span>Lưu ý: Luôn kiểm tra kỹ thông tin trước khi chuyển. Hệ thống tự động xử lý.</span>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Form Section -->
+            <div class="lg:col-span-1 reveal">
+                <div class="glass-card p-6 md:p-8 rounded-2xl sticky top-24">
+                    <div class="flex items-center mb-6 pb-4 border-b border-primary-red/30">
+                        <span class="w-10 h-10 bg-gradient-to-br from-primary-red to-primary-dark-red rounded-full flex items-center justify-center mr-3 text-white font-bold">1</span>
+                        <h3 class="text-xl font-bold">THÔNG TIN</h3>
+                    </div>
+                    
+                    <form class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-300 mb-3">
+                                <i class="fas fa-user-circle mr-2 text-primary-red"></i>
+                                Tên Tài Khoản <span class="text-primary-red">*</span>
+                            </label>
+                            <input type="text" id="username" required
+                                class="custom-input w-full p-4 rounded-xl text-white"
+                                placeholder="Nhập tên (3-16 ký tự)"
+                                pattern="[A-Za-z0-9_]{3,16}"
+                                oninput="updateTransferContent()">
+                            <p class="text-sm text-primary-red mt-2 hidden" id="usernameError">
+                                <i class="fas fa-exclamation-circle mr-1"></i>
+                                Tên không hợp lệ
                             </p>
                         </div>
-                    </div>
 
-                    <div class="pt-2">
+                        <div class="info-box p-5 rounded-xl">
+                            <h4 class="text-base font-bold text-primary-red mb-4">
+                                <i class="fas fa-university mr-2"></i>Thông Tin Chuyển Khoản
+                            </h4>
+                            <div class="space-y-3 text-sm">
+                                <div class="flex justify-between p-2 bg-dark-bg/50 rounded-lg">
+                                    <span class="text-gray-400">Ngân hàng:</span>
+                                    <span class="font-bold">BIDV</span>
+                                </div>
+                                <div class="flex justify-between p-2 bg-dark-bg/50 rounded-lg">
+                                    <span class="text-gray-400">Số TK:</span>
+                                    <span class="font-bold text-primary-red">8890956287</span>
+                                </div>
+                                <div class="flex justify-between p-2 bg-dark-bg/50 rounded-lg">
+                                    <span class="text-gray-400">Chủ TK:</span>
+                                    <span class="font-semibold">DOAN CHI BAO</span>
+                                </div>
+                            </div>
+                        </div>
+
                         <button type="button" onclick="generateQR()"
-                            class="btn-generate w-full bg-gradient-to-r from-accent-blue to-blue-700 hover:from-blue-700 hover:to-accent-blue text-white text-xl md:text-2xl font-bold py-4 rounded-xl transition duration-300 shadow-xl disabled:opacity-50 disabled:cursor-not-allowed relative z-10 tracking-wider"
+                            class="btn-primary w-full text-white text-lg font-bold py-4 rounded-xl"
                             id="generateQrButton" disabled>
-                            <i class="fas fa-qrcode mr-2"></i>
-                            BƯỚC 2: TẠO MÃ QR
+                            <i class="fas fa-qrcode mr-3"></i>TẠO MÃ QR
                         </button>
-                    </div>
-
-                </form>
-
+                    </form>
+                </div>
             </div>
 
-            <div class="lg:col-span-2 glass-effect p-6 md:p-8 rounded-3xl shadow-2xl glow-shadow-gold h-fit order-2 animate-slide-up">
-                <div class="text-center mb-6">
-                    <h3 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-promo-red via-accent-gold to-promo-red mb-2 tracking-wider">
-                        CHỌN GÓI NẠP & TÍNH TOÁN
+            <!-- Package Section -->
+            <div class="lg:col-span-2 reveal">
+                <div class="glass-card p-6 md:p-8 rounded-2xl">
+                    <h3 class="text-2xl md:text-3xl font-black text-center mb-8 title-gradient">
+                        CHỌN GÓI NẠP
                     </h3>
-                    <p class="text-slate-400 text-sm md:text-base">Nhập số lượng gói bạn muốn mua để xem tổng Pha Lê</p>
-                </div>
-                
-                <div class="overflow-x-auto table-scroll-wrapper"> 
-                    <table class="min-w-full text-left text-base font-light table-auto">
-                        <thead class="border-b-2 font-bold border-accent-gold/70 text-accent-gold">
-                            <tr>
-                                <th scope="col" class="px-3 md:px-5 py-3 text-sm md:text-base"><i class="fas fa-coins mr-2"></i>MỆNH GIÁ</th>
-                                <th scope="col" class="px-3 md:px-5 py-3 text-sm md:text-base"><i class="fas fa-gem mr-2"></i>PHA LÊ GỐC</th>
-                                <th scope="col" class="px-3 md:px-5 py-3 text-sm md:text-base text-center"><i class="fas fa-shopping-cart mr-2"></i>SỐ LƯỢNG</th>
-                                <th scope="col" class="px-3 md:px-5 py-3 text-sm md:text-base text-right"><i class="fas fa-calculator mr-2"></i>TẠM TÍNH</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="package-row border-b border-slate-700/60" data-price="10000" data-crystal="1">
-                                <td class="whitespace-nowrap px-3 md:px-5 py-4 font-semibold text-white text-base">10.000 VNĐ</td>
-                                <td class="whitespace-nowrap px-3 md:px-5 py-4 text-accent-gold font-bold flex items-center text-base">
-                                    <i class="fas fa-gem mr-2"></i>1
-                                </td>
-                                <td class="whitespace-nowrap px-3 md:px-5 py-4">
-                                    <div class="flex items-center justify-between border border-slate-600 rounded-xl overflow-hidden w-32 md:w-36 mx-auto">
-                                        <button type="button" class="quantity-control-btn" onclick="decreaseQuantity(this)">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <input type="number" min="0" value="0" class="quantity-input w-full p-2 text-center text-base text-white" oninput="calculateTotal()">
-                                        <button type="button" class="quantity-control-btn" onclick="increaseQuantity(this)">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                                <td class="whitespace-nowrap px-3 md:px-5 py-4 text-right text-accent-blue font-bold text-base" data-temp-price>0 VNĐ</td>
-                            </tr>
-                            <tr class="package-row border-b border-slate-700/60" data-price="50000" data-crystal="5">
-                                <td class="whitespace-nowrap px-3 md:px-5 py-4 font-semibold text-white text-base">50.000 VNĐ</td>
-                                <td class="whitespace-nowrap px-3 md:px-5 py-4 text-accent-gold font-bold flex items-center text-base">
-                                    <i class="fas fa-gem mr-2"></i>5
-                                </td>
-                                <td class="whitespace-nowrap px-3 md:px-5 py-4">
-                                    <div class="flex items-center justify-between border border-slate-600 rounded-xl overflow-hidden w-32 md:w-36 mx-auto">
-                                        <button type="button" class="quantity-control-btn" onclick="decreaseQuantity(this)">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <input type="number" min="0" value="0" class="quantity-input w-full p-2 text-center text-base text-white" oninput="calculateTotal()">
-                                        <button type="button" class="quantity-control-btn" onclick="increaseQuantity(this)">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                                <td class="whitespace-nowrap px-3 md:px-5 py-4 text-right text-accent-blue font-bold text-base" data-temp-price>0 VNĐ</td>
-                            </tr>
-                            <tr class="package-row border-b border-slate-700/60" data-price="100000" data-crystal="10">
-                                <td class="whitespace-nowrap px-3 md:px-5 py-4 font-semibold text-white text-base">100.000 VNĐ</td>
-                                <td class="whitespace-nowrap px-3 md:px-5 py-4 text-accent-gold font-bold flex items-center text-base">
-                                    <i class="fas fa-gem mr-2"></i>10
-                                </td>
-                                <td class="whitespace-nowrap px-3 md:px-5 py-4">
-                                    <div class="flex items-center justify-between border border-slate-600 rounded-xl overflow-hidden w-32 md:w-36 mx-auto">
-                                        <button type="button" class="quantity-control-btn" onclick="decreaseQuantity(this)">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <input type="number" min="0" value="0" class="quantity-input w-full p-2 text-center text-base text-white" oninput="calculateTotal()">
-                                        <button type="button" class="quantity-control-btn" onclick="increaseQuantity(this)">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                                <td class="whitespace-nowrap px-3 md:px-5 py-4 text-right text-accent-blue font-bold text-base" data-temp-price>0 VNĐ</td>
-                            </tr>
-                            <tr class="package-row border-b border-slate-700/60" data-price="200000" data-crystal="20">
-                                <td class="whitespace-nowrap px-3 md:px-5 py-4 font-semibold text-white text-base">
-                                    200.000 VNĐ
-                                    <span class="ml-2 text-xs bg-yellow-500/30 text-yellow-400 px-2 py-0.5 rounded-full font-extrabold">+10% BONUS</span>
-                                </td>
-                                <td class="whitespace-nowrap px-3 md:px-5 py-4 text-accent-gold font-bold flex items-center text-base">
-                                    <i class="fas fa-gem mr-2"></i>20
-                                </td>
-                                <td class="whitespace-nowrap px-3 md:px-5 py-4">
-                                    <div class="flex items-center justify-between border border-slate-600 rounded-xl overflow-hidden w-32 md:w-36 mx-auto">
-                                        <button type="button" class="quantity-control-btn" onclick="decreaseQuantity(this)">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <input type="number" min="0" value="0" class="quantity-input w-full p-2 text-center text-base text-white" oninput="calculateTotal()">
-                                        <button type="button" class="quantity-control-btn" onclick="increaseQuantity(this)">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                                <td class="whitespace-nowrap px-3 md:px-5 py-4 text-right text-accent-blue font-bold text-base" data-temp-price>0 VNĐ</td>
-                            </tr>
-                            <tr class="package-row border-b border-slate-700/60" data-price="500000" data-crystal="50">
-                                <td class="whitespace-nowrap px-3 md:px-5 py-4 font-semibold text-white text-base">
-                                    500.000 VNĐ
-                                    <span class="ml-2 text-xs bg-red-500/30 text-promo-red px-2 py-0.5 rounded-full font-extrabold">+20% BEST DEAL</span>
-                                </td>
-                                <td class="whitespace-nowrap px-3 md:px-5 py-4 text-accent-gold font-bold flex items-center text-base">
-                                    <i class="fas fa-gem mr-2"></i>50
-                                </td>
-                                <td class="whitespace-nowrap px-3 md:px-5 py-4">
-                                    <div class="flex items-center justify-between border border-slate-600 rounded-xl overflow-hidden w-32 md:w-36 mx-auto">
-                                        <button type="button" class="quantity-control-btn" onclick="decreaseQuantity(this)">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <input type="number" min="0" value="0" class="quantity-input w-full p-2 text-center text-base text-white" oninput="calculateTotal()">
-                                        <button type="button" class="quantity-control-btn" onclick="increaseQuantity(this)">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                                <td class="whitespace-nowrap px-3 md:px-5 py-4 text-right text-accent-blue font-bold text-base" data-temp-price>0 VNĐ</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="mt-8 glass-effect p-5 md:p-7 rounded-2xl border-2 border-accent-gold/70 glow-shadow-gold">
-                    <div class="flex justify-between items-center text-lg md:text-xl font-semibold py-3 border-b border-slate-700/60">
-                        <span class="flex items-center"><i class="fas fa-money-bill-wave mr-3 text-accent-blue"></i>TỔNG SỐ TIỀN NẠP:</span>
-                        <span id="totalAmountDisplay" class="text-accent-blue font-bold text-2xl md:text-3xl">0 VNĐ</span>
-                    </div>
-                    <div class="flex justify-between items-center text-lg md:text-xl font-semibold py-3 border-b border-slate-700/60">
-                        <span class="flex items-center"><i class="fas fa-gem mr-3 text-accent-gold"></i>TỔNG PHA LÊ GỐC:</span>
-                        <span id="baseCrystalContainer" class="text-accent-gold font-bold text-2xl md:text-3xl">
-                            <span id="baseCrystalDisplay">0</span>
-                            <i class="fas fa-gem ml-1 text-base"></i>
-                        </span>
+                    
+                    <div class="overflow-x-auto rounded-xl">
+                        <table class="w-full">
+                            <thead class="border-b-2 border-primary-red/50">
+                                <tr class="text-gray-300">
+                                    <th class="px-4 py-4 text-left font-bold">MỆNH GIÁ</th>
+                                    <th class="px-4 py-4 text-left font-bold">PHA LÊ</th>
+                                    <th class="px-4 py-4 text-center font-bold">SỐ LƯỢNG</th>
+                                    <th class="px-4 py-4 text-right font-bold">TỔNG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="package-row" data-price="10000" data-crystal="1">
+                                    <td class="px-4 py-4 font-bold text-white">10.000đ</td>
+                                    <td class="px-4 py-4 text-primary-red font-bold">
+                                        <i class="fas fa-gem mr-2"></i>1
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center justify-center border-2 border-gray-700 rounded-xl overflow-hidden w-36 mx-auto bg-dark-bg/50">
+                                            <button type="button" class="quantity-control-btn rounded-l-xl text-white font-bold" onclick="decreaseQuantity(this)">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <input type="number" min="0" value="0" class="quantity-input w-full p-3 text-center text-white" oninput="calculateTotal()">
+                                            <button type="button" class="quantity-control-btn rounded-r-xl text-white font-bold" onclick="increaseQuantity(this)">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-right text-gray-300 font-bold" data-temp-price>0đ</td>
+                                </tr>
+                                <tr class="package-row" data-price="50000" data-crystal="5">
+                                    <td class="px-4 py-4 font-bold text-white">50.000đ</td>
+                                    <td class="px-4 py-4 text-primary-red font-bold">
+                                        <i class="fas fa-gem mr-2"></i>5
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center justify-center border-2 border-gray-700 rounded-xl overflow-hidden w-36 mx-auto bg-dark-bg/50">
+                                            <button type="button" class="quantity-control-btn rounded-l-xl text-white font-bold" onclick="decreaseQuantity(this)">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <input type="number" min="0" value="0" class="quantity-input w-full p-3 text-center text-white" oninput="calculateTotal()">
+                                            <button type="button" class="quantity-control-btn rounded-r-xl text-white font-bold" onclick="increaseQuantity(this)">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-right text-gray-300 font-bold" data-temp-price>0đ</td>
+                                </tr>
+                                <tr class="package-row" data-price="100000" data-crystal="10">
+                                    <td class="px-4 py-4 font-bold text-white">100.000đ</td>
+                                    <td class="px-4 py-4 text-primary-red font-bold">
+                                        <i class="fas fa-gem mr-2"></i>10
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center justify-center border-2 border-gray-700 rounded-xl overflow-hidden w-36 mx-auto bg-dark-bg/50">
+                                            <button type="button" class="quantity-control-btn rounded-l-xl text-white font-bold" onclick="decreaseQuantity(this)">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <input type="number" min="0" value="0" class="quantity-input w-full p-3 text-center text-white" oninput="calculateTotal()">
+                                            <button type="button" class="quantity-control-btn rounded-r-xl text-white font-bold" onclick="increaseQuantity(this)">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-right text-gray-300 font-bold" data-temp-price>0đ</td>
+                                </tr>
+                                <tr class="package-row" data-price="200000" data-crystal="20">
+                                    <td class="px-4 py-4 font-bold text-white">
+                                        200.000đ
+                                        <span class="ml-2 text-xs bg-accent-orange/20 text-accent-orange px-3 py-1 rounded-full font-bold">+10%</span>
+                                    </td>
+                                    <td class="px-4 py-4 text-primary-red font-bold">
+                                        <i class="fas fa-gem mr-2"></i>20
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center justify-center border-2 border-gray-700 rounded-xl overflow-hidden w-36 mx-auto bg-dark-bg/50">
+                                            <button type="button" class="quantity-control-btn rounded-l-xl text-white font-bold" onclick="decreaseQuantity(this)">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <input type="number" min="0" value="0" class="quantity-input w-full p-3 text-center text-white" oninput="calculateTotal()">
+                                            <button type="button" class="quantity-control-btn rounded-r-xl text-white font-bold" onclick="increaseQuantity(this)">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-right text-gray-300 font-bold" data-temp-price>0đ</td>
+                                </tr>
+                                <tr class="package-row" data-price="500000" data-crystal="50">
+                                    <td class="px-4 py-4 font-bold text-white">
+                                        500.000đ
+                                        <span class="ml-2 text-xs bg-primary-red/20 text-primary-red px-3 py-1 rounded-full font-bold">+20%</span>
+                                    </td>
+                                    <td class="px-4 py-4 text-primary-red font-bold">
+                                        <i class="fas fa-gem mr-2"></i>50
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center justify-center border-2 border-gray-700 rounded-xl overflow-hidden w-36 mx-auto bg-dark-bg/50">
+                                            <button type="button" class="quantity-control-btn rounded-l-xl text-white font-bold" onclick="decreaseQuantity(this)">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <input type="number" min="0" value="0" class="quantity-input w-full p-3 text-center text-white" oninput="calculateTotal()">
+                                            <button type="button" class="quantity-control-btn rounded-r-xl text-white font-bold" onclick="increaseQuantity(this)">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-right text-gray-300 font-bold" data-temp-price>0đ</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
 
-                    <div id="promoSection" class="hidden">
-                         <div class="flex justify-between items-center text-base md:text-lg font-medium py-3 bg-promo-red/20 rounded-lg px-4 my-3 border border-promo-red/50">
-                            <span class="flex items-center"><i class="fas fa-gift mr-3 text-promo-red"></i>KHUYẾN MÃI (<span id="promoPercentDisplay">0%</span>):</span>
-                            <span id="promoCrystalContainer" class="text-promo-red font-bold text-xl md:text-2xl">
-                                + <span id="promoCrystalDisplay">0</span>
-                                <i class="fas fa-gem ml-1 text-base"></i>
+                    <!-- Total -->
+                    <div class="mt-8 info-box p-6 rounded-2xl space-y-4">
+                        <div class="flex justify-between pb-3 border-b border-gray-700">
+                            <span class="font-semibold">Tổng Tiền:</span>
+                            <span id="totalAmountDisplay" class="text-primary-red font-bold text-2xl">0đ</span>
+                        </div>
+                        <div class="flex justify-between pb-3 border-b border-gray-700">
+                            <span class="font-semibold">Pha Lê Gốc:</span>
+                            <span id="baseCrystalDisplay" class="text-accent-orange font-bold text-xl">
+                                <i class="fas fa-gem mr-2"></i>0
+                            </span>
+                        </div>
+                        <div id="promoSection" class="hidden flex justify-between pb-3 border-b border-primary-red/30">
+                            <span class="font-semibold">Khuyến Mãi (<span id="promoPercentDisplay" class="text-green-400">0%</span>):</span>
+                            <span id="promoCrystalDisplay" class="text-green-400 font-bold text-xl">
+                                + <i class="fas fa-gem mr-2"></i>0
+                            </span>
+                        </div>
+                        <div class="flex justify-between text-xl font-black pt-2">
+                            <span>Tổng Pha Lê:</span>
+                            <span id="finalCrystalDisplay" class="text-primary-red text-3xl">
+                                <i class="fas fa-gem mr-2"></i>0
                             </span>
                         </div>
                     </div>
-                    
-                    <div class="flex justify-between text-2xl md:text-3xl font-extrabold pt-4 border-t border-slate-700/60 mt-2">
-                        <span>TỔNG PHA LÊ NHẬN:</span>
-                        <span id="finalCrystalContainer" class="text-promo-red flex items-center space-x-2">
-                            <span id="finalCrystalDisplay" class="text-3xl md:text-4xl">0</span>
-                            <img src="img_src/phalevip.png" 
-                            onerror="this.onerror=null; this.src='https://placehold.co/32x32/ffcc00/0d111c?text=💎';"
-                            alt="Pha Lê" class="h-8 w-8 md:h-10 md:w-10 object-contain animate-pulse-event">
-                        </span>
-                    </div>
                 </div>
-
             </div>
         </div>
 
-        <div id="qrCodeSection" class="mt-10 md:mt-12 p-8 md:p-10 bg-secondary-dark rounded-3xl shadow-2xl border-2 border-bidv-green/70 hidden animate-slide-up">
-            <h3 class="text-2xl md:text-3xl font-bold text-promo-red text-center mb-6 md:mb-8 tracking-wider">BƯỚC 3: QUÉT MÃ VÀ CHUYỂN KHOẢN</h3>
+        <!-- QR Section -->
+        <div id="qrCodeSection" class="mt-10 glass-card p-6 md:p-10 rounded-2xl hidden">
+            <h3 class="text-2xl md:text-3xl font-black text-center mb-8 title-gradient">
+                <i class="fas fa-qrcode mr-3"></i>QUÉT MÃ QR
+            </h3>
             
-            <div class="flex flex-col lg:flex-row items-center justify-center gap-8 md:gap-10">
-                
-                <div class="w-56 h-56 md:w-72 md:h-72 border-4 border-accent-gold rounded-xl p-3 bg-white flex items-center justify-center qr-container" id="qrContainer">
-                    <p class="text-sm text-center text-primary-dark font-medium">QR sẽ hiện tại đây</p>
+            <div class="flex flex-col lg:flex-row items-center justify-center gap-10">
+                <div class="qr-container p-5 w-72 h-72 flex items-center justify-center rounded-2xl" id="qrContainer">
+                    <p class="text-center text-dark-bg text-sm font-semibold">QR sẽ hiện ở đây</p>
                 </div>
                 
-                <div class="text-left space-y-5 w-full lg:w-auto lg:max-w-lg">
-                    <div class="p-3 bg-primary-dark rounded-xl border border-accent-blue/50">
-                        <p class="text-lg md:text-xl font-semibold text-white">Số tiền cần chuyển:</p>
-                        <p class="text-4xl md:text-5xl font-extrabold text-promo-red mt-1" id="transferAmount">0 VNĐ</p>
+                <div class="space-y-5 w-full lg:w-auto lg:max-w-lg">
+                    <div class="info-box p-5 rounded-xl">
+                        <p class="text-sm text-gray-400 mb-2">Số tiền:</p>
+                        <p class="text-4xl font-black text-primary-red" id="transferAmount">0đ</p>
                     </div>
                     
-                    <div class="p-3 bg-primary-dark rounded-xl border border-promo-red/50">
-                        <p class="text-lg md:text-xl font-semibold text-white">Nội dung chuyển khoản **(Cực kỳ quan trọng)**:</p>
-                        <div class="overflow-x-auto mt-1">
-                            <p class="text-xl md:text-2xl font-extrabold text-red-400 bg-secondary-dark p-3 rounded-lg border border-red-400 inline-block break-all select-all" id="transferContent">
-                                Vui lòng nhập Tên Tài Khoản
-                            </p>
-                        </div>
+                    <div class="info-box p-5 rounded-xl">
+                        <p class="text-sm text-gray-400 mb-2">Nội dung:</p>
+                        <p class="text-xl font-bold bg-dark-bg p-4 rounded-lg border-2 border-primary-red/30 select-all break-all" id="transferContent">
+                            Vui lòng nhập tên
+                        </p>
+                        <p class="text-sm text-yellow-400 mt-3">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>
+                            KHÔNG sửa nội dung!
+                        </p>
                     </div>
-                    <p class="text-sm md:text-base text-yellow-400 mt-2 flex items-start">
-                        <i class="fas fa-exclamation-triangle mt-1 mr-2 flex-shrink-0 text-promo-red"></i>
-                        Tuyệt đối **KHÔNG CHỈNH SỬA** nội dung. Mã này là duy nhất cho giao dịch của bạn.
-                    </p>
                 </div>
             </div>
         </div>
-        
-        <div class="mt-10 md:mt-12 animate-slide-up">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-6 pb-3 border-b-2 border-accent-gold/50 text-accent-gold flex items-center justify-center tracking-wider">
-                <i class="fas fa-trophy mr-3 text-promo-red"></i> MỐC NẠP TÍCH LŨY
-            </h2>
-            <p class="text-center text-slate-400 mb-8 text-lg">
-                <i class="fas fa-info-circle mr-1 text-accent-blue"></i> 
-                Danh sách các mốc nạp tích lũy (Chỉ hiển thị phần thưởng cho thành viên)
-            </p>
 
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-                
-                <div class="milestone-card glass-effect p-4 rounded-xl text-center border-2 border-accent-blue/50">
-                    <h4 class="text-lg md:text-xl font-bold text-accent-blue mb-2">100K VNĐ</h4>
-                    <div class="h-16 flex items-center justify-center mb-3">
-                        <img src="img_src/hinh1.png" alt="Kiếm Máu Lửa" class="w-16 h-16 object-contain"
-                        onerror="this.onerror=null; this.src='https://placehold.co/64x64/5c95ff/ffffff?text=100K';" />
-                    </div>
-                    <div class="reward-desc text-slate-300 text-sm mb-0 p-2 bg-primary-dark/50 rounded-lg">
-                        <p class="font-bold text-accent-gold">Kiếm Máu Lửa</p>
-                        <p class="text-xs italic text-slate-400 mt-1">"Kèm: KC VIP x32, Vàng VIP x32, Sắt VIP x32, Sao VIP x10."</p>
-                    </div>
-                </div>
-                
-                <div class="milestone-card glass-effect p-4 rounded-xl text-center border-2 border-accent-blue/50">
-                    <h4 class="text-lg md:text-xl font-bold text-accent-blue mb-2">200K VNĐ</h4>
-                    <div class="h-16 flex items-center justify-center mb-3">
-                        <img src="img_src/hinh2.png" alt="Nhẫn Bá Tốc" class="w-16 h-16 object-contain"
-                        onerror="this.onerror=null; this.src='https://placehold.co/64x64/5c95ff/ffffff?text=200K';" />
-                    </div>
-                    <div class="reward-desc text-slate-300 text-sm mb-0 p-2 bg-primary-dark/50 rounded-lg">
-                        <p class="font-bold text-accent-gold">Nhẫn Bá Tốc</p>
-                        <p class="text-xs italic text-slate-400 mt-1">"Kèm: KC VIP x32, Vàng VIP x32, Sắt VIP x32, Hắc Diện Thạch Khóc x32."</p>
-                    </div>
-                </div>
-                
-                <div class="milestone-card glass-effect p-4 rounded-xl text-center border-2 border-accent-blue/50">
-                    <h4 class="text-lg md:text-xl font-bold text-accent-blue mb-2">300K VNĐ</h4>
-                    <div class="h-16 flex items-center justify-center mb-3">
-                        <img src="img_src/hinh4.png" alt="Khiên Ác Mộng" class="w-16 h-16 object-contain"
-                        onerror="this.onerror=null; this.src='https://placehold.co/64x64/5c95ff/ffffff?text=300K';" />
-                    </div>
-                    <div class="reward-desc text-slate-300 text-sm mb-0 p-2 bg-primary-dark/50 rounded-lg">
-                        <p class="font-bold text-accent-gold">Khiên Ác Mộng</p>
-                        <p class="text-xs italic text-slate-400 mt-1">"Kèm: Melatic x18, Ngọc Crimson x18, KC Bóng Ma x18, Sao VIP x25."</p>
-                    </div>
-                </div>
-                
-                <div class="milestone-card glass-effect p-4 rounded-xl text-center border-2 border-accent-blue/50">
-                    <h4 class="text-lg md:text-xl font-bold text-accent-blue mb-2">500K VNĐ</h4>
-                    <div class="h-16 flex items-center justify-center mb-3">
-                        <img src="img_src/hinh3.png" alt="Cổ Vật Cuồng Bạo" class="w-16 h-16 object-contain"
-                        onerror="this.onerror=null; this.src='https://placehold.co/64x64/5c95ff/ffffff?text=500K';" />
-                    </div>
-                    <div class="reward-desc text-slate-300 text-sm mb-0 p-2 bg-primary-dark/50 rounded-lg">
-                        <p class="font-bold text-accent-gold">Cổ Vật Cuồng Bạo</p>
-                        <p class="text-xs italic text-slate-400 mt-1">"Kèm: Đá Ngàn Năm x32, Melatic x32, Sao VIP x30, Táo Phù Phép x64."</p>
-                    </div>
-                </div>
+    </main>
 
-                <div class="milestone-card glass-effect p-4 rounded-xl text-center border-2 border-accent-blue/50">
-                    <h4 class="text-lg md:text-xl font-bold text-accent-blue mb-2">1 Triệu VNĐ</h4>
-                    <div class="h-16 flex items-center justify-center mb-3">
-                        <img src="img_src/hinh5.png" alt="Chìa Khóa Rương Cao Cấp" class="w-16 h-16 object-contain"
-                        onerror="this.onerror=null; this.src='https://placehold.co/64x64/5c95ff/ffffff?text=1M';" />
-                    </div>
-                    <div class="reward-desc text-slate-300 text-sm mb-0 p-2 bg-primary-dark/50 rounded-lg">
-                        <p class="font-bold text-accent-gold">Mảnh Nâng Cấp x18</p>
-                        <p class="text-xs italic text-slate-400 mt-1">"Kèm: Vé Cao Cấp x15, Túi Ngọc Xanh x64, 128 Chìa Khóa Rương Cao Cấp."</p>
-                    </div>
-                </div>
-                
-                <div class="milestone-card glass-effect p-4 rounded-xl text-center border-2 border-accent-blue/50 opacity-50 grayscale hover:grayscale-0 hover:opacity-100">
-                    <h4 class="text-lg md:text-xl font-bold text-accent-blue mb-2">2 Triệu VNĐ (Chưa Mở)</h4>
-                    <div class="h-16 flex items-center justify-center mb-3">
-                        <img src="img_src/hinh0.png" alt="Sắp Ra Mắt" class="w-16 h-16 object-contain"
-                        onerror="this.onerror=null; this.src='https://placehold.co/64x64/5c95ff/ffffff?text=2M';" />
-                    </div>
-                    <div class="reward-desc text-slate-300 text-sm mb-0 p-2 bg-primary-dark/50 rounded-lg">
-                        <p class="font-bold text-accent-gold">Sắp Ra Mắt</p>
-                        <p class="text-xs italic text-slate-400 mt-1">"Các mốc nạp tiếp theo đang được cập nhật."</p>
-                    </div>
-                </div>
-                
-                <div class="milestone-card glass-effect p-4 rounded-xl text-center border-2 border-accent-blue/50 opacity-50 grayscale hover:grayscale-0 hover:opacity-100">
-                    <h4 class="text-lg md:text-xl font-bold text-accent-blue mb-2">3 Triệu VNĐ (Chưa Mở)</h4>
-                    <div class="h-16 flex items-center justify-center mb-3">
-                        <img src="img_src/hinh0.png" alt="Sắp Ra Mắt" class="w-16 h-16 object-contain"
-                        onerror="this.onerror=null; this.src='https://placehold.co/64x64/5c95ff/ffffff?text=3M';" />
-                    </div>
-                    <div class="reward-desc text-slate-300 text-sm mb-0 p-2 bg-primary-dark/50 rounded-lg">
-                        <p class="font-bold text-accent-gold">Sắp Ra Mắt</p>
-                        <p class="text-xs italic text-slate-400 mt-1">"Các mốc nạp tiếp theo đang được cập nhật."</p>
-                    </div>
-                </div>
-                
-                <div class="milestone-card glass-effect p-4 rounded-xl text-center border-2 border-accent-blue/50 opacity-50 grayscale hover:grayscale-0 hover:opacity-100">
-                    <h4 class="text-lg md:text-xl font-bold text-accent-blue mb-2">5 Triệu VNĐ (Chưa Mở)</h4>
-                    <div class="h-16 flex items-center justify-center mb-3">
-                        <img src="img_src/hinh0.png" alt="Sắp Ra Mắt" class="w-16 h-16 object-contain"
-                        onerror="this.onerror=null; this.src='https://placehold.co/64x64/5c95ff/ffffff?text=5M';" />
-                    </div>
-                    <div class="reward-desc text-slate-300 text-sm mb-0 p-2 bg-primary-dark/50 rounded-lg">
-                        <p class="font-bold text-accent-gold">Sắp Ra Mắt</p>
-                        <p class="text-xs italic text-slate-400 mt-1">"Các mốc nạp tiếp theo đang được cập nhật."</p>
-                    </div>
-                </div>
-                
-                <div class="milestone-card glass-effect p-4 rounded-xl text-center border-2 border-accent-blue/50 opacity-50 grayscale hover:grayscale-0 hover:opacity-100">
-                    <h4 class="text-lg md:text-xl font-bold text-accent-blue mb-2">10 Triệu VNĐ (Chưa Mở)</h4>
-                    <div class="h-16 flex items-center justify-center mb-3">
-                        <img src="img_src/hinh0.png" alt="Sắp Ra Mắt" class="w-16 h-16 object-contain"
-                        onerror="this.onerror=null; this.src='https://placehold.co/64x64/5c95ff/ffffff?text=10M';" />
-                    </div>
-                    <div class="reward-desc text-slate-300 text-sm mb-0 p-2 bg-primary-dark/50 rounded-lg">
-                        <p class="font-bold text-accent-gold">Sắp Ra Mắt</p>
-                        <p class="text-xs italic text-slate-400 mt-1">"Các mốc nạp tiếp theo đang được cập nhật."</p>
-                    </div>
-                </div>
-
-                <div class="milestone-card glass-effect p-4 rounded-xl text-center border-2 border-accent-blue/50 opacity-50 grayscale hover:grayscale-0 hover:opacity-100">
-                    <h4 class="text-lg md:text-xl font-bold text-accent-blue mb-2">15 Triệu VNĐ (Chưa Mở)</h4>
-                    <div class="h-16 flex items-center justify-center mb-3">
-                        <img src="img_src/hinh0.png" alt="Sắp Ra Mắt" class="w-16 h-16 object-contain"
-                        onerror="this.onerror=null; this.src='https://placehold.co/64x64/5c95ff/ffffff?text=15M';" />
-                    </div>
-                    <div class="reward-desc text-slate-300 text-sm mb-0 p-2 bg-primary-dark/50 rounded-lg">
-                        <p class="font-bold text-accent-gold">Sắp Ra Mắt</p>
-                        <p class="text-xs italic text-slate-400 mt-1">"Các mốc nạp tiếp theo đang được cập nhật."</p>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        </main>
-
-    <footer class="w-full bg-secondary-dark border-t border-accent-gold/30 py-6 mt-12">
-        <div class="max-w-6xl mx-auto px-4 text-center text-slate-400 text-xs md:text-sm">
-            <p>&copy; 2025 Cửa Hàng SkyHunter. TK BIDV: <span id="footerAccountNo">8890956287</span> <span id="footerAccountName">DOAN CHI BAO</span>. Mã QR có hiệu lực trong 30 phút. Vui lòng liên hệ hỗ trợ nếu gặp lỗi.</p>
+    <!-- Footer -->
+    <footer class="bg-dark-secondary/50 border-t border-primary-red/20 py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+            <p>&copy; 2025 SuperHunter. TK BIDV: <span class="text-primary-red font-bold">8890956287</span> - DOAN CHI BAO</p>
         </div>
     </footer>
 
     <script>
-    const BANK_ID = 'BIDV';
-    const ACCOUNT_NO = '8890956287';
-    const ACCOUNT_NAME = 'DOAN CHI BAO';
-    const PREFIX = 'NapPlayer'; // Tiền tố cố định
+        const BANK_ID = 'BIDV';
+        const ACCOUNT_NO = '8890956287';
+        const ACCOUNT_NAME = 'DOAN CHI BAO';
+        const PREFIX = 'NapPlayer';
 
-    const PROMO_THRESHOLD_500K = 500000;
-    const PROMO_PERCENT_500K = 0.20;
+        let totalAmount = 0;
+        let finalContent = '';
 
-    const PROMO_THRESHOLD_200K = 200000;
-    const PROMO_PERCENT_200K = 0.10;
+        function formatVND(amount) {
+            return Number(amount).toLocaleString('vi-VN') + 'đ';
+        }
 
-    // Cập nhật thông tin TK
-    document.getElementById('accountNoDisplay').textContent = ACCOUNT_NO;
-    document.getElementById('accountNameDisplay').textContent = ACCOUNT_NAME;
-    document.getElementById('footerAccountNo').textContent = ACCOUNT_NO;
-    document.getElementById('footerAccountName').textContent = ACCOUNT_NAME;
-
-    const usernameInput = document.getElementById('username');
-    const generateQrButton = document.getElementById('generateQrButton');
-    const usernameError = document.getElementById('usernameError');
-    const errorIcon = document.getElementById('errorIcon');
-    const packageRows = document.querySelectorAll('tbody tr');
-    const qrContainer = document.getElementById('qrContainer');
-    const qrSection = document.getElementById('qrCodeSection');
-
-
-    let totalAmount = 0;
-    let finalContent = '';
-    let finalCrystalGlobal = 0;
-
-    function formatVND(amount) {
-        return Number(amount).toLocaleString('vi-VN') + ' VNĐ';
-    }
-    
-    // Hàm định dạng số Pha Lê
-    function formatCrystal(crystal) {
-        return Number(crystal).toLocaleString('vi-VN');
-    }
-
-    /**
-     * Tăng số lượng của input liên quan.
-     */
-    function increaseQuantity(button) {
-        const input = button.closest('.flex').querySelector('input[type="number"]');
-        let quantity = parseInt(input.value) || 0;
-        input.value = quantity + 1;
-        calculateTotal();
-    }
-
-    /**
-     * Giảm số lượng của input liên quan.
-     */
-    function decreaseQuantity(button) {
-        const input = button.closest('.flex').querySelector('input[type="number"]');
-        let quantity = parseInt(input.value) || 0;
-        if (quantity > 0) {
-            input.value = quantity - 1;
+        function increaseQuantity(button) {
+            const input = button.closest('.flex').querySelector('input[type="number"]');
+            input.value = parseInt(input.value || 0) + 1;
             calculateTotal();
         }
-    }
 
+        function decreaseQuantity(button) {
+            const input = button.closest('.flex').querySelector('input[type="number"]');
+            const val = parseInt(input.value || 0);
+            if (val > 0) {
+                input.value = val - 1;
+                calculateTotal();
+            }
+        }
 
-    function calculateTotal() {
-        totalAmount = 0;
-        let baseCrystal = 0;
+        function calculateTotal() {
+            totalAmount = 0;
+            let baseCrystal = 0;
 
-        packageRows.forEach(row => {
-            const price = parseInt(row.getAttribute('data-price'));
-            const crystal = parseInt(row.getAttribute('data-crystal'));
-            const quantityInput = row.querySelector('input[type="number"]');
-            let quantity = parseInt(quantityInput.value) || 0;
+            document.querySelectorAll('tbody tr').forEach(row => {
+                const price = parseInt(row.getAttribute('data-price'));
+                const crystal = parseInt(row.getAttribute('data-crystal'));
+                const quantity = parseInt(row.querySelector('input[type="number"]').value || 0);
 
-            if (quantity < 0) {
-                quantity = 0;
-                quantityInput.value = 0;
+                const tempPrice = price * quantity;
+                const tempCrystal = crystal * quantity;
+
+                totalAmount += tempPrice;
+                baseCrystal += tempCrystal;
+
+                row.querySelector('[data-temp-price]').textContent = formatVND(tempPrice);
+            });
+
+            let promoCrystal = 0;
+            let promoPercent = 0;
+
+            if (totalAmount >= 500000) {
+                promoPercent = 0.20;
+            } else if (totalAmount >= 200000) {
+                promoPercent = 0.10;
             }
 
-            const tempPrice = price * quantity;
-            const tempCrystal = crystal * quantity;
+            if (promoPercent > 0) {
+                promoCrystal = Math.floor(baseCrystal * promoPercent);
+                document.getElementById('promoSection').classList.remove('hidden');
+                document.getElementById('promoPercentDisplay').textContent = `${Math.round(promoPercent * 100)}%`;
+                document.getElementById('promoCrystalDisplay').innerHTML = `+ <i class="fas fa-gem mr-2"></i>${promoCrystal.toLocaleString('vi-VN')}`;
+            } else {
+                document.getElementById('promoSection').classList.add('hidden');
+            }
 
-            totalAmount += tempPrice;
-            baseCrystal += tempCrystal;
+            const finalCrystal = baseCrystal + promoCrystal;
 
-            row.querySelector('[data-temp-price]').textContent = formatVND(tempPrice);
+            document.getElementById('totalAmountDisplay').textContent = formatVND(totalAmount);
+            document.getElementById('baseCrystalDisplay').innerHTML = `<i class="fas fa-gem mr-2"></i>${baseCrystal.toLocaleString('vi-VN')}`;
+            document.getElementById('finalCrystalDisplay').innerHTML = `<i class="fas fa-gem mr-2"></i>${finalCrystal.toLocaleString('vi-VN')}`;
+
+            updateTransferContent();
+        }
+
+        function updateTransferContent() {
+            const username = document.getElementById('username').value.trim();
+            const isValid = /^[A-Za-z0-9_]{3,16}$/.test(username);
+            const btn = document.getElementById('generateQrButton');
+            const error = document.getElementById('usernameError');
+
+            if (totalAmount > 0 && isValid) {
+                finalContent = `${PREFIX}${username}`;
+                document.getElementById('transferContent').textContent = finalContent;
+                btn.disabled = false;
+                error.classList.add('hidden');
+            } else if (!isValid && username.length > 0) {
+                document.getElementById('transferContent').textContent = 'Tên không hợp lệ';
+                error.classList.remove('hidden');
+                btn.disabled = true;
+                document.getElementById('qrCodeSection').classList.add('hidden');
+            } else {
+                document.getElementById('transferContent').textContent = 'Vui lòng nhập tên';
+                error.classList.add('hidden');
+                btn.disabled = true;
+                document.getElementById('qrCodeSection').classList.add('hidden');
+            }
+        }
+
+        function generateQR() {
+            if (totalAmount === 0 || document.getElementById('generateQrButton').disabled) {
+                alert("Vui lòng chọn gói và nhập tên hợp lệ.");
+                return;
+            }
+
+            const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-compact.png?amount=${totalAmount}&addInfo=${encodeURIComponent(finalContent)}&accountName=${encodeURIComponent(ACCOUNT_NAME)}`;
+
+            const qrContainer = document.getElementById('qrContainer');
+            qrContainer.innerHTML = `<img src="${qrUrl}" alt="QR Code" class="w-full h-full object-contain">`;
+
+            document.getElementById('transferAmount').textContent = formatVND(totalAmount);
+            document.getElementById('qrCodeSection').classList.remove('hidden');
+            
+            setTimeout(() => {
+                document.getElementById('qrCodeSection').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            calculateTotal();
+            document.getElementById('username').addEventListener('input', updateTransferContent);
         });
-
-        let promoCrystal = 0;
-        let promoPercent = 0;
-
-        // Logic khuyến mãi Pha Lê vẫn giữ nguyên như cũ (10% và 20%)
-        if (totalAmount >= PROMO_THRESHOLD_500K) {
-            promoPercent = PROMO_PERCENT_500K;
-        } else if (totalAmount >= PROMO_THRESHOLD_200K) {
-            promoPercent = PROMO_PERCENT_200K;
-        }
-
-        if (promoPercent > 0) {
-            promoCrystal = Math.floor(baseCrystal * promoPercent);
-            document.getElementById('promoSection').classList.remove('hidden');
-            document.getElementById('promoPercentDisplay').textContent = `${Math.round(promoPercent * 100)}%`;
-        } else {
-            document.getElementById('promoSection').classList.add('hidden');
-            document.getElementById('promoPercentDisplay').textContent = `0%`;
-        }
-
-        const finalCrystal = baseCrystal + promoCrystal;
-        finalCrystalGlobal = finalCrystal; 
-
-        document.getElementById('totalAmountDisplay').textContent = formatVND(totalAmount);
-        
-        document.getElementById('baseCrystalDisplay').textContent = formatCrystal(baseCrystal);
-        document.getElementById('promoCrystalDisplay').textContent = formatCrystal(promoCrystal);
-        document.getElementById('finalCrystalDisplay').textContent = formatCrystal(finalCrystal);
-
-        updateTransferContent(); 
-    }
-
-    function updateTransferContent() {
-        const username = usernameInput.value.trim();
-        // Biểu thức chính quy cho tên người dùng: 3-16 ký tự, chỉ chứa chữ, số, gạch dưới.
-        const isValidUsername = /^[A-Za-z0-9_]{3,16}$/.test(username); 
-
-        // Kiểm tra điều kiện: Tổng tiền > 0 VÀ Tên tài khoản hợp lệ
-        if (totalAmount > 0 && isValidUsername) {
-
-            // Cập nhật nội dung chuyển khoản mới
-            finalContent = `${PREFIX}${username}`; // Nội dung chuyển khoản: NapPlayer[Username]
-            document.getElementById('transferContent').textContent = finalContent;
-            generateQrButton.disabled = false; // Kích hoạt nút
-            usernameError.textContent = '';
-            errorIcon.classList.add('hidden');
-        } else if (!isValidUsername && username.length > 0) {
-            // Tên không hợp lệ
-            document.getElementById('transferContent').textContent = 'Tên Tài Khoản không hợp lệ';
-            usernameError.textContent = 'Tên tài khoản không hợp lệ (3-16 ký tự, chỉ chứa chữ, số, gạch dưới).';
-            errorIcon.classList.remove('hidden');
-            generateQrButton.disabled = true; // Vô hiệu hóa nút
-            qrSection.classList.add('hidden');
-        } else {
-            // Tổng tiền = 0 hoặc tên trống/chưa hoàn thành
-            document.getElementById('transferContent').textContent = (isValidUsername && totalAmount === 0) 
-                ? 'Vui lòng chọn gói nạp' 
-                : 'Vui lòng nhập Tên Tài Khoản';
-            usernameError.textContent = '';
-            errorIcon.classList.add('hidden');
-            generateQrButton.disabled = true; // Vô hiệu hóa nút
-            qrSection.classList.add('hidden');
-        }
-    }
-
-    function generateQR() {
-        if (totalAmount === 0 || generateQrButton.disabled) {
-            alert("Vui lòng chọn gói nạp và nhập tên tài khoản hợp lệ.");
-            return;
-        }
-
-        const content = finalContent;
-
-        // URL QR code
-        const qrUrl =
-            `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-compact.png?amount=${totalAmount}&addInfo=${encodeURIComponent(content)}&accountName=${encodeURIComponent(ACCOUNT_NAME)}`;
-
-        qrContainer.innerHTML = ''; 
-
-        const newQrImage = document.createElement('img');
-        newQrImage.id = 'qrImage';
-        newQrImage.src = qrUrl;
-        newQrImage.alt = 'QR Chuyển Khoản';
-        newQrImage.className = 'w-full h-full object-contain';
-        newQrImage.style.display = 'block';
-
-        qrContainer.appendChild(newQrImage);
-        qrContainer.classList.add('bg-white', 'p-4');
-        qrContainer.classList.remove('flex', 'items-center', 'justify-center');
-
-        document.getElementById('transferAmount').textContent = formatVND(totalAmount);
-        qrSection.classList.remove('hidden');
-
-        qrSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        calculateTotal();
-        usernameInput.addEventListener('input', updateTransferContent);
-    });
-</script>
+    </script>
 </body>
 </html>

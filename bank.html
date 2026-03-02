@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link QR Nạp Game</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 20px; background: #f4f4f4; }
+        .menu { margin-bottom: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        
+        /* Style cho 7 cái nút */
+        button { 
+            padding: 10px 20px; font-weight: bold; cursor: pointer;
+            border: none; border-radius: 5px; background: #0054a5; color: white;
+            transition: 0.3s;
+        }
+        button:hover { background: #ed1c24; }
+        
+        .qr-display { 
+            background: white; padding: 20px; border-radius: 10px; 
+            display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            min-height: 300px; min-width: 300px;
+        }
+        img { max-width: 350px; height: auto; display: none; margin-top: 10px; border: 1px solid #ddd; }
+        p { color: #666; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <h2>CHỌN GÓI ĐỂ LẤY LINK QR</h2>
+    
+    <div class="menu">
+        <button onclick="showQR('10k')">10K</button>
+        <button onclick="showQR('20k')">20K</button>
+        <button onclick="showQR('50k')">50K</button>
+        <button onclick="showQR('100k')">100K</button>
+        <button onclick="showQR('200k')">200K</button>
+        <button onclick="showQR('500k')">500K</button>
+        <button onclick="showQR('1000k')">1000K</button>
+    </div>
+
+    <div class="qr-display">
+        <p id="instruction">Bấm nút để hiển thị hình ảnh</p>
+        <img id="10k" src="10k.png">
+        <img id="20k" src="20k.png">
+        <img id="50k" src="50k.png">
+        <img id="100k" src="100k.png">
+        <img id="200k" src="200k.png">
+        <img id="500k" src="500k.png">
+        <img id="1000k" src="1000k.png">
+    </div>
+
+    <script>
+        function showQR(id) {
+            // Ẩn tất cả các hình đang hiện
+            const allImages = document.querySelectorAll('img');
+            allImages.forEach(img => img.style.display = 'none');
+            
+            // Ẩn dòng chữ hướng dẫn
+            document.getElementById('instruction').style.display = 'none';
+
+            // Hiện hình được chọn
+            const selectedImg = document.getElementById(id);
+            if (selectedImg) {
+                selectedImg.style.display = 'block';
+            }
+        }
+    </script>
+
+</body>
+</html>
